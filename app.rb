@@ -5,7 +5,7 @@ require 'sass'
 
 before do
   Dir.chdir('.')
-  flist = Dir['**/**'].select { |i| i.match(/\//) }.reject { |i| i.match(/README\.md/) }.reject { |i| i.match(/config\/database\.yml/) }
+  flist = Dir['**/*.md'].select { |i| i.match(/\//) }.reject { |i| i.match(/README\.md/) }
   @menu = {}
   flist.collect { |i| m = i.split('/'); @menu[:"#{m[0]}"] = [] unless @menu[:"#{m[0]}"].is_a?(Array); @menu[:"#{m[0]}"].push(m[1]); }
 end
