@@ -55,9 +55,18 @@ view by going to `/p/:topic` where `topic` is the folder you wish to view.
 
 In each folder there should be a number of recipes pertaining to each topic.
 
+## On translations
+
+Currently we're not supporting inclusion of translations in the main project.
+
+However, if you'd like to maintain a fork for translating the docs then feel
+free to do so, and add your fork to the [list of translations in the
+wiki][translations].
+
 [sinatra]: http://www.sinatrarb.com/
 [sinatra-book]: http://github.com/sinatra/sinatra-book
 [style-guidelines]: http://github.com/sinatra/sinatra-book-contrib/wiki/Style-Guidelines
+[translations]: http://github.com/sinatra/sinatra-book-contrib/wiki/Translations
 [irc]: irc://irc.freenode.net/#sinatra
 [mailinglist]: http://groups.google.com/group/sinatrarb
 [github-forking]: http://help.github.com/forking/
