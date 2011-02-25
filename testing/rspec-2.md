@@ -1,0 +1,56 @@
+RSpec 2.x
+---------
+
+**spec_helper**
+
+    require 'rack/test'
+
+    begin 
+      require_relative '../my-app.rb'
+    rescue NameError
+      require File.expand_path('../my-app.rb', __FILE__)
+    end
+
+    module RSpecMixin
+      include Rack::Test::Methods
+      def app() Sinatra::Application end
+    end
+
+    RSpec.configure { |c| c.include RSpecMixin }
+
+**Shared Example Groups**
+
+[Shared Example Groups](http://relishapp.com/rspec/rspec-core/v/2-3/dir/example-groups/shared-example-group)
+
+    begin 
+      require_relative 'spec_helper'
+    rescue NameError
+      require File.expand_path('spec_helper', __FILE__)
+    end
+
+    shared_examples_for "my example app" do
+      before(:each) do
+        @expected = 'Frank'
+      end
+      it "should return a welcome greeting" do
+        post '/', :name => @expected 
+        last_response.body.should == "Hello #{@expected}!"
+      end
+    end
+
+    describe "my session handler" do
+      it_behaves_like "my example app"
+
+      it "should return the name parameter from a session" do
+        get '/session', {}, 'rack.session' => { 'name' => @expected }
+        last_response.body.should == "Hello #{@expected}!" 
+      end
+    end
+
+**RSpec 2.x Resources**
+
+*   [RSpec 2.x Docs](http://relishapp.com/rspec)
+*   [Source on github](https://github.com/rspec/rspec)
+*   [Resources for RSpec 2.x developers/contributors](https://github.com/rspec/rspec-dev)
+
+

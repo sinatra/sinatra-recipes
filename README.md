@@ -1,0 +1,66 @@
+Sinatra Book Contrib
+--------------------
+
+Community contributed documentation for the [Sinatra Book][sinatra-book], a
+cookbook for the [Sinatra Web Framework][sinatra].
+
+## Why yet another doc project?
+
+Quite simply, the Sinatra README and Book have become long in the tooth.
+
+This project is to extract any redundant and overlap between the two sources,
+and create a home for user contributed recipes and documentation to take form.
+
+## How can I help?
+
+Got a recipe or tutorial for the [Sinatra Book][sinatra-book]? Awesome, this is
+the first place you should go if you're looking to contribute.
+
+Once you have [forked the project][github-forking] send a [pull
+request][github-pull-requests], just be sure to follow the [styling
+guidelines][style-guidelines]. 
+
+You can also get a hold of us on [irc][irc] or the [mailinglist][mailinglist].
+
+## Here's the run down
+
+To get started you should clone the repository from github:
+
+    git clone git://github.com/sinatra/sinatra-book-contrib.git
+
+Now once you `cd` into `sinatra-book-contrib` you should see a few things.
+
+First you should take note of the application files:
+
+    app.rb # a tiny application for displaying the contributed recipes
+    config.ru # rackup file for deploying to heroku
+    Gemfile # dependencies file for bundler to run the app
+
+If you want to run the application yourself first you need the `bundler` gem.
+
+    gem install bundler
+    
+    # then install the application dependencies
+    bundle install
+
+Once that is complete, you should only need to run `rackup` in the application
+root and visit: [localhost:9292](http://localhost:9292)
+
+Since the application just maps the flat files, you can browse either the
+source or the web app to view recipes.
+
+If you check out the source you will see a few folders listed, in each folder
+there is a `README.md` that will briefly explain the topic. This can also be
+view by going to `/p/:topic` where `topic` is the folder you wish to view.
+
+In each folder there should be a number of recipes pertaining to each topic.
+
+[sinatra]: http://www.sinatrarb.com/
+[sinatra-book]: http://github.com/sinatra/sinatra-book
+[style-guidelines]: http://github.com/sinatra/sinatra-book-contrib/wiki/Style-Guidelines
+[irc]: irc://irc.freenode.net/#sinatra
+[mailinglist]: http://groups.google.com/group/sinatrarb
+[github-forking]: http://help.github.com/forking/
+[github-pull-requests]: http://help.github.com/pull-requests/
+
+
