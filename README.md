@@ -57,7 +57,7 @@ In each folder there should be a number of recipes pertaining to each topic.
 
 ## On translations
 
-Currently we're not supporting inclusion of translations in the main project.
+Currently we're not supporting translations in the main repository.
 
 However, if you'd like to maintain a fork for translating the docs then feel
 free to do so, and add your fork to the [list of translations in the
