@@ -22,6 +22,9 @@ guidelines][style-guidelines].
 
 You can also get a hold of us on [irc][irc] or the [mailinglist][mailinglist].
 
+Don't have any ideas? Check out the existing [issue tracker][issues] for
+recipes that have been requested or are in progress.
+
 ## Here's the run down
 
 To get started you should clone the repository from github:
@@ -65,6 +68,7 @@ wiki][translations].
 
 [sinatra]: http://www.sinatrarb.com/
 [sinatra-book]: http://github.com/sinatra/sinatra-book
+[issues]: https://github.com/sinatra/sinatra-book/issues
 [style-guidelines]: http://github.com/sinatra/sinatra-book-contrib/wiki/Style-Guidelines
 [translations]: http://github.com/sinatra/sinatra-book-contrib/wiki/Translations
 [irc]: irc://irc.freenode.net/#sinatra
