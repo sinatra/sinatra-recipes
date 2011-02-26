@@ -3,3 +3,5 @@ Gemfile.lock
 .rvmrc
 config/database.yml
 
+bin
+.bundle

@@ -19,13 +19,13 @@ end
 get '/p/:topic' do
   readme = File.new "#{params[:topic]}/README.md"
   output = RDiscount.new(readme.read).to_html
-  erb output 
+  erb output, :layout => false
 end
 
 get '/p/:topic/:article' do
   post = File.new "#{params[:topic]}/#{params[:article]}"
   output = RDiscount.new(post.read).to_html
-  erb output
+  erb output, :layout => false
 end
 
 get '/style.css' do
@@ -42,6 +42,20 @@ __END__
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Sinatra Book Contrib</title>
     <link rel="stylesheet" type="text/css" href="/style.css" /> 
+    <script
+      type='text/javascript' 
+      src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'>
+    </script>
+    <script type='text/javascript'>
+    function load_article(url) {
+      jQuery.ajax({
+        url: url,
+        success: function(response) {
+         $('#content').html(response);
+        }
+      });
+    }
+    </script>
   </head>
   <body>
     <div id="header"> 
@@ -53,10 +67,19 @@ __END__
     <div id="menu">
       <ul>
       <% @menu.each_key do |me| %>
-        <li><a href="/p/<%= "#{me}" %>"><%= me %></a>
+        <li>
+          <a href='#<%= "#{me}" %>' onclick="load_article('/p/<%= "#{me}" %>');">
+            <%= me %>
+          </a>
         <ul>
           <% @menu[:"#{me}"].each do |mi| %>
-            <li><a href="/p/<%= "#{me}/#{mi}" %>"><%= mi.gsub('_', ' ').gsub('.md', '') %></a></li>
+            <li>
+              <a
+                href='#<%= "#{me}_#{mi}" %>'
+                onclick="load_article('/p/<%= "#{me}/#{mi}" %>');">
+                <%= mi.gsub('_', ' ').gsub('.md', '') %>
+              </a>
+            </li>
           <% end %>
         </ul></li> 
       <% end %>
