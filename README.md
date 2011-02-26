@@ -58,6 +58,10 @@ view by going to `/p/:topic` where `topic` is the folder you wish to view.
 
 In each folder there should be a number of recipes pertaining to each topic.
 
+## Caveats
+If you are on Rubinius make sure that you have the latest bundler version
+installed. Versions prior to 1.0.10 won't work.
+
 ## On translations
 
 Currently we're not supporting translations in the main repository.
