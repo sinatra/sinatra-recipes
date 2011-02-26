@@ -34,12 +34,12 @@ end
 
 get '/p/:topic' do
   pass if params[:topic] == '..'
-  markdown :"#{params[:topic]}/README"
+  markdown :"#{params[:topic]}/README", :layout => false
 end
 
 get '/p/:topic/:article' do
   pass if params[:topic] == '..'
-  markdown :"#{params[:topic]}/#{params[:article]}"
+  markdown :"#{params[:topic]}/#{params[:article]}", :layout => false
 end
 
 get '/style.css' do
@@ -55,7 +55,21 @@ __END__
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Sinatra Book Contrib</title>
-    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css" /> 
+    <script
+      type='text/javascript' 
+      src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'>
+    </script>
+    <script type='text/javascript'>
+    function load_article(url) {
+      jQuery.ajax({
+        url: url,
+        success: function(response) {
+         $('#content').html(response);
+        }
+      });
+    }
+    </script>
   </head>
   <body>
     <div id="header">
@@ -67,10 +81,19 @@ __END__
     <div id="menu">
       <ul>
       <% @menu.each_key do |me| %>
-        <li><a href="/p/<%= "#{me}" %>"><%= me %></a>
+        <li>
+          <a href='#<%= "#{me}" %>' onclick="load_article('/p/<%= "#{me}" %>');">
+            <%= me %>
+          </a>
         <ul>
           <% @menu[me].each do |mi| %>
-            <li><a href="/p/<%= "#{me}/#{mi}" %>"><%= mi.gsub('_', ' ') %></a></li>
+            <li>
+              <a
+                href='#<%= "#{me}_#{mi}" %>'
+                onclick="load_article('/p/<%= "#{me}/#{mi}" %>');">
+                <%= mi.gsub('_', ' ').gsub('.md', '') %>
+              </a>
+            </li>
           <% end %>
         </ul></li>
       <% end %>
