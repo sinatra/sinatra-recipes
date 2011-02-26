@@ -16,29 +16,30 @@ configure :production do
   end
 end
 
+set :markdown, :layout_engine => :erb
+set :views, File.dirname(__FILE__)
+
 before do
-  Dir.chdir('.')
-  flist = Dir['**/*.md'].select { |i| i.match(/\//) }.reject { |i| i.match(/README\.md/) }
   @menu = {}
-  flist.collect { |i| m = i.split('/'); @menu[:"#{m[0]}"] = [] unless @menu[:"#{m[0]}"].is_a?(Array); @menu[:"#{m[0]}"].push(m[1]); }
+  Dir.glob "#{settings.views}/*/*.md" do |file|
+    me, mi = file.split('/')[-2..-1]
+    @menu[me] ||= []
+    @menu[me] << mi.sub(/\.md$/, '') unless mi == "README.md"
+  end
 end
 
 get '/' do
-  readme = File.new "README.md"
-  output = RDiscount.new(readme.read).to_html
-  erb output
+  markdown :README
 end
 
 get '/p/:topic' do
-  readme = File.new "#{params[:topic]}/README.md"
-  output = RDiscount.new(readme.read).to_html
-  erb output
+  pass if params[:topic] == '..'
+  markdown :"#{params[:topic]}/README"
 end
 
 get '/p/:topic/:article' do
-  post = File.new "#{params[:topic]}/#{params[:article]}"
-  output = RDiscount.new(post.read).to_html
-  erb output
+  pass if params[:topic] == '..'
+  markdown :"#{params[:topic]}/#{params[:article]}"
 end
 
 get '/style.css' do
@@ -68,8 +69,8 @@ __END__
       <% @menu.each_key do |me| %>
         <li><a href="/p/<%= "#{me}" %>"><%= me %></a>
         <ul>
-          <% @menu[:"#{me}"].each do |mi| %>
-            <li><a href="/p/<%= "#{me}/#{mi}" %>"><%= mi.gsub('_', ' ').gsub('.md', '') %></a></li>
+          <% @menu[me].each do |mi| %>
+            <li><a href="/p/<%= "#{me}/#{mi}" %>"><%= mi.gsub('_', ' ') %></a></li>
           <% end %>
         </ul></li>
       <% end %>
