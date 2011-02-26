@@ -10,7 +10,7 @@ configure :production do
   use Rack::Cache
 
   before do
-    cache_control :public, :must_revalidate
+    cache_control :public, :must_revalidate, :max_age=>300
     etag sha1
     last_modified date
   end
