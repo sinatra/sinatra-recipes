@@ -43,6 +43,9 @@ If you want to run the application yourself first you need the `bundler` gem.
 
     gem install bundler
     
+If you are on Rubinius make sure that you have the latest bundler version
+installed. Versions prior to 1.0.10 won't work.
+
     # then install the application dependencies
     bundle install
 
