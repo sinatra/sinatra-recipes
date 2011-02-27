@@ -1,7 +1,6 @@
 Using Capybara
 --------------
 
-
 ### Steak
 
 **spec/acceptance/acceptance_helper.rb**
@@ -49,4 +48,7 @@ Using Capybara
 *   [Timeless: BDD with RSpec and Steak](http://timeless.judofyr.net/bdd-with-rspec-and-steak)
 *   [More Steak Resources](https://github.com/cavalle/steak/wiki/Resources)
 
+**The Future of Steak**
+
+Capybara's acceptance testing DSL was [recently added](https://github.com/jnicklas/capybara/commit/f4897f890d8dd33215fef238902988e8823a6539). They just basically consumed Steak, since it was always "a gist that happened to be distributed as a Ruby gem." It won't be included until the next release of Capybara, but after that, Steak won't be needed, unless you're using an older version of Capybara for some reason.
 
