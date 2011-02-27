@@ -30,5 +30,3 @@ Create the route:
      @links = Link.all
      haml :links
     end
-
-
