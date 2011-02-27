@@ -1,7 +1,8 @@
 Ohm
 ------------
 
-[Ohm](http://ohm.keyvalue.org/) is an object hash-mapping library for the [Redis](http://redis.io/) database.
+[Ohm](http://ohm.keyvalue.org/) is an object hash-mapping library for 
+the [Redis](http://redis.io/) database.
 
 Require the Ohm gem in your app:
 
