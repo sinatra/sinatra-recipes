@@ -58,6 +58,7 @@ __END__
     </script>
   </head>
   <body>
+    <a name='top' />
     <div id="header"> 
       <h2>Community contributed recipes and techniques</h2>
       <h1><a href="/">
