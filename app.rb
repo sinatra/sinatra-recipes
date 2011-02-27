@@ -34,12 +34,12 @@ end
 
 get '/p/:topic' do
   pass if params[:topic] == '..'
-  markdown :"#{params[:topic]}/README", :layout => false
+  markdown :"#{params[:topic]}/README", :layout => !request.xhr?
 end
 
 get '/p/:topic/:article' do
   pass if params[:topic] == '..'
-  markdown :"#{params[:topic]}/#{params[:article]}", :layout => false
+  markdown :"#{params[:topic]}/#{params[:article]}", :layout => !request.xhr?
 end
 
 get '/style.css' do
@@ -65,7 +65,8 @@ __END__
       jQuery.ajax({
         url: url,
         success: function(response) {
-         $('#content').html(response);
+          $('#post').html(response);
+          $('#permalink').attr('href', url);
         }
       });
     }
@@ -101,7 +102,14 @@ __END__
       </ul>
     </div>
     <div id="content">
-      <%= yield %>
+      <div id="perma"> 
+        <a href="<%= request.url %>" id="permalink">
+          Permalink 
+        </a>
+      </div>
+      <div id="post"> 
+        <%= yield %>
+      </div>
     </div>
   
     <a href="http://github.com/sinatra/sinatra-book-contrib">
@@ -157,6 +165,9 @@ a:hover, a:active
 #content
   float: right
   width: 470px
+
+#perma
+  text-align: right
 
 #content pre
   padding: 10px
