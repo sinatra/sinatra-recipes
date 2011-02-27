@@ -72,12 +72,8 @@ __END__
     </script>
   </head>
   <body>
-<<<<<<< HEAD
     <a name='top' />
-    <div id="header"> 
-=======
     <div id="header">
->>>>>>> d5cf831eac47e6fe84f4f488e61efac099b41b12
       <h2>Community contributed recipes and techniques</h2>
       <h1><a href="/">
         <img src="http://github.com/sinatra/sinatra-book/raw/master/images/logo.png" />
@@ -91,11 +87,7 @@ __END__
             <%= me %>
           </a>
         <ul>
-<<<<<<< HEAD
-          <% @menu[:"#{me}"].each do |mi| %>
-=======
           <% @menu[me].each do |mi| %>
->>>>>>> d5cf831eac47e6fe84f4f488e61efac099b41b12
             <li>
               <a
                 href='#<%= "#{me}_#{mi}" %>'

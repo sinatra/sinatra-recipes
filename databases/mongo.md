@@ -1,5 +1,9 @@
 Mongo
 -----
+- [Finding](#find)
+- [Inserting](#insert)
+- [Updating](#update)
+- [Deleting](#delete)
 
 [Mongo][mongo] is a document-oriented database. Though Object Relational
 Mappers (ORMs) are often used to connect to databases, you will see here
@@ -41,8 +45,9 @@ your Mongo instance.
           find_one(:_id => id).to_json
       end
     end
-    
+<span style='font-size: smaller'>([top](#top))</span>
 
+<a name='find' />
 ###Finding Records###
 
     # list all documents in the test collection
@@ -56,7 +61,9 @@ your Mongo instance.
       content_type :json
       document_by_id(params[:id]).to_json
     end
-    
+<span style='font-size: smaller'>([top](#top))</span>
+
+<a name='insert' />
 ###Inserting Records###
 
     # insert a new document from the request parameters,
@@ -66,7 +73,9 @@ your Mongo instance.
       new_id = settings.mongo_db['test'].insert params
       document_by_id(new_id).to_json
     end
+<span style='font-size: smaller'>([top](#top))</span>
 
+<a name='update' />
 ###Updating Records###
 
     # update the document specified by :id, setting its
@@ -89,7 +98,9 @@ your Mongo instance.
         update(:_id => id, {"$set" => {:name => name}})
       document_by_id(id).to_json
     end
-    
+<span style='font-size: smaller'>([top](#top))</span>
+
+<a name='delete' />
 ###Deleting Records###
 
     # delete the specified document and return success
@@ -99,6 +110,7 @@ your Mongo instance.
         remove(:_id => object_id(params[:id]))
       {:success => true}.to_json
     end
+<span style='font-size: smaller'>([top](#top))</span>
 
 For more information on using the Ruby driver without an ORM take a look at [MongoDB's tutorial][rubydrivertutorial].
 
