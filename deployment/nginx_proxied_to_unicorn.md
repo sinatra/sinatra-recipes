@@ -130,20 +130,23 @@ trick.
       # prepend http headers before sendfile() 
       tcp_nopush     on;
 
-      keepalive_timeout  65;
+      keepalive_timeout  5;
       tcp_nodelay        on;
 
       gzip  on;
+      gzip_vary on;
+      gzip_min_length 500;
+      
       gzip_disable "MSIE [1-6]\.(?!.*SV1)";
-      gzip_types text/plain text/html text/xml text/css
+      gzip_types text/plain text/xml text/css
          text/comma-separated-values
          text/javascript application/x-javascript
-         application/atom+xml;
+         application/atom+xml image/x-icon;
 
       # use the socket we configured in our unicorn.rb
       upstream unicorn_server {
         server unix:/path/to/app/tmp/sockets/unicorn.sock
-        fail_timeout=0;
+            fail_timeout=0;
       }
 
       # configure the virtual host
@@ -160,14 +163,15 @@ trick.
         keepalive_timeout 5;
 
         location / {
+          try_files $uri @app;
+        }
+
+        location @app {
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           proxy_set_header Host $http_host;
           proxy_redirect off;
-          if (!-f $request_filename) {
-            # pass to the upstream unicorn server mentioned above 
-            proxy_pass http://unicorn_server;
-            break;
-          }
+          # pass to the upstream unicorn server mentioned above 
+          proxy_pass http://unicorn_server;
         }
       }
     }

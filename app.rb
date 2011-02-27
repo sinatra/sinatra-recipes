@@ -3,29 +3,43 @@ require 'rdiscount'
 require 'erb'
 require 'sass'
 
+configure :production do
+  sha1, date = `git log HEAD~1..HEAD --pretty=format:%h^%ci`.strip.split('^')
+
+  require 'rack/cache'
+  use Rack::Cache
+
+  before do
+    cache_control :public, :must_revalidate, :max_age=>300
+    etag sha1
+    last_modified date
+  end
+end
+
+set :markdown, :layout_engine => :erb
+set :views, File.dirname(__FILE__)
+
 before do
-  Dir.chdir('.')
-  flist = Dir['**/*.md'].select { |i| i.match(/\//) }.reject { |i| i.match(/README\.md/) }
   @menu = {}
-  flist.collect { |i| m = i.split('/'); @menu[:"#{m[0]}"] = [] unless @menu[:"#{m[0]}"].is_a?(Array); @menu[:"#{m[0]}"].push(m[1]); }
+  Dir.glob "#{settings.views}/*/*.md" do |file|
+    me, mi = file.split('/')[-2..-1]
+    @menu[me] ||= []
+    @menu[me] << mi.sub(/\.md$/, '') unless mi == "README.md"
+  end
 end
 
 get '/' do
-  readme = File.new "README.md"
-  output = RDiscount.new(readme.read).to_html
-  erb output
+  markdown :README
 end
 
 get '/p/:topic' do
-  readme = File.new "#{params[:topic]}/README.md"
-  output = RDiscount.new(readme.read).to_html
-  erb output, :layout => false
+  pass if params[:topic] == '..'
+  markdown :"#{params[:topic]}/README", :layout => false
 end
 
 get '/p/:topic/:article' do
-  post = File.new "#{params[:topic]}/#{params[:article]}"
-  output = RDiscount.new(post.read).to_html
-  erb output, :layout => false
+  pass if params[:topic] == '..'
+  markdown :"#{params[:topic]}/#{params[:article]}", :layout => false
 end
 
 get '/style.css' do
@@ -35,10 +49,10 @@ end
 __END__
 
 @@ layout
-<!DOCTYPE html> 
-<html> 
-  <head> 
-    <meta charset='utf-8'> 
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Sinatra Book Contrib</title>
     <link rel="stylesheet" type="text/css" href="/style.css" /> 
@@ -58,13 +72,17 @@ __END__
     </script>
   </head>
   <body>
+<<<<<<< HEAD
     <a name='top' />
     <div id="header"> 
+=======
+    <div id="header">
+>>>>>>> d5cf831eac47e6fe84f4f488e61efac099b41b12
       <h2>Community contributed recipes and techniques</h2>
       <h1><a href="/">
-        <img src="http://github.com/sinatra/sinatra-book/raw/master/images/logo.png" /> 
+        <img src="http://github.com/sinatra/sinatra-book/raw/master/images/logo.png" />
       </a></h1>
-    </div> 
+    </div>
     <div id="menu">
       <ul>
       <% @menu.each_key do |me| %>
@@ -73,7 +91,11 @@ __END__
             <%= me %>
           </a>
         <ul>
+<<<<<<< HEAD
           <% @menu[:"#{me}"].each do |mi| %>
+=======
+          <% @menu[me].each do |mi| %>
+>>>>>>> d5cf831eac47e6fe84f4f488e61efac099b41b12
             <li>
               <a
                 href='#<%= "#{me}_#{mi}" %>'
@@ -82,13 +104,13 @@ __END__
               </a>
             </li>
           <% end %>
-        </ul></li> 
+        </ul></li>
       <% end %>
       </ul>
     </div>
     <div id="content">
       <%= yield %>
-    </div> 
+    </div>
   
     <a href="http://github.com/sinatra/sinatra-book-contrib">
       <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" />
@@ -127,25 +149,25 @@ a:hover, a:active
   width: 300px
 
 #header h2
-  text-align: right 
+  text-align: right
   font-style: oblique
   font-size: 1em
   float: right
   width: 450px
 
 #menu
-  float: left 
-  max-width: 320px 
+  float: left
+  max-width: 320px
   word-wrap: break-word
   font-size: .9em
   clear: left
 
 #content
   float: right
-  width: 470px 
+  width: 470px
 
 #content pre
-  padding: 10px 
+  padding: 10px
   max-width: 470px
   overflow: auto
   overflow-Y: hidden

@@ -96,12 +96,14 @@ Bundler provides two main ways to use your bundle in your application,
 `Bundler.setup` and `Bundler.require`. `Setup` basically tells Ruby all
 of your gems loadpaths, and `require` will load all of your specified gems.
 
+Requiring `bundler/setup` is the same as calling `Bundler.setup` yourself, and
+is the recommended method in the gembundler documentation.
+
     # If you're using Ruby 1.9 you'll need to specifially load rubygems
     require 'rubygems'
 
     # and now load bundler with your dependencies load paths
-    require 'bundler'
-    Bundler.setup
+    require 'bundler/setup'
 
     # next you'll have to do the gem requiring yourself
     require 'sinatra'
@@ -110,8 +112,7 @@ of your gems loadpaths, and `require` will load all of your specified gems.
 Now if say you skip the last step, and just auto require gems from your groups
 
     require 'rubygems'
-
-    require 'bundler'
+    require 'bundler/setup'
     
     # this will require all the gems not specified to a given group (default)
     # and gems specified in your test group

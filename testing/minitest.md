@@ -87,6 +87,22 @@ In your test files you only have to require that helper:
       end
     end
 
+**Rake**
+
+When you're ready to start using MiniTest as an automated testing framework,
+you'll need to setup a Rake TestTask. Here's one we'll use to run our
+MiniTest::Specs:
+
+    require 'rake/testtask'
+    Rake::TestTask.new do |t|
+      t.pattern = "spec/*_spec.rb" 
+    end 
+
+Now run your MiniSpecs with `rake test`.
+
+More on [Rake::TestTask](http://rake.rubyforge.org/classes/Rake/TestTask.html)
+
+
 **MiniTest Resources**
 
 *   [Source on github](https://github.com/seattlerb/minitest)
