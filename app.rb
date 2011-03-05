@@ -175,6 +175,7 @@ a:hover, a:active
   overflow: auto
   overflow-Y: hidden
   background: #EEE
- 
+  line-height: 100%
 
-
+#post
+  line-height: 160%
