@@ -39,7 +39,7 @@ In your test files you only have to require that helper:
       def test_hello_world
         get '/'
         assert last_response.ok?
-        assert_equal "Hello, World!", last_respones.body
+        assert_equal "Hello, World!", last_response.body
       end
     end
 
