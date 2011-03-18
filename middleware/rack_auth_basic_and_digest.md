@@ -92,8 +92,8 @@ For modular applications:
         "secret"
       end
       
-      def self.app
-        app = Rack::Auth::Digest::MD5.new(Protected.new) do |username|
+      def self.new(*)
+        app = Rack::Auth::Digest::MD5.new(super) do |username|
           {'foo' => 'bar'}[username]
         end
         app.realm = 'Protected Area'
@@ -108,7 +108,7 @@ For modular applications:
     
     require './main'
     
-    run Protected.app
+    run Protected
 
 
 To try these examples just run `rackup -p 4567` and visit
@@ -160,8 +160,8 @@ And the `config.ru`
     require './main'
     
     run Rack::URLMap.new({
-      "/" => Public.new,
-      "/protected" => Protected.new
+      "/" => Public,
+      "/protected" => Protected
     })
     
 To try these examples just run `rackup -p 4567` and visit
@@ -187,8 +187,8 @@ First the `main.rb`
         "another secret"
       end
       
-      def self.app
-        app = Rack::Auth::Digest::MD5.new(Protected.new) do |username|
+      def self.new(*)
+        app = Rack::Auth::Digest::MD5.new(super) do |username|
           {'foo' => 'bar'}[username]
         end
         app.realm = 'Protected Area'
@@ -212,8 +212,8 @@ And the `config.ru`
     require './main'
     
     run Rack::URLMap.new({
-      "/" => Public.new,
-      "/protected" => Protected.app ## app method is used here!!
+      "/" => Public,
+      "/protected" => Protected
     })
     
     
