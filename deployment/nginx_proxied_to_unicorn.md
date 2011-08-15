@@ -16,7 +16,7 @@ Once you have nginx installed, you can install unicorn with rubygems:
 
     gem install unicorn
 
-Now that's done we can setup a basic Rack applicaiton in Sinatra.
+Now that's done we can setup a basic Rack application in Sinatra.
 
 ### The Example Application
 
