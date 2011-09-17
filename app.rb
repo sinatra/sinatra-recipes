@@ -54,7 +54,7 @@ __END__
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Sinatra Book Contrib</title>
+    <title>Sinatra Recipes</title>
     <link rel="stylesheet" type="text/css" href="/style.css" /> 
     <script
       type='text/javascript' 
@@ -77,7 +77,8 @@ __END__
     <div id="header">
       <h2>Community contributed recipes and techniques</h2>
       <h1><a href="/">
-        <img src="http://github.com/sinatra/sinatra-book/raw/master/images/logo.png" />
+        <img src="http://github.com/sinatra/sinatra.github.com/raw/master/images/logo.gif" />
+        Sinatra Recipes 
       </a></h1>
     </div>
     <div id="menu">
@@ -112,7 +113,7 @@ __END__
       </div>
     </div>
   
-    <a href="http://github.com/sinatra/sinatra-book-contrib">
+    <a href="http://github.com/sinatra/sinatra-recipes">
       <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" />
     </a>
   </body>
@@ -146,7 +147,8 @@ a:hover, a:active
 
 #header h1
   float: left
-  width: 300px
+  width: 250px
+  font-size: 1.8em
 
 #header h2
   text-align: right
@@ -154,6 +156,11 @@ a:hover, a:active
   font-size: 1em
   float: right
   width: 450px
+
+#header img
+  float: left
+  width: 100px
+  margin-right: 15px
 
 #menu
   float: left

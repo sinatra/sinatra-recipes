@@ -1,8 +1,8 @@
-Sinatra Book Contrib
---------------------
+Sinatra Recipes 
+---------------
 
-Community contributed documentation for the [Sinatra Book][sinatra-book], a
-cookbook for the [Sinatra Web Framework][sinatra].
+Community contributed recipes and techniques for the [Sinatra Web
+Framework][sinatra].
 
 ## Why yet another doc project?
 
@@ -13,7 +13,7 @@ and create a home for user contributed recipes and documentation to take form.
 
 ## How can I help?
 
-Got a recipe or tutorial for the [Sinatra Book][sinatra-book]? Awesome, this is
+Got a recipe or tutorial for [Sinatra][sinatra]? Awesome, this is
 the first place you should go if you're looking to contribute.
 
 Once you have [forked the project][github-forking] send a [pull
@@ -29,9 +29,9 @@ recipes that have been requested or are in progress.
 
 To get started you should clone the repository from github:
 
-    git clone git://github.com/sinatra/sinatra-book-contrib.git
+    git clone git://github.com/sinatra/sinatra-recipes.git
 
-Now once you `cd` into `sinatra-book-contrib` you should see a few things.
+Now once you `cd` into `sinatra-recipes` you should see a few things.
 
 First you should take note of the application files:
 
@@ -71,9 +71,9 @@ wiki][translations].
 
 [sinatra]: http://www.sinatrarb.com/
 [sinatra-book]: http://github.com/sinatra/sinatra-book
-[issues]: https://github.com/sinatra/sinatra-book-contrib/issues
-[style-guidelines]: http://github.com/sinatra/sinatra-book-contrib/wiki/Style-Guidelines
-[translations]: http://github.com/sinatra/sinatra-book-contrib/wiki/Translations
+[issues]: https://github.com/sinatra/sinatra-recipes/issues
+[style-guidelines]: http://github.com/sinatra/sinatra-recipes/wiki/Style-Guidelines
+[translations]: http://github.com/sinatra/sinatra-recipes/wiki/Translations
 [irc]: irc://irc.freenode.net/#sinatra
 [mailinglist]: http://groups.google.com/group/sinatrarb
 [github-forking]: http://help.github.com/forking/
