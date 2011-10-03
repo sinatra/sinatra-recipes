@@ -161,6 +161,7 @@ a:hover, a:active
   float: left
   width: 100px
   margin-right: 15px
+  border: 0
 
 #menu
   float: left
