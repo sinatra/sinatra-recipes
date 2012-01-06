@@ -43,6 +43,16 @@ In your test files you only have to require that helper:
       end
     end
 
+If your app was defined using the [modular style](http://www.sinatrarb.com/intro.html#Sinatra::Base%20-%20Middleware,%20Libraries,%20and%20Modular%20Apps), use 
+
+    def app
+        MyApp # <- your application class name
+    end
+    
+instead of 
+
+    def app() Sinatra::Application end
+
 ### Specs and Benchmarks with Minitest
 
 **Specs**
