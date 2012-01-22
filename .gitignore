@@ -5,3 +5,6 @@ config/database.yml
 
 bin
 .bundle
+
+# Ignoring Vim swap files.
+.*.sw*

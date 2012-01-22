@@ -14,10 +14,10 @@ Require the Mongo gem in your app:
     require 'rubygems'
     require 'sinatra'
     require 'mongo'
-    
+
 <a name='mongomapper' />
 ###[MongoMapper][mongomapper]###
-    require 'mongomapper'
+    require 'mongo_mapper'
 
 Create the Model class
 
@@ -62,12 +62,12 @@ Create the Model class
     class Link
       include Candy::Piece
     end
-    
+
     class Links
       include Candy::Collection
       collects :link   # Declares the Mongo collection is 'Link'
     end
-    
+
     Link.connection # => Defaults to localhost port 27017
     Link.db         # => Defaults to your username, or 'candy' if unknown
     Link.collection # => Defaults to the class name ('Link')
