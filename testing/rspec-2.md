@@ -18,6 +18,14 @@ RSpec 2.x
 
     RSpec.configure { |c| c.include RSpecMixin }
 
+If your app was defined using the [modular style](http://www.sinatrarb.com/intro.html#Sinatra::Base%20-%20Middleware,%20Libraries,%20and%20Modular%20Apps), use
+
+    def app() described_class end
+
+instead of
+
+    def app() Sinatra::Application end
+
 **Shared Example Groups**
 
 [Shared Example Groups](http://relishapp.com/rspec/rspec-core/v/2-3/dir/example-groups/shared-example-group)
