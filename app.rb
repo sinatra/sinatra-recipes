@@ -77,7 +77,7 @@ __END__
     <div id="header">
       <h2>Community contributed recipes and techniques</h2>
       <h1><a href="/">
-        <img src="http://github.com/sinatra/sinatra.github.com/raw/master/images/logo.gif" />
+        <img src="https://github.com/sinatra/resources/raw/master/logo/sinatra-classic-156.png" />
         Sinatra Recipes 
       </a></h1>
     </div>
