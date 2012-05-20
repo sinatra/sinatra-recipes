@@ -34,12 +34,12 @@ end
 
 get '/p/:topic' do
   pass if params[:topic] == '..'
-  markdown :"#{params[:topic]}/README", :layout => !request.xhr?
+  markdown :"#{params[:topic]}/README"
 end
 
 get '/p/:topic/:article' do
   pass if params[:topic] == '..'
-  markdown :"#{params[:topic]}/#{params[:article]}", :layout => !request.xhr?
+  markdown :"#{params[:topic]}/#{params[:article]}"
 end
 
 get '/style.css' do
@@ -60,17 +60,6 @@ __END__
       type='text/javascript' 
       src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'>
     </script>
-    <script type='text/javascript'>
-    function load_article(url) {
-      jQuery.ajax({
-        url: url,
-        success: function(response) {
-          $('#post').html(response);
-          $('#permalink').attr('href', url);
-        }
-      });
-    }
-    </script>
   </head>
   <body>
     <a name='top' />
@@ -85,15 +74,13 @@ __END__
       <ul>
       <% @menu.each_key do |me| %>
         <li>
-          <a href='#<%= "#{me}" %>' onclick="load_article('/p/<%= "#{me}" %>');">
+          <a href='/p/<%= "#{me}" %>'>
             <%= me %>
           </a>
         <ul>
           <% @menu[me].each do |mi| %>
             <li>
-              <a
-                href='#<%= "#{me}_#{mi}" %>'
-                onclick="load_article('/p/<%= "#{me}/#{mi}" %>');">
+              <a href='/p/<%= "#{me}/#{mi}" %>'>
                 <%= mi.gsub('_', ' ').gsub('.md', '') %>
               </a>
             </li>
@@ -103,11 +90,6 @@ __END__
       </ul>
     </div>
     <div id="content">
-      <div id="perma"> 
-        <a href="<%= request.url %>" id="permalink">
-          Permalink 
-        </a>
-      </div>
       <div id="post"> 
         <%= yield %>
       </div>
@@ -173,9 +155,6 @@ a:hover, a:active
 #content
   float: right
   width: 470px
-
-#perma
-  text-align: right
 
 #content pre
   padding: 10px
