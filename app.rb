@@ -56,6 +56,7 @@ __END__
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Sinatra Recipes</title>
     <link rel="stylesheet" type="text/css" href="/style.css" /> 
+    <link rel="shortcut icon" href="https://github.com/sinatra/resources/raw/master/logo/favicon.ico">
     <script
       type='text/javascript' 
       src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'>
