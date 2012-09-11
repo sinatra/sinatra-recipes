@@ -182,7 +182,7 @@ a:hover, a:active
   max-width: 600px
   pre
     padding: 10px
-    max-width: 470px
+    max-width: 600px
     overflow: auto
     overflow-Y: hidden
     background: #EEE
