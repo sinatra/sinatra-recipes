@@ -148,7 +148,8 @@ a:hover, a:active
 #header h1
   float: left
   width: 250px
-  font-size: 1.8em
+  font-size: 2.65em
+  line-height: .75em
 
 #header h2
   text-align: right
