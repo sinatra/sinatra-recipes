@@ -20,12 +20,9 @@ set :markdown, :layout_engine => :erb
 set :views, File.dirname(__FILE__)
 
 before do
-  @menu = {}
-  Dir.glob "#{settings.views}/*/*.md" do |file|
-    me, mi = file.split('/')[-2..-1]
-    @menu[me] ||= []
-    @menu[me] << mi.sub(/\.md$/, '') unless mi == "README.md"
-  end
+  @menu = Dir.glob("./*/").map do |file|
+    file.split('/')[1]
+  end.compact.sort
 end
 
 get '/' do
@@ -34,6 +31,12 @@ end
 
 get '/p/:topic' do
   pass if params[:topic] == '..'
+  @readme = true
+  @children = Dir.glob("./#{params[:topic]}/*.md").map do |file|
+    next if file =~ /README/
+    next if file.empty? or file.nil?
+    file.split('/')[-1].sub(/\.md$/, '')
+  end.compact.sort
   markdown :"#{params[:topic]}/README"
 end
 
@@ -73,26 +76,39 @@ __END__
     </div>
     <div id="menu">
       <ul>
-      <% @menu.each_key do |me| %>
+      <% @menu.each do |me| %>
         <li>
           <a href='/p/<%= "#{me}" %>'>
-            <%= me %>
+            <%= me.capitalize.sub('_', ' ') %>
           </a>
-        <ul>
-          <% @menu[me].each do |mi| %>
-            <li>
-              <a href='/p/<%= "#{me}/#{mi}" %>'>
-                <%= mi.gsub('_', ' ').gsub('.md', '') %>
-              </a>
-            </li>
-          <% end %>
-        </ul></li>
+        </li>
       <% end %>
       </ul>
     </div>
     <div id="content">
       <div id="post"> 
         <%= yield %>
+        <% if @children %>
+          <div id="children">
+            <ul>
+            <% @children.each do |child| %>
+              <li>
+                <a href='/p/<%= "#{params[:topic]}/#{child}" %>'>
+                  <%= child.capitalize.sub('_', ' ') %>
+                </a>
+              </li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <% if @readme %>
+          <h2>Did we miss something?</h2>
+          <p>It's very possible we've left something out, thats why we need your help! This
+          is a community driven project after all. Feel free to fork the project and send
+          us a pull request to get your recipe or tutorial included in the book.</p>
+          <p>See the <a href="http://github.com/sinatra/recipes/blob/master/README.md">README</a> for more details.</p>
+        <% end %>
       </div>
     </div>
   
@@ -148,14 +164,14 @@ a:hover, a:active
 
 #menu
   float: left
-  max-width: 320px
+  max-width: 200px
   word-wrap: break-word
   font-size: .9em
   clear: left
 
 #content
   float: right
-  width: 470px
+  max-width: 600px
 
 #content pre
   padding: 10px
