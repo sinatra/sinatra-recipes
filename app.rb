@@ -104,11 +104,13 @@ __END__
         <% end %>
 
         <% if @readme %>
-          <h2>Did we miss something?</h2>
-          <p>It's very possible we've left something out, thats why we need your help! This
-          is a community driven project after all. Feel free to fork the project and send
-          us a pull request to get your recipe or tutorial included in the book.</p>
-          <p>See the <a href="http://github.com/sinatra/recipes/blob/master/README.md">README</a> for more details.</p>
+          <div id="footer">
+            <h2>Did we miss something?</h2>
+            <p>It's very possible we've left something out, thats why we need your help! This
+            is a community driven project after all. Feel free to fork the project and send
+            us a pull request to get your recipe or tutorial included in the book.</p>
+            <p>See the <a href="http://github.com/sinatra/recipes/blob/master/README.md">README</a> for more details.</p>
+          </div>
         <% end %>
       </div>
     </div>
@@ -129,6 +131,7 @@ h1, h2, h3, h4, h5
   font-family: georgia, 'bitstream vera serif', serif
   font-weight: normal
   font-size: 2em
+  line-height: 160%
 
 a:link, a:visited
   color: #3F3F3F
@@ -141,28 +144,24 @@ a:hover, a:active
 
 #header
   margin: 10px 0px
-
-#header a
-  text-decoration: none
-
-#header h1
-  float: left
-  width: 250px
-  font-size: 2.65em
-  line-height: .75em
-
-#header h2
-  text-align: right
-  font-style: oblique
-  font-size: 1em
-  float: right
-  width: 450px
-
-#header img
-  float: left
-  width: 100px
-  margin-right: 15px
-  border: 0
+  a
+    text-decoration: none
+  h1
+    float: left
+    width: 250px
+    font-size: 2.65em
+    line-height: .75em
+  h2
+    text-align: right
+    font-style: oblique
+    font-size: 1em
+    float: right
+    width: 450px
+  img
+    float: left
+    width: 100px
+    margin-right: 15px
+    border: 0
 
 #menu
   float: left
@@ -171,17 +170,27 @@ a:hover, a:active
   font-size: .9em
   clear: left
 
+#children
+  clear: both
+  ul li
+    float: left
+    width: 275px
+    height: 40px
+
 #content
   float: right
   max-width: 600px
-
-#content pre
-  padding: 10px
-  max-width: 470px
-  overflow: auto
-  overflow-Y: hidden
-  background: #EEE
-  line-height: 100%
+  pre
+    padding: 10px
+    max-width: 470px
+    overflow: auto
+    overflow-Y: hidden
+    background: #EEE
+    line-height: 100%
 
 #post
-  line-height: 160%
+  line-height: 110%
+
+#footer
+  clear: both
+  margin-top: 20px
