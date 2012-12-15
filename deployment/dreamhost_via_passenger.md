@@ -12,12 +12,12 @@ via Passenger with relative ease. Here's how.
        Save your changes
 
 2. Creating the directory structure
-
-       domain.com/
-       domain.com/tmp
-       domain.com/public
-       # a vendored version of sinatra - not necessary if you use the gem
-       domain.com/sinatra
+       
+        domain.com/
+        domain.com/tmp
+        domain.com/public
+        # a vendored version of sinatra - not necessary if you use the gem
+        domain.com/sinatra
 
 3. Here is an example config.ru file that does two things.  First, it requires
    your main app file, whatever it's called. In the example, it will look for
@@ -30,7 +30,7 @@ via Passenger with relative ease. Here's how.
 
 4. A very simple Sinatra application
 
-       # this is myapp.rb referred to above
+        # this is myapp.rb referred to above
         require 'sinatra'
         get '/' do
           "Worked on dreamhost"
