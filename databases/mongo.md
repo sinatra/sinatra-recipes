@@ -116,4 +116,4 @@ For more information on using the Ruby driver without an ORM take a look at [Mon
 
 [mongo]: http://www.mongodb.org/
 [rubydrivertutorial]: http://api.mongodb.org/ruby/current/file.TUTORIAL.html
-[mongo_models]: /p/models/mongo.md
+[mongo_models]: /p/models/mongo
