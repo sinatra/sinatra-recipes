@@ -21,7 +21,7 @@ set :views, File.dirname(__FILE__)
 
 before do
   @menu = Dir.glob("./*/").map do |file|
-    next if file =~ /tmp/ or file =~ /log/
+    next if file =~ /tmp/ or file =~ /log/ or file =~ /config/
     file.split('/')[1]
   end.compact.sort
 end
