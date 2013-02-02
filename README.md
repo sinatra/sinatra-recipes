@@ -1,4 +1,4 @@
-Sinatra Recipes 
+[*Sinatra Recipes*](http://sinatra-recipes.heroku.com) 
 ---------------
 
 Community contributed recipes and techniques for the [Sinatra Web
