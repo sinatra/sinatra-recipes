@@ -3,6 +3,7 @@ require 'rdiscount'
 require 'erb'
 require 'sass'
 
+set :public_folder, File.dirname(__FILE__) + '/public'
 configure :production do
   sha1, date = `git log HEAD~1..HEAD --pretty=format:%h^%ci`.strip.split('^')
 
@@ -59,10 +60,11 @@ __END__
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Sinatra Recipes</title>
-    <link rel="stylesheet" type="text/css" href="/style.css" /> 
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css" /> 
+    <link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css" /> 
     <link rel="shortcut icon" href="https://github.com/sinatra/resources/raw/master/logo/favicon.ico">
-    <script
-      type='text/javascript' 
+    <script src="javascripts/scale.fix.js"/>
+    <script type='text/javascript' 
       src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'>
     </script>
   </head>
@@ -121,76 +123,4 @@ __END__
   </body>
 </html>
 
-@@ style
-body
-  font-family: 'Lucida Grande', Verdana, sans-serif
-  margin: 0 auto
-  max-width: 800px
 
-h1, h2, h3, h4, h5
-  font-family: georgia, 'bitstream vera serif', serif
-  font-weight: normal
-  font-size: 2em
-  line-height: 160%
-
-a:link, a:visited
-  color: #3F3F3F
-
-a:hover, a:active
-  color: #8F8F8F
-
-.small
-  font-size: .7em
-
-#header
-  margin: 10px 0px
-  a
-    text-decoration: none
-  h1
-    float: left
-    width: 250px
-    font-size: 2.65em
-    line-height: .75em
-  h2
-    text-align: right
-    font-style: oblique
-    font-size: 1em
-    float: right
-    width: 450px
-  img
-    float: left
-    width: 100px
-    margin-right: 15px
-    border: 0
-
-#menu
-  float: left
-  max-width: 200px
-  word-wrap: break-word
-  font-size: .9em
-  clear: left
-
-#children
-  clear: both
-  ul li
-    float: left
-    width: 275px
-    height: 40px
-
-#content
-  float: right
-  max-width: 600px
-  pre
-    padding: 10px
-    max-width: 600px
-    overflow: auto
-    overflow-Y: hidden
-    background: #EEE
-    line-height: 100%
-
-#post
-  line-height: 110%
-
-#footer
-  clear: both
-  margin-top: 20px
