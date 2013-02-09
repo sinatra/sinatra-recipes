@@ -3,6 +3,7 @@ require 'rdiscount'
 require 'erb'
 require 'sass'
 
+set :public_folder, File.dirname(__FILE__) + '/public'
 configure :production do
   sha1, date = `git log HEAD~1..HEAD --pretty=format:%h^%ci`.strip.split('^')
 
@@ -59,138 +60,77 @@ __END__
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Sinatra Recipes</title>
-    <link rel="stylesheet" type="text/css" href="/style.css" /> 
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css" /> 
+    <link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css" /> 
     <link rel="shortcut icon" href="https://github.com/sinatra/resources/raw/master/logo/favicon.ico">
-    <script
-      type='text/javascript' 
+    <script src="javascripts/scale.fix.js"/>
+    <script type='text/javascript' 
       src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'>
     </script>
   </head>
   <body>
-    <a name='top' />
-    <div id="header">
-      <h2>Community contributed recipes and techniques</h2>
-      <h1><a href="/">
-        <img src="https://github.com/sinatra/resources/raw/master/logo/sinatra-classic-156.png" />
-        Sinatra Recipes 
-      </a></h1>
-    </div>
-    <div id="menu">
-      <ul>
-      <% @menu.each do |me| %>
-        <li>
-          <a href='/p/<%= "#{me}" %>'>
-            <%= me.capitalize.sub('_', ' ') %>
-          </a>
-        </li>
-      <% end %>
-      </ul>
-    </div>
-    <div id="content">
-      <div id="post"> 
-        <%= yield %>
-        <% if @children %>
-          <div id="children">
-            <ul>
-            <% @children.each do |child| %>
-              <li>
-                <a href='/p/<%= "#{params[:topic]}/#{child}" %>'>
-                  <%= child.capitalize.sub('_', ' ') %>
+    <div class="wrapper">
+    <aside>
+        <header>
+            <img src="https://github.com/sinatra/resources/raw/master/logo/sinatra-classic-156.png" />
+          <h1>
+            Sinatra Recipes
+          </h1>
+          <p>Community contributed recipes and techniques</p>
+          <p class="view"><a href="http://github.com/sinatra/sinatra-recipes">View the Project on GitHub <small>sinatra/sinatra-recipes</small></a></p>
+          <ul>
+            <li><a href="https://github.com/sinatra/sinatra-recipes/zipball/master">Download <strong>ZIP File</strong></a></li>
+            <li><a href="https://github.com/sinatra/sinatra-recipes/tarball/master">Download <strong>TAR Ball</strong></a></li>
+            <li><a href="http://github.com/sinatra/sinatra-recipes">Fork On <strong>GitHub</strong></a></li>
+          </ul>
+        </header>
+        <nav>
+          <h2>Topics</h2>
+          <dl>
+            <% @menu.each do |me| %>
+              <dt>
+                <a href='/p/<%= "#{me}" %>'>
+                  <%= me.capitalize.sub('_', ' ') %>
                 </a>
-              </li>
+              </dt>
             <% end %>
-            </ul>
-          </div>
-        <% end %>
+          </dl>
+        </nav>
+      </aside>
+      <section>
+        <div id="post"> 
+          <%= yield %>
+          <% if @children %>
+            <div id="children">
+              <ul>
+              <% @children.each do |child| %>
+                <li>
+                  <a href='/p/<%= "#{params[:topic]}/#{child}" %>'>
+                    <%= child.capitalize.sub('_', ' ') %>
+                  </a>
+                </li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-        <% if @readme %>
-          <div id="footer">
-            <h2>Did we miss something?</h2>
-            <p>It's very possible we've left something out, thats why we need your help! This
-            is a community driven project after all. Feel free to fork the project and send
-            us a pull request to get your recipe or tutorial included in the book.</p>
-            <p>See the <a href="http://github.com/sinatra/recipes/blob/master/README.md">README</a> for more details.</p>
-          </div>
-        <% end %>
-      </div>
+          <% if @readme %>
+            <div id="footer">
+              <h2>Did we miss something?</h2>
+              <p>It's very possible we've left something out, thats why we need your help! This
+              is a community driven project after all. Feel free to fork the project and send
+              us a pull request to get your recipe or tutorial included in the book.</p>
+              <p>See the <a href="http://github.com/sinatra/recipes/blob/master/README.md">README</a> for more details.</p>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    
+      <a href="http://github.com/sinatra/sinatra-recipes">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" />
+      </a>
     </div>
-  
-    <a href="http://github.com/sinatra/sinatra-recipes">
-      <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" />
-    </a>
   </body>
 </html>
 
-@@ style
-body
-  font-family: 'Lucida Grande', Verdana, sans-serif
-  margin: 0 auto
-  max-width: 800px
 
-h1, h2, h3, h4, h5
-  font-family: georgia, 'bitstream vera serif', serif
-  font-weight: normal
-  font-size: 2em
-  line-height: 160%
-
-a:link, a:visited
-  color: #3F3F3F
-
-a:hover, a:active
-  color: #8F8F8F
-
-.small
-  font-size: .7em
-
-#header
-  margin: 10px 0px
-  a
-    text-decoration: none
-  h1
-    float: left
-    width: 250px
-    font-size: 2.65em
-    line-height: .75em
-  h2
-    text-align: right
-    font-style: oblique
-    font-size: 1em
-    float: right
-    width: 450px
-  img
-    float: left
-    width: 100px
-    margin-right: 15px
-    border: 0
-
-#menu
-  float: left
-  max-width: 200px
-  word-wrap: break-word
-  font-size: .9em
-  clear: left
-
-#children
-  clear: both
-  ul li
-    float: left
-    width: 275px
-    height: 40px
-
-#content
-  float: right
-  max-width: 600px
-  pre
-    padding: 10px
-    max-width: 600px
-    overflow: auto
-    overflow-Y: hidden
-    background: #EEE
-    line-height: 100%
-
-#post
-  line-height: 110%
-
-#footer
-  clear: both
-  margin-top: 20px
