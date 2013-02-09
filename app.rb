@@ -21,10 +21,11 @@ end
 
 set :markdown, :layout_engine => :erb
 set :views, File.dirname(__FILE__)
+set :ignored_dirs, %w[tmp log config public bin]
 
 before do
   @menu = Dir.glob("./*/").map do |file|
-    next if file =~ /tmp/ or file =~ /log/ or file =~ /config/ or file =~ /public/
+    next if settings.ignored_dirs.any? {|ignore| /#{ignore}/i =~ file}
     file.split('/')[1]
   end.compact.sort
 end
