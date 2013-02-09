@@ -63,7 +63,7 @@ __END__
     <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css" /> 
     <link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css" /> 
     <link rel="shortcut icon" href="https://github.com/sinatra/resources/raw/master/logo/favicon.ico">
-    <script src="javascripts/scale.fix.js"/>
+    <script src="/javascripts/scale.fix.js"/>
     <script type='text/javascript' 
       src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'>
     </script>
@@ -126,6 +126,9 @@ __END__
         </div>
       </section>
     
+      <footer>
+        <p><small>Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
       <a href="http://github.com/sinatra/sinatra-recipes">
         <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" />
       </a>
