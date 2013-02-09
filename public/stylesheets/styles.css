@@ -103,10 +103,10 @@ img {
   max-width:100%;
 }
 
-header {
-  width:270px;
+aside {
   float:left;
   position:fixed;
+  width:270px;
 }
 
 header ul {
