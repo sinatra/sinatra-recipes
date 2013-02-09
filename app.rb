@@ -69,57 +69,67 @@ __END__
     </script>
   </head>
   <body>
-    <a name='top' />
-    <div id="header">
-      <h2>Community contributed recipes and techniques</h2>
-      <h1><a href="/">
-        <img src="https://github.com/sinatra/resources/raw/master/logo/sinatra-classic-156.png" />
-        Sinatra Recipes 
-      </a></h1>
-    </div>
-    <div id="menu">
-      <ul>
-      <% @menu.each do |me| %>
-        <li>
-          <a href='/p/<%= "#{me}" %>'>
-            <%= me.capitalize.sub('_', ' ') %>
-          </a>
-        </li>
-      <% end %>
-      </ul>
-    </div>
-    <div id="content">
-      <div id="post"> 
-        <%= yield %>
-        <% if @children %>
-          <div id="children">
-            <ul>
-            <% @children.each do |child| %>
-              <li>
-                <a href='/p/<%= "#{params[:topic]}/#{child}" %>'>
-                  <%= child.capitalize.sub('_', ' ') %>
+    <div class="wrapper">
+    <aside>
+        <header>
+            <img src="https://github.com/sinatra/resources/raw/master/logo/sinatra-classic-156.png" />
+          <h1>
+            Sinatra Recipes
+          </h1>
+          <p>Community contributed recipes and techniques</p>
+          <p class="view"><a href="http://github.com/sinatra/sinatra-recipes">View the Project on GitHub <small>sinatra/sinatra-recipes</small></a></p>
+          <ul>
+            <li><a href="https://github.com/sinatra/sinatra-recipes/zipball/master">Download <strong>ZIP File</strong></a></li>
+            <li><a href="https://github.com/sinatra/sinatra-recipes/tarball/master">Download <strong>TAR Ball</strong></a></li>
+            <li><a href="http://github.com/sinatra/sinatra-recipes">Fork On <strong>GitHub</strong></a></li>
+          </ul>
+        </header>
+        <nav>
+          <h2>Topics</h2>
+          <dl>
+            <% @menu.each do |me| %>
+              <dt>
+                <a href='/p/<%= "#{me}" %>'>
+                  <%= me.capitalize.sub('_', ' ') %>
                 </a>
-              </li>
+              </dt>
             <% end %>
-            </ul>
-          </div>
-        <% end %>
+          </dl>
+        </nav>
+      </aside>
+      <section>
+        <div id="post"> 
+          <%= yield %>
+          <% if @children %>
+            <div id="children">
+              <ul>
+              <% @children.each do |child| %>
+                <li>
+                  <a href='/p/<%= "#{params[:topic]}/#{child}" %>'>
+                    <%= child.capitalize.sub('_', ' ') %>
+                  </a>
+                </li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-        <% if @readme %>
-          <div id="footer">
-            <h2>Did we miss something?</h2>
-            <p>It's very possible we've left something out, thats why we need your help! This
-            is a community driven project after all. Feel free to fork the project and send
-            us a pull request to get your recipe or tutorial included in the book.</p>
-            <p>See the <a href="http://github.com/sinatra/recipes/blob/master/README.md">README</a> for more details.</p>
-          </div>
-        <% end %>
-      </div>
+          <% if @readme %>
+            <div id="footer">
+              <h2>Did we miss something?</h2>
+              <p>It's very possible we've left something out, thats why we need your help! This
+              is a community driven project after all. Feel free to fork the project and send
+              us a pull request to get your recipe or tutorial included in the book.</p>
+              <p>See the <a href="http://github.com/sinatra/recipes/blob/master/README.md">README</a> for more details.</p>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    
+      <a href="http://github.com/sinatra/sinatra-recipes">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" />
+      </a>
     </div>
-  
-    <a href="http://github.com/sinatra/sinatra-recipes">
-      <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" />
-    </a>
   </body>
 </html>
 
