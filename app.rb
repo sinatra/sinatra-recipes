@@ -2,6 +2,8 @@ require 'sinatra'
 require 'rdiscount'
 require 'erb'
 require 'sass'
+require 'json'
+require 'open-uri'
 
 set :public_folder, File.dirname(__FILE__) + '/public'
 configure :production do
@@ -22,12 +24,16 @@ set :views, File.dirname(__FILE__)
 
 before do
   @menu = Dir.glob("./*/").map do |file|
-    next if file =~ /tmp/ or file =~ /log/ or file =~ /config/
+    next if file =~ /tmp/ or file =~ /log/ or file =~ /config/ or file =~ /public/
     file.split('/')[1]
   end.compact.sort
 end
 
 get '/' do
+  open("https://api.github.com/repos/sinatra/sinatra-recipes/contributors") { |api|
+    @contributors = JSON.parse(api.read)
+  }
+
   markdown :README
 end
 
@@ -45,10 +51,6 @@ end
 get '/p/:topic/:article' do
   pass if params[:topic] == '..'
   markdown :"#{params[:topic]}/#{params[:article]}"
-end
-
-get '/style.css' do
-  sass :style
 end
 
 __END__
@@ -122,6 +124,20 @@ __END__
               us a pull request to get your recipe or tutorial included in the book.</p>
               <p>See the <a href="http://github.com/sinatra/recipes/blob/master/README.md">README</a> for more details.</p>
             </div>
+          <% end %>
+
+          <% if @contributors %>
+            <h2>Contributors</h2>
+            <p>These recipes are provided by the following outstanding members of the Sinatra community:</p>
+            <ul id="contributors">
+              <% @contributors.each do |contributor| %>
+                <li>
+                  <a href="http://github.com/<%= contributor["login"] %>">
+                    <img src="http://www.gravatar.com/avatar/<%= contributor["gravatar_id"] %>?s=50" />
+                  </a>
+                </li>
+              <% end %>
+            </ul>
           <% end %>
         </div>
       </section>

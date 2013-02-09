@@ -208,6 +208,11 @@ hr {
   margin:0 0 20px;
 }
 
+#contributors li {
+  list-style-type: none;
+  display: inline;
+}
+
 footer {
   width:270px;
   float:left;
