@@ -63,7 +63,7 @@ __END__
     <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css" /> 
     <link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css" /> 
     <link rel="shortcut icon" href="https://github.com/sinatra/resources/raw/master/logo/favicon.ico">
-    <script src="javascripts/scale.fix.js"/>
+    <script src="/javascripts/scale.fix.js"/>
     <script type='text/javascript' 
       src='https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'>
     </script>
