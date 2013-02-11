@@ -1,3 +1,6 @@
+/***********************************************/
+/*    Original styles from the theme          */
+/***********************************************/
 @import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 
 body {
@@ -103,10 +106,10 @@ img {
   max-width:100%;
 }
 
-aside {
+header {
+  width:270px;
   float:left;
   position:fixed;
-  width:270px;
 }
 
 header ul {
@@ -208,11 +211,6 @@ hr {
   margin:0 0 20px;
 }
 
-#contributors li {
-  list-style-type: none;
-  display: inline;
-}
-
 footer {
   width:270px;
   float:left;
@@ -253,9 +251,15 @@ footer {
     right:50px;
     top:52px;
   }
+  
 }
 
 @media print, screen and (max-width: 720px) {
+  #toplink {
+    display: block;
+  }
+
+
   body {
     word-wrap:break-word;
   }
@@ -274,6 +278,7 @@ footer {
 }
 
 @media print, screen and (max-width: 480px) {
+  
   body {
     padding:15px;
   }
@@ -290,3 +295,22 @@ footer {
     color:#444;
   }
 }
+
+/* Custom style additions */
+
+#contributors dt{
+  display: inline-block;
+}
+
+#logo {
+  height: 59px;
+  width: 86px;
+}
+
+#toplink {
+  display:none;
+  margin: 10px;
+  float:right;
+}
+
+
