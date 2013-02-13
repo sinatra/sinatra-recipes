@@ -67,9 +67,11 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
     title Sinatra Recipes
     link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"
+    link rel="stylesheet" type="text/css" href="/stylesheets/chosen.css"
     link rel="shortcut icon" href="https://github.com/sinatra/resources/raw/master/logo/favicon.ico"
     script src="/javascripts/scale.fix.js"
     script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"
+    script src="/javascripts/chosen.jquery.min.js"
     javascript:
       $(document).ready(function(){
           $("#post h2").each(function(){
@@ -77,11 +79,14 @@ html
               return headingName+'<small><a id="toplink" href="#top">^Top</a></small>';
             });
           });
+          $("#selectNav").chosen().change(function(e){
+            window.location.href = this.options[this.selectedIndex].value;
+          });
       });
 
   body
+    a name="top"
     #wrapper
-      a name="top"
       header
         a href="/"
           img id="logo" src="https://github.com/sinatra/resources/raw/master/logo/sinatra-classic-156.png"
@@ -101,23 +106,24 @@ html
             a href="https://github.com/sinatra/sinatra-recipes"
               | Fork on <strong>GitHub</strong> 
 
-        nav
-          h2 Topics
-          dl
-            - @menu.each do |me|
-              dt
-                a href="/p/#{me}?#post" #{me.capitalize.sub('_', ' ')}
-          p 
-            small Theme by <a href="https://github.com/orderedlist">orderedlist</a>
+        p 
+          small Theme based on "Minimal" by <a href="https://github.com/orderedlist">orderedlist</a>
 
       section
+        a name="article"
+        nav
+          select#selectNav.chosen data-placeholder="Select a topic"
+            option
+            - @menu.each do |me|
+              option value="/p/#{me}?#article" 
+                #{me.capitalize.sub('_', ' ')}
         #post
           == yield
           - if @children
             ul
               - @children.each do |child|
                 li
-                  a href="/p/#{params[:topic]}/#{child}?#post"
+                  a href="/p/#{params[:topic]}/#{child}?#article"
                     == child.capitalize.sub('_', ' ')
 
           - if @readme

@@ -1,7 +1,32 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
+/* Custom style additions */
+
+#contributors dt{
+  display: inline-block;
+}
+
+#logo {
+  height: 59px;
+  width: 86px;
+}
+
+#toplink {
+  display:none;
+  margin: 10px;
+  float:right;
+}
+nav {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+#selectNav {
+  width: 80%;
+}
+
 /***********************************************/
 /*    Original styles from the theme          */
 /***********************************************/
-@import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
 
 body {
   padding:50px;
@@ -294,23 +319,6 @@ footer {
     font-size:12pt;
     color:#444;
   }
-}
-
-/* Custom style additions */
-
-#contributors dt{
-  display: inline-block;
-}
-
-#logo {
-  height: 59px;
-  width: 86px;
-}
-
-#toplink {
-  display:none;
-  margin: 10px;
-  float:right;
 }
 
 
