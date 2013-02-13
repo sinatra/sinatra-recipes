@@ -86,7 +86,7 @@ html
 
   body
     a name="top"
-    #wrapper
+    .wrapper
       header
         a href="/"
           img id="logo" src="https://github.com/sinatra/resources/raw/master/logo/sinatra-classic-156.png"
