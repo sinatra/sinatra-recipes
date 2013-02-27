@@ -54,7 +54,7 @@ def run
     #     /api/hello
     #     /api/goodbye
     dispatch = Rack::Builder.app do
-      map '/api' do
+      map '/' do
         run web_app
       end
     end
