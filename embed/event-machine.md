@@ -20,16 +20,16 @@ require 'thin'
 # sort of API interface and you don't want to use EM's provided
 # web-server.
 
-def run
+def run(opts)
 
   # Start he reactor
   EM.run do
 
     # define some defaults for our app
-    server = 'thin'
-    host = '0.0.0.0'
-    port = '8181'
-    web_app = HelloApp.new
+    server  = opts[:server] || 'thin'
+    host    = opts[:host]   || '0.0.0.0'
+    port    = opts[:port]   || '8181'
+    web_app = opts[:app]
 
     # create a base-mapping that our application will set at. If I
     # have the following routes:
@@ -105,7 +105,7 @@ end
 
 
 # start the application
-run
+run app: HelloApp.new
 ```
 
 
