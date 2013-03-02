@@ -100,9 +100,6 @@ within your Sinatra call.
       end
     end
 
-
-
-
     # start the application
     run app: HelloApp.new
 
