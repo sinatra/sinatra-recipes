@@ -34,7 +34,9 @@ In your test files you only have to require that helper:
       
       include Rack::Test::Methods
 
-      def app() Sinatra::Application end
+      def app
+        Sinatra::Application
+      end
     
       def test_hello_world
         get '/'
@@ -51,7 +53,9 @@ If your app was defined using the [modular style](http://www.sinatrarb.com/intro
     
 instead of 
 
-    def app() Sinatra::Application end
+    def app
+      Sinatra::Application
+    end
 
 ### Specs and Benchmarks with Minitest
 
@@ -65,7 +69,9 @@ instead of
 
     include Rack::Test::Methods
 
-    def app() Sinatra::Application end
+    def app
+      Sinatra::Application
+    end
 
     describe "my example app" do
       it "should successfully return a greeting" do
@@ -85,7 +91,10 @@ instead of
     require 'minitest/benchmark'
 
     include Rack::Test::Methods
-    def app() Sinatra::Application end
+    
+    def app
+      Sinatra::Application
+    end
 
     describe "my example app" do
       bench_range { bench_exp 1, 10_000 } 
