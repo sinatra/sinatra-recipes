@@ -27,7 +27,8 @@ nav {
 
 body {
   padding:50px;
-  font:14px/1.5 font-family:'georgia', 'bitstream vera serif', serif;
+  font-size:14px/1.5;
+  font-family:'georgia', 'bitstream vera serif', serif;
   color:#000;
   font-weight:300;
 }
