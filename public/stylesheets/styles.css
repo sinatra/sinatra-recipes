@@ -1,6 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
-/* Custom style additions */
-
 #contributors dt{
   display: inline-block;
 }
@@ -30,12 +27,13 @@ nav {
 
 body {
   padding:50px;
-  font:14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color:#777;
+  font:14px/1.5 font-family:'georgia', 'bitstream vera serif', serif;
+  color:#000;
   font-weight:300;
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family:georgia, 'bitstream vera serif', serif;
   color:#222;
   margin:0 0 20px;
 }
@@ -94,7 +92,8 @@ blockquote {
 }
 
 code, pre {
-  font-family:Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
+  font-family:"lucida console", "monaco", "andale mono", "bitstream vera sans mono",
+      "consolas", monospace;
   color:#333;
   font-size:12px;
 }
@@ -220,7 +219,7 @@ header ul a strong {
 }
 
 section {
-  width:500px;
+  width:560px;
   float:right;
   padding-bottom:50px;
 }
