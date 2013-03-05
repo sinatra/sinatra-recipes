@@ -18,6 +18,7 @@ to create a connection. You can do this in your _configure_ block:
     require 'rubygems'
     require 'sinatra'
     require 'mongo'
+    require 'json' # required for .to_json
   
     configure do
       conn = Mongo::Connection.new("localhost", 27017)
