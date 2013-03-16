@@ -7,11 +7,7 @@ After installing [Bacon][bc], setting it up works similar to `Test::Unit`:
     require 'bacon'
     require 'rack/test'
     
-    begin 
-      require_relative 'my-app.rb'
-    rescue NameError
-      require File.expand_path('my-app.rb', __FILE__)
-    end
+    require File.expand_path '../my-app.rb', __FILE__
  
     module TestMixin
       include Rack::Test::Methods

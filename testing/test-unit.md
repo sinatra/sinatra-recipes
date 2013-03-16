@@ -12,11 +12,8 @@ defining `app`:
     require 'test/unit'
     require 'rack/test'
     
-    begin 
-      require_relative 'my-app.rb'
-    rescue NameError
-      require File.expand_path('my-app.rb', __FILE__)
-    end
+
+    require File.expand_path '../my-app.rb', __FILE__
     
     class HomepageTest < Test::Unit::TestCase
       include Rack::Test:Methods
@@ -34,11 +31,7 @@ all you have to do is install them and add a `require 'contest'` or `require
 
 **Shoulda**
 
-    begin 
-      require_relative 'test_helper'
-    rescue NameError
-      require File.expand_path('test_helper', __FILE__)
-    end
+    require File.expand_path '../test_helper.rb', __FILE__
 
     class ExampleUnitTest < Test::Unit::TestCase
 

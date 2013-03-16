@@ -7,11 +7,7 @@ After installing [Protest][pt], setting it up works similar to `Test::Unit`:
     require 'protest'
     require 'rack/test'
  
-    begin 
-      require_relative 'my-app.rb'
-    rescue NameError
-      require File.expand_path('my-app.rb', __FILE__)
-    end
+    require File.expand_path '../my-app.rb', __FILE__
  
     module TestMixin
       include Rack::Test::Methods

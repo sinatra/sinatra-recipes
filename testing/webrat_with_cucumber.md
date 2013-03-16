@@ -23,7 +23,7 @@ Features from Cucumber and Webrat
        last_response.body.should match(/#{text}/m)
     end
 
-**env.rb**
+**features/support/env.rb**
 
     ENV['RACK_ENV'] = 'test'
 
@@ -32,11 +32,7 @@ Features from Cucumber and Webrat
     require 'rspec/expectations'
     require 'webrat'
 
-    begin 
-      require_relative '../../my-app.rb'
-    rescue NameError
-      require File.expand_path('../../my-app.rb', __FILE__)
-    end
+    require File.expand_path '../../../my-app.rb', __FILE__
 
     Webrat.configure do |config|
       config.mode = :rack

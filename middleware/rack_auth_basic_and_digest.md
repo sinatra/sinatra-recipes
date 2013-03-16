@@ -69,7 +69,7 @@ For classic applications:
 
     #config.ru
     
-    require './main'
+    require File.expand_path '../main.rb', __FILE__
     
     app = Rack::Auth::Digest::MD5.new(Sinatra::Application) do |username|
       {'foo' => 'bar'}[username]
@@ -106,7 +106,7 @@ For modular applications:
     
     #config.ru
     
-    require './main'
+    require File.expand_path '../main.rb', __FILE__
     
     run Protected
 
@@ -157,7 +157,7 @@ And the `config.ru`
 
     #config.ru
     
-    require './main'
+    require File.expand_path '../main.rb', __FILE__
     
     run Rack::URLMap.new({
       "/" => Public,
@@ -209,7 +209,7 @@ And the `config.ru`
 
     #config.ru
     
-    require './main'
+    require File.expand_path '../main.rb', __FILE__
     
     run Rack::URLMap.new({
       "/" => Public,

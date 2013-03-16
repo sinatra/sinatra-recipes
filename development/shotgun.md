@@ -15,7 +15,7 @@ Usage is rather simple:
 If you want to run a modular application, create a file named `config.ru` with
 similar content:
 
-    require 'my_app'
+    require File.expand_path '../my_app.rb', __FILE__
     run MyApp
 
 And run it by calling `shotgun` without arguments.

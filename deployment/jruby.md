@@ -53,7 +53,7 @@ Of course, you can use a config.ru and rackup as well:
 	cat <<EOF>config.ru
 	require 'rubygems'
 	require 'sinatra'
-	require 'hello'
+	require File.expand_path '../hello.rb', __FILE__
 	run Sinatra::Application
 	EOF
 	

@@ -5,11 +5,7 @@ RSpec 2.x
 
     require 'rack/test'
 
-    begin 
-      require_relative '../my-app.rb'
-    rescue NameError
-      require File.expand_path('../my-app.rb', __FILE__)
-    end
+    require File.expand_path '../../my-app.rb', __FILE__
 
     module RSpecMixin
       include Rack::Test::Methods
@@ -30,11 +26,7 @@ instead of
 
 [Shared Example Groups](http://relishapp.com/rspec/rspec-core/v/2-3/dir/example-groups/shared-example-group)
 
-    begin 
-      require_relative 'spec_helper'
-    rescue NameError
-      require File.expand_path('spec_helper', __FILE__)
-    end
+    File.expand_path '../spec_helper.rb', __FILE__
 
     shared_examples_for "my example app" do
       before(:each) do

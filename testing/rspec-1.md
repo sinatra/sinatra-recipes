@@ -14,11 +14,7 @@ In your spec file or your spec helper, you can setup `Rack::Test` like this:
     require 'test/unit'
     require 'rack/test'
     
-    begin 
-      require_relative 'my-app'
-    rescue NameError
-      require File.expand_path('my-app', __FILE__)
-    end
+    require File.expand_path '../my-app.rb', __FILE__
 
     module TestMixin
       include Rack::Test::Methods
@@ -29,11 +25,8 @@ In your spec file or your spec helper, you can setup `Rack::Test` like this:
 
 And use it in your specs:
 
-    begin 
-      require_relative '../spec_helper'
-    rescue NameError
-      require File.expand_path('../spec_helper', __FILE__)
-    end
+    # spec/app/app_spec.rb
+    require File.expand_path '../../spec_helper.rb', __FILE__
     
     describe "My Sinatra Application" do
       it "should allow accessing the home page" do

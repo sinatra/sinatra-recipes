@@ -26,7 +26,7 @@ application root.
     require "rubygems"
     require "sinatra"
 
-    require 'myapp.rb'
+    require File.expand_path '../myapp.rb', __FILE__
 
     run MyApp
 

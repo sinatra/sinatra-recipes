@@ -16,21 +16,13 @@ Using Capybara
       config.include Capybara
     end
  
-    begin 
-      require_relative '../../my-app.rb'
-    rescue NameError
-      require File.expand_path('../../my-app.rb', __FILE__)
-    end
+    require File.expand_path '../../../my-app.rb', __FILE__
 
     Capybara.app = Sinatra::Application
 
 **My Page Acceptance Spec**
 
-    begin 
-      require_relative 'acceptance_helper'
-    rescue NameError
-      require File.expand_path('acceptance_helper', __FILE__)
-    end
+    require File.expand_path '../acceptance_helper.rb', __FILE__
 
     feature "My Page" do
 

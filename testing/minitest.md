@@ -15,20 +15,12 @@ all the setup in there:
     require 'minitest/autorun'
     require 'rack/test'
     
-    begin
-      require_relative 'my-app'
-    rescue NameError 
-      require File.expand_path('my-app', __FILE__)
-    end
+    require File.expand_path '../my-app.rb', __FILE__
   
 In your test files you only have to require that helper:
 
     # test.rb
-    begin 
-      require_relative 'test_helper'
-    rescue NameError
-      require File.expand_path('test_helper', __FILE__)
-    end
+    require File.expand_path '../test_helper.rb', __FILE__
 
     class MyTest < MiniTest::Unit::TestCase
       
@@ -61,11 +53,7 @@ instead of
 
 **Specs**
 
-    begin 
-      require_relative 'test_helper'
-    rescue NameError
-      require File.expand_path('test_helper', __FILE__)
-    end
+    require File.expand_path '../test_helper.rb', __FILE__
 
     include Rack::Test::Methods
 
@@ -82,11 +70,7 @@ instead of
 
 **Benchmarks**
 
-    begin 
-      require_relative 'test_helper'
-    rescue NameError
-      require File.expand_path('test_helper', __FILE__)
-    end
+    require File.expand_path '../test_helper.rb', __FILE__
     
     require 'minitest/benchmark'
 

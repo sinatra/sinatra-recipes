@@ -24,7 +24,7 @@ via Passenger with relative ease. Here's how.
    `myapp.rb`.  Second, run your application.  If you're subclassing, use the
    subclass's name, otherwise use Sinatra::Application.
 
-        require "myapp"
+        require File.expand_path '../myapp.rb', __FILE__
 
         run Sinatra::Application
 
