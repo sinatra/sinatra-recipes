@@ -5,6 +5,10 @@ One of the advantages of using
 [Test::Unit](http://rdoc.info/gems/test-unit/2.1.2/frames) is that it already
 ships with Ruby **1.8.7** and you can skip the installation part in some cases.
 
+For modern versions of Ruby, you must install the Test::Unit gem:
+
+    gem install test-unit
+
 Set up rack-test by including `Rack::Test::Methods` into your test class and
 defining `app`:
 
@@ -24,10 +28,6 @@ defining `app`:
         assert last_response.ok?
       end
     end
-
-Since [Contest][ct] and [Test::Spec][ts] are both extensions for Test::Unit,
-all you have to do is install them and add a `require 'contest'` or `require
-'test/spec'` to your test helper.
 
 **Shoulda**
 
