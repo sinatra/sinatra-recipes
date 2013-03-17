@@ -80,14 +80,9 @@ html
     script src="/javascripts/chosen.jquery.min.js"
     javascript:
       $(document).ready(function(){
-          $("#post h2").each(function(){
-            $(this).html(function(_, headingName){
-              return headingName+'<small><a id="toplink" href="#top">^Top</a></small>';
-            });
-          });
-          $("#selectNav").chosen().change(function(e){
-            window.location.href = this.options[this.selectedIndex].value;
-          });
+        $("#selectNav").chosen().change(function(e){
+          window.location.href = this.options[this.selectedIndex].value;
+        });
       });
 
   body
@@ -136,11 +131,14 @@ html
                 dt 
                   a href="http://github.com/#{contributor["login"]}"
                     img src="http://www.gravatar.com/avatar/#{contributor["gravatar_id"]}?s=50"
+          .small
+            a href="#top" Top
 
 @@ style
 body
   font-family: 'Lucida Grande', Verdana, sans-serif
   margin: 0 auto
+  padding: 0 10px
   max-width: 800px
 
 h1, h2, h3, h4, h5
@@ -187,18 +185,6 @@ a:hover, a:active
 #contributors dt
   display: inline-block
 
-#toplink
-  display: none
-  margin: 10px
-  float: right
-
-#menu
-  float: left
-  max-width: 200px
-  word-wrap: break-word
-  font-size: .9em
-  clear: left
-
 #children
   clear: both
   ul li
@@ -207,14 +193,12 @@ a:hover, a:active
     height: 40px
 
 #content
-  float: right
-  max-width: 600px
+  clear: both
   pre
     padding: 10px
-    max-width: 600px
     overflow: auto
     overflow-Y: hidden
-    background: #EEE
+    background: #F6F6F6
     line-height: 100%
 
 #post
