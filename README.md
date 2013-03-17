@@ -29,25 +29,33 @@ recipes that have been requested or are in progress.
 
 To get started you should clone the repository from github:
 
-    git clone git://github.com/sinatra/sinatra-recipes.git
+```bash
+git clone git://github.com/sinatra/sinatra-recipes.git
+```
 
 Now once you `cd` into `sinatra-recipes` you should see a few things.
 
 First you should take note of the application files:
 
-    app.rb # a tiny application for displaying the contributed recipes
-    config.ru # rackup file for deploying to heroku
-    Gemfile # dependencies file for bundler to run the app
+```bash
+app.rb # a tiny application for displaying the contributed recipes
+config.ru # rackup file for deploying to heroku
+Gemfile # dependencies file for bundler to run the app
+```
 
 If you want to run the application yourself first you need the `bundler` gem.
 
-    gem install bundler
-    
+```bash
+gem install bundler
+```
+
 If you are on Rubinius make sure that you have the latest bundler version
 installed. Versions prior to 1.0.10 won't work.
 
-    # then install the application dependencies
-    bundle install
+```bash
+# then install the application dependencies
+bundle install
+```
 
 Once that is complete, you should only need to run `rackup` in the application
 root and visit: [localhost:9292](http://localhost:9292)
