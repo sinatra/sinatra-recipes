@@ -6,12 +6,14 @@ To render CoffeeScript templates you first need the `coffee-script` gem and
 Here's an example of using CoffeeScript with Sinatra's template rendering
 engine Tilt:
 
-    ## You'll need to require coffee-script in your app
-    require 'coffee-script'
+```ruby
+## You'll need to require coffee-script in your app
+require 'coffee-script'
 
-    get '/application.js' do
-      coffee :application
-    end
+get '/application.js' do
+  coffee :application
+end
+```
 
 Renders `./views/application.coffee`.
 
@@ -20,30 +22,34 @@ on your platform of choice and hosting environment. If that's not the case, but
 you'd still like to use CoffeeScript, you can precompile your scripts using the
 `coffee` binary:
 
-    coffee -c -o public/javascripts/ src/
+```bash
+coffee -c -o public/javascripts/ src/
+```
 
 Or you can use this example [rake][rake] task to compile them for you with the
 `coffee-script` gem, which can use either `therubyracer` gem or the `coffee`
 binary:
 
-    require 'coffee-script'
+```ruby
+require 'coffee-script'
 
-    namespace :js do
-      desc "compile coffee-scripts from ./src to ./public/javascripts"
-      task :compile do
-        source = "#{File.dirname(__FILE__)}/src/"
-        javascripts = "#{File.dirname(__FILE__)}/public/javascripts/"
-        
-        Dir.foreach(source) do |cf|
-          unless cf == '.' || cf == '..' 
-            js = CoffeeScript.compile File.read("#{source}#{cf}") 
-            open "#{javascripts}#{cf.gsub('.coffee', '.js')}", 'w' do |f|
-              f.puts js
-            end 
-          end 
+namespace :js do
+  desc "compile coffee-scripts from ./src to ./public/javascripts"
+  task :compile do
+    source = "#{File.dirname(__FILE__)}/src/"
+    javascripts = "#{File.dirname(__FILE__)}/public/javascripts/"
+
+    Dir.foreach(source) do |cf|
+      unless cf == '.' || cf == '..'
+        js = CoffeeScript.compile File.read("#{source}#{cf}")
+        open "#{javascripts}#{cf.gsub('.coffee', '.js')}", 'w' do |f|
+          f.puts js
         end
       end
     end
+  end
+end
+```
 
 Now, with this rake task you can compile your coffee-scripts to
 `public/javascripts` by using the `rake js:compile` command.

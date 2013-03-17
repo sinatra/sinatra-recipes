@@ -12,63 +12,70 @@ Luckily, Rack supports various connectors, including CGI and FastCGI. Unluckily
 for us, FastCGI doesn't quite work with the current Sinatra release without some tweaking.
 
 ### Deployment with Sinatra version 0.9
+
 From version 0.9.0 Sinatra requires Rack 0.9.1, however FastCGI wrapper from
 this version seems not working well with Sinatra unless you define your
 application as a subclass of Sinatra::Application class and run this
 application directly as a Rack application.
 
 Steps to deploy via FastCGI:
-* htaccess
-* subclass your application as Sinatra::Application
-* dispatch.fcgi
 
-1. .htaccess
+  * htaccess
+  * subclass your application as Sinatra::Application
+  * dispatch.fcgi
 
-        RewriteEngine on
-        
-        AddHandler fastcgi-script .fcgi
-        Options +FollowSymLinks +ExecCGI
-        
-        RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
+### .htaccess
 
-2. Subclass your application as Sinatra::Application
+```
+RewriteEngine on
 
-        # my_sinatra_app.rb
-        class MySinatraApp < Sinatra::Application
-          # your sinatra application definitions
-        end
+AddHandler fastcgi-script .fcgi
+Options +FollowSymLinks +ExecCGI
 
+RewriteRule ^(.*)$ dispatch.fcgi [QSA,L]
+```
 
-3. dispatch.fcgi - Run this application directly as a Rack application
+### Subclass your application as Sinatra::Application
 
-        #!/usr/local/bin/ruby
-    
-        require 'rubygems'
-        require 'rack'
-        
-        fastcgi_log = File.open("fastcgi.log", "a")
-        STDOUT.reopen fastcgi_log
-        STDERR.reopen fastcgi_log
-        STDOUT.sync = true
+```ruby
+# my_sinatra_app.rb
+class MySinatraApp < Sinatra::Application
+  # your sinatra application definitions
+end
+```
 
-        module Rack
-          class Request
-            def path_info
-              @env["REDIRECT_URL"].to_s
-            end
-            def path_info=(s)
-              @env["REDIRECT_URL"] = s.to_s
-            end
-          end
-        end
+### dispatch.fcgi - Run this application directly as a Rack application
 
-        load 'my\_sinatra\_app.rb'
+```ruby
+#!/usr/local/bin/ruby
 
-        builder = Rack::Builder.new do
-          map '/' do
-            run MySinatraApp.new
-          end
-        end
+require 'rubygems'
+require 'rack'
 
-        Rack::Handler::FastCGI.run(builder)
+fastcgi_log = File.open("fastcgi.log", "a")
+STDOUT.reopen fastcgi_log
+STDERR.reopen fastcgi_log
+STDOUT.sync = true
+
+module Rack
+  class Request
+    def path_info
+      @env["REDIRECT_URL"].to_s
+    end
+    def path_info=(s)
+      @env["REDIRECT_URL"] = s.to_s
+    end
+  end
+end
+
+load 'my\_sinatra\_app.rb'
+
+builder = Rack::Builder.new do
+  map '/' do
+    run MySinatraApp.new
+  end
+end
+
+Rack::Handler::FastCGI.run(builder)
+```
 

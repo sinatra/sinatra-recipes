@@ -8,11 +8,13 @@ Often this is a two step process -- first parsing the message string into
 predictable data structures, then loading that into models. So a typical route 
 might look like
 
-    post '/messages'
-      message = Message.from_hash( ::MultiJson.decode(request.body) )
-      message.save
-      halt 202, {'Location' => "/messages/#{message.id}"}, ''
-    end
+```ruby
+post '/messages'
+  message = Message.from_hash( ::MultiJson.decode(request.body) )
+  message.save
+  halt 202, {'Location' => "/messages/#{message.id}"}, ''
+end
+```
 
 And your Message model would have an appropriate `#from_hash` method that
 grabs what it needs from the parsed message and throws it into a new instance.
@@ -20,18 +22,20 @@ grabs what it needs from the parsed message and throws it into a new instance.
 If your application has several different endpoints, all using the same 
 content-type, you could save some repitition by moving it to a helper:
 
-    helpers do
-      def parsed_body
-        ::MultiJson.decode(request.body)
-      end
-    end
-    
-    post '/orders'
-      order = Order.from_hash( parsed_body )
-      order.process
-      # ....
-    end
-    
+```ruby
+helpers do
+  def parsed_body
+    ::MultiJson.decode(request.body)
+  end
+end
+
+post '/orders'
+  order = Order.from_hash( parsed_body )
+  order.process
+  # ....
+end
+```
+
 This works fine for simple scenarios. But if you have multiple content-types, 
 need to validate the message format, or do other pre-processing on it, moving
 the parsing logic out of your application itself starts to become attractive.
@@ -52,18 +56,20 @@ configure custom parsing routines for any given content-type.
 
 So using Rack::Parser, the example above would be changed to
 
-    # in config.ru
-    use Rack::Parser, :content_types => {
-      'application/json'  => Proc.new { |body| ::MultiJson.decode body }
-    }
-    
-    # in application
-    post '/orders'
-      order = Order.from_hash( params['order'] )
-      order.process
-      # ....
-    end
-    
+```ruby
+# in config.ru
+use Rack::Parser, :content_types => {
+  'application/json'  => Proc.new { |body| ::MultiJson.decode body }
+}
+
+# in application
+post '/orders'
+  order = Order.from_hash( params['order'] )
+  order.process
+  # ....
+end
+```
+
 This is quite convenient if your app accepts either form data or JSON for a 
 given endpoint -- since the code is then identical whether a user submits a 
 form directly or some web-service client submits a JSON request.
@@ -83,33 +89,37 @@ quite useful for handling validation errors.
 For instance, say you have set up vendor-specific json message formats, which
 you want to validate using a `validate_input` class method on your models.
 
-    class MyJsonParser
-    
-      def initialize(validator_class)
-        @klass = validator_class
-      end
-      
-      def call(body)
-        json = ::MultiJson.decode(body)
-        if @klass.respond_to?(:validate_input)
-          @klass.validate_input(json)
-        end
-        json
-      end
-      
+```ruby
+class MyJsonParser
+
+  def initialize(validator_class)
+    @klass = validator_class
+  end
+
+  def call(body)
+    json = ::MultiJson.decode(body)
+    if @klass.respond_to?(:validate_input)
+      @klass.validate_input(json)
     end
+    json
+  end
 
-    use Rack::Parser, :content_types => {
-      'application/vnd-my-message+json' => MyJsonParser.new(Message),
-      'application/vnd-my-order+json'   => MyJsonParser.new(Order)      
-    }
+end
 
-    
+use Rack::Parser, :content_types => {
+  'application/vnd-my-message+json' => MyJsonParser.new(Message),
+  'application/vnd-my-order+json'   => MyJsonParser.new(Order)
+}
+```
+
+
 Then any parsing error raised in `MulitJson.decode` or validation error in 
 `validate_input` will result in a 400 (bad request) response *in the same 
 content-type as the request* -- like
 
-    {"errors": "Validation error in input - cannot set 'private_info'"}
+```ruby
+{"errors": "Validation error in input - cannot set 'private_info'"}
+```
 
 This is the default; you can also completely customize how errors are converted
 into responses, per content-type.

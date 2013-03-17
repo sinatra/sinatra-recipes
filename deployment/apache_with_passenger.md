@@ -19,11 +19,15 @@ You have a number of options when [installing phusion
 passenger](http://modrails.com/documentation/Users%20guide%20Apache.html#_installing_upgrading_and_uninstalling_phusion_passenger),
 however the gem is likely the easiest way to get started.
 
-    gem install passenger
+```bash
+gem install passenger
+```
 
 Once you've got that installed you can build the passenger apache module.
 
-    passenger-install-apache2-module
+```bash
+passenger-install-apache2-module
+```
 
 Follow the instructions given by the installer.
 
@@ -37,9 +41,11 @@ the `tmp` and `public` sub-directories of your application.
 In order to fit these prerequisites, simply make sure you have the following
 setup:
 
-    mkdir public
-    mkdir tmp
-    config.ru
+```bash
+mkdir public
+mkdir tmp
+config.ru
+```
 
 The public directory is for serving static files and tmp directory is for the
 `restart.txt` application restart mechanism. `config.ru` is where you will
@@ -50,25 +56,29 @@ place your rackup configuration.
 Once you have these directories in place, you can setup your applications
 rackup file, `config.ru`.
 
-    require 'rubygems'
-    require 'sinatra'
-    require File.expand_path '../app.rb', __FILE__
+```ruby
+require 'rubygems'
+require 'sinatra'
+require File.expand_path '../app.rb', __FILE__
 
-    run Sinatra::Application 
+run Sinatra::Application 
+```
 
 **Virtual Host**
 
 Next thing you'll have to do is setup the [Apache Virtual
 Host](http://httpd.apache.org/docs/2.2/vhosts/) for your app.
 
-    <VirtualHost *:80>
-        ServerName www.yourapplication.com
-        DocumentRoot /path/to/app/public
-        <Directory /path/to/app/public>
-            Allow from all
-            Options -MultiViews
-        </Directory>
-    </VirtualHost>    
+```bash
+<VirtualHost *:80>
+    ServerName www.yourapplication.com
+    DocumentRoot /path/to/app/public
+    <Directory /path/to/app/public>
+        Allow from all
+        Options -MultiViews
+    </Directory>
+</VirtualHost>    
+```
 
 That should just about do it for your basic apache and passenger configuration.
 For more specific information please visit the [official modrails
@@ -81,9 +91,11 @@ Apache](http://httpd.apache.org/docs/2.2/stopping.html).
 
 On most debian-based systems you should be able to:
 
-    sudo apache2ctl stop
-    # then
-    sudo apache2ctl start
+```bash
+sudo apache2ctl stop
+# then
+sudo apache2ctl start
+```
 
 To restart Apache. Check the link above for more detailed information.
 
@@ -91,7 +103,9 @@ In order to [restart the Passenger
 application](http://www.modrails.com/documentation/Users%20guide%20Apache.html#_redeploying_restarting_the_ruby_on_rails_application),
 all you need to do is run this simple command for your application root:
 
-    touch tmp/restart.txt
+```bash
+touch tmp/restart.txt
+```
 
 You should be up and running now with [Phusion Passenger](http://modrails.com/)
 and [Apache](http://httpd.apache.org/), if you run into any problems please

@@ -3,35 +3,39 @@ Using Capybara
 
 ### Steak
 
-**spec/acceptance/acceptance_helper.rb**
+```ruby
+# spec/acceptance/acceptance_helper.rb
 
-    ENV['RACK_ENV'] = 'test'
+ENV['RACK_ENV'] = 'test'
 
-    require 'rubygems'
-    require 'steak'
-    require 'rack/test'
-    require 'capybara/dsl'
+require 'rubygems'
+require 'steak'
+require 'rack/test'
+require 'capybara/dsl'
 
-    RSpec.configure do |config|
-      config.include Capybara
-    end
- 
-    require File.expand_path '../../../my-app.rb', __FILE__
+RSpec.configure do |config|
+  config.include Capybara
+end
 
-    Capybara.app = Sinatra::Application
+require File.expand_path '../../../my-app.rb', __FILE__
+
+Capybara.app = Sinatra::Application
+```
 
 **My Page Acceptance Spec**
 
-    require File.expand_path '../acceptance_helper.rb', __FILE__
+```ruby
+require File.expand_path '../acceptance_helper.rb', __FILE__
 
-    feature "My Page" do
+feature "My Page" do
 
-      scenario "greets the visitor" do
-        visit "/"
-        page.should have_content "Welcome to my page!" 
-      end
+  scenario "greets the visitor" do
+    visit "/"
+    page.should have_content "Welcome to my page!"
+  end
 
-    end
+end
+```
 
 **Steak Resources**
 

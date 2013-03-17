@@ -10,85 +10,97 @@ After installing Minitest, setting it up works similar to `Test::Unit`:
 If you have multiple test files, you could create a test helper file and do
 all the setup in there:
 
-    # test_helper.rb
-    ENV['RACK_ENV'] = 'test'
-    require 'minitest/autorun'
-    require 'rack/test'
-    
-    require File.expand_path '../my-app.rb', __FILE__
-  
+```ruby
+# test_helper.rb
+ENV['RACK_ENV'] = 'test'
+require 'minitest/autorun'
+require 'rack/test'
+
+require File.expand_path '../my-app.rb', __FILE__
+```
+
 In your test files you only have to require that helper:
 
-    # test.rb
-    require File.expand_path '../test_helper.rb', __FILE__
+```ruby
+# test.rb
+require File.expand_path '../test_helper.rb', __FILE__
 
-    class MyTest < MiniTest::Unit::TestCase
-      
-      include Rack::Test::Methods
+class MyTest < MiniTest::Unit::TestCase
 
-      def app
-        Sinatra::Application
-      end
-    
-      def test_hello_world
-        get '/'
-        assert last_response.ok?
-        assert_equal "Hello, World!", last_response.body
-      end
-    end
+  include Rack::Test::Methods
+
+  def app
+    Sinatra::Application
+  end
+
+  def test_hello_world
+    get '/'
+    assert last_response.ok?
+    assert_equal "Hello, World!", last_response.body
+  end
+end
+```
 
 If your app was defined using the [modular style](http://www.sinatrarb.com/intro.html#Sinatra::Base%20-%20Middleware,%20Libraries,%20and%20Modular%20Apps), use 
 
-    def app
-        MyApp # <- your application class name
-    end
-    
+```ruby
+def app
+  MyApp # <- your application class name
+end
+```
+
 instead of 
 
-    def app
-      Sinatra::Application
-    end
+```ruby
+def app
+  Sinatra::Application
+end
+```
 
 ### Specs and Benchmarks with Minitest
 
 **Specs**
 
-    require File.expand_path '../test_helper.rb', __FILE__
+```ruby
+require File.expand_path '../test_helper.rb', __FILE__
 
-    include Rack::Test::Methods
+include Rack::Test::Methods
 
-    def app
-      Sinatra::Application
-    end
+def app
+  Sinatra::Application
+end
 
-    describe "my example app" do
-      it "should successfully return a greeting" do
-        get '/' 
-        assert_equal 'Welcome to my page!', last_response.body 
-      end
-    end
+describe "my example app" do
+  it "should successfully return a greeting" do
+    get '/' 
+    assert_equal 'Welcome to my page!', last_response.body 
+  end
+end
+```
 
 **Benchmarks**
 
-    require File.expand_path '../test_helper.rb', __FILE__
-    
-    require 'minitest/benchmark'
+```ruby
+require File.expand_path '../test_helper.rb', __FILE__
 
-    include Rack::Test::Methods
-    
-    def app
-      Sinatra::Application
-    end
+require 'minitest/benchmark'
 
-    describe "my example app" do
-      bench_range { bench_exp 1, 10_000 } 
-      bench_performance_linear "welcome message", 0.9999 do |n|
-        n.times do
-          get '/'
-          assert_equal 'Welcome to my page!', last_response.body 
-        end 
-      end
+include Rack::Test::Methods
+
+def app
+  Sinatra::Application
+end
+
+describe "my example app" do
+  bench_range { bench_exp 1, 10_000 }
+  bench_performance_linear "welcome message", 0.9999 do |n|
+    n.times do
+      get '/'
+      assert_equal 'Welcome to my page!', last_response.body
     end
+  end
+end
+```
 
 **Rake**
 
@@ -96,10 +108,12 @@ When you're ready to start using MiniTest as an automated testing framework,
 you'll need to setup a Rake TestTask. Here's one we'll use to run our
 MiniTest::Specs:
 
-    require 'rake/testtask'
-    Rake::TestTask.new do |t|
-      t.pattern = "spec/*_spec.rb" 
-    end 
+```ruby
+require 'rake/testtask'
+Rake::TestTask.new do |t|
+  t.pattern = "spec/*_spec.rb"
+end
+```
 
 Now run your MiniSpecs with `rake test`.
 

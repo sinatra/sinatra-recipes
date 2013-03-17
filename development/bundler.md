@@ -22,36 +22,40 @@ In most cases you're going to require gems from the [official rubygems
 repository](http://rubygems.org/). Here's an example Gemfile for an application
 that uses Sinatra as a main dependency and RSpec for testing:
 
-    # define our source to loook for gems
-    source "http://rubygems.org/"
+```ruby
+# define our source to loook for gems
+source "http://rubygems.org/"
 
-    # declare the sinatra dependency
-    gem "sinatra" 
+# declare the sinatra dependency
+gem "sinatra" 
 
-    # setup our test group and require rspec
-    group :test do
-      gem "rspec"
-    end
+# setup our test group and require rspec
+group :test do
+  gem "rspec"
+end
 
-    # require a relative gem version
-    gem "i18n", "~> 0.4.1"
+# require a relative gem version
+gem "i18n", "~> 0.4.1"
+```
 
 **Git**
 
 Bundler also supports the installation of gems through git, so long as the
 repository contains a valid gemspec for the gem you're trying to install.
 
-    # lets use sinatra edge
-    gem "sinatra", :git => "http://github.com/sinatra/sinatra.git"
+```ruby
+# lets use sinatra edge
+gem "sinatra", :git => "http://github.com/sinatra/sinatra.git"
 
-    # and lets we use the rspec 2.0 release candidate from git
-    group :test do
-      gem "rspec", :git => "http://github.com/rspec/rspec.git", 
-        :tag => "v2.0.0.rc"  
-    end
+# and lets we use the rspec 2.0 release candidate from git
+group :test do
+  gem "rspec", :git => "http://github.com/rspec/rspec.git", 
+    :tag => "v2.0.0.rc"  
+end
 
-    # as well as i18n from git
-    gem "i18n", :git => "http://github.com/svenfuchs/i18n.git"
+# as well as i18n from git
+gem "i18n", :git => "http://github.com/svenfuchs/i18n.git"
+```
 
 ### Commands (CLI)
 
@@ -61,20 +65,30 @@ commands.
 
 **Installing**
 
-    # Install specified gems from your Gemfile and Gemfile.lock
-    bundle install 
-   
-    # Inspect your bundle to see if you've met your applications requirements
-    bundle check
+```bash
+# Install specified gems from your Gemfile and Gemfile.lock
+bundle install 
+```
 
-    # List all gems in your bundle
-    bundle list
+```bash
+# Inspect your bundle to see if you've met your applications requirements
+bundle check
+```
 
-    # Show source location of a specific gem in your bundle
-    bundle show [gemname]
-    
-    # Generate a skeleton Gemfile to start your path to using Bundler 
-    bundle init
+```bash
+# List all gems in your bundle
+bundle list
+```
+
+```bash
+# Show source location of a specific gem in your bundle
+bundle show [gemname]
+```
+
+```bash
+# Generate a skeleton Gemfile to start your path to using Bundler 
+bundle init
+```
 
 **Updating**
 
@@ -84,11 +98,15 @@ new versions. Alternatively you can specify an individual gem to update, and
 bundler will only update that gem to the latest version available in the
 specified repository.
 
-    # Update all gems specified to the latest versions available
-    bundle update
+```bash
+# Update all gems specified to the latest versions available
+bundle update
+```
 
-    # Update just i18n to the latest gem version available
-    bundle update i18n
+```bash
+# Update just i18n to the latest gem version available
+bundle update i18n
+```
 
 **Requiring**
 
@@ -99,24 +117,28 @@ of your gems loadpaths, and `require` will load all of your specified gems.
 Requiring `bundler/setup` is the same as calling `Bundler.setup` yourself, and
 is the recommended method in the gembundler documentation.
 
-    # If you're using Ruby 1.9 you'll need to specifially load rubygems
-    require 'rubygems'
+```ruby
+# If you're using Ruby 1.9 you'll need to specifially load rubygems
+require 'rubygems'
 
-    # and now load bundler with your dependencies load paths
-    require 'bundler/setup'
+# and now load bundler with your dependencies load paths
+require 'bundler/setup'
 
-    # next you'll have to do the gem requiring yourself
-    require 'sinatra'
-    require 'i18n'
+# next you'll have to do the gem requiring yourself
+require 'sinatra'
+require 'i18n'
+```
 
 Now if say you skip the last step, and just auto require gems from your groups
 
-    require 'rubygems'
-    require 'bundler/setup'
-    
-    # this will require all the gems not specified to a given group (default)
-    # and gems specified in your test group
-    Bundler.require(:default, :test)
+```ruby
+require 'rubygems'
+require 'bundler/setup'
+
+# this will require all the gems not specified to a given group (default)
+# and gems specified in your test group
+Bundler.require(:default, :test)
+```
 
 ###  Resources
 

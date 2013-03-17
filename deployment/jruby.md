@@ -20,44 +20,54 @@ There are several ways to install [JRuby][jruby], but that is beyond the scope
 of this article. For now, we will assume you are using the excellent [RVM][rvm]
 , from Wayne Seguin, and proceed from there.
 
-    rvm install jruby    # (if you haven't already)
-    rvm use jruby
-	gem install mongrel
+```bash
+rvm install jruby    # (if you haven't already)
+rvm use jruby
+gem install mongrel
+```
 
 Create a classic Sinatra application and save it to hello.rb:
 
-	require 'rubygems'
-	require 'sinatra'
-	
-	get '/' do
-		%Q{
-		<html>
-			<body>
-				Hello from the 
-				<strong>wonderful</strong> 
-				world of JRuby!
-			</body>
-		</html>
-		}
-	end
+```ruby
+require 'rubygems'
+require 'sinatra'
+
+get '/' do
+  %Q{
+    <html>
+      <body>
+        Hello from the 
+        <strong>wonderful</strong> 
+        world of JRuby!
+      </body>
+    </html>
+  }
+end
+```
 
 Now, you're ready to fire it up.
 
-    ruby /path/to/hello.rb
+```
+ruby /path/to/hello.rb
+```
 
 That's it. Open <http://localhost:4567> in your browser and your Sinatra
 application should greet you from the **wonderful** world of [JRuby][jruby].
 
 Of course, you can use a config.ru and rackup as well:
 
-	cat <<EOF>config.ru
-	require 'rubygems'
-	require 'sinatra'
-	require File.expand_path '../hello.rb', __FILE__
-	run Sinatra::Application
-	EOF
-	
-	rackup config.ru
+```ruby
+require 'rubygems'
+require 'sinatra'
+require File.expand_path '../hello.rb', __FILE__
+run Sinatra::Application
+```
+
+Then launch app with the following command:
+
+```bash
+rackup config.ru
+```
 
 Now go to <http://localhost:9292> and you'll see the same **wonderful** greeting.
 
@@ -68,8 +78,10 @@ application within an embedded Apache Tomcat container.
 
 Again, with our example above, you would do the following:
 
-	gem install trinidad
-	trinidad -r config.ru -p 4567 -g ERROR
+```bash
+gem install trinidad
+trinidad -r config.ru -p 4567 -g ERROR
+```
 
 The _-g_ option sets the logging level to error.
 
@@ -89,27 +101,39 @@ For installation help checkout
 During the installation of [TorqueBox][TorqueBox] you probably set a JBOSS_HOME
 variable, if not make sure you have set it like this:
 
-	export JBOSS_HOME=/path/to/TorqueBox/jboss
+```bash
+export JBOSS_HOME=/path/to/TorqueBox/jboss
+```
 
 In your Rakefile add this line:
 
-	require 'TorqueBox/tasks'
+```ruby
+require 'TorqueBox/tasks'
+```
 
 Now, you are ready to deploy your application:
 
-	rake TorqueBox:deploy
+```bash
+rake TorqueBox:deploy
+```
 
 To deploy a production version of your application:
 
-	RACK_ENV=production rake TorqueBox:deploy
+```bash
+RACK_ENV=production rake TorqueBox:deploy
+```
 
 To take your application down, you run:
 
-	rake TorqueBox:undeploy
+```bash
+rake TorqueBox:undeploy
+```
 
 [TorqueBox][TorqueBox] also allows you deploy to a non-root context:
 
-	rake TorqueBox:deploy['/hello']
+```bash
+rake TorqueBox:deploy['/hello']
+```
 
 ## Conclusion
 

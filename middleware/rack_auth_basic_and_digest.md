@@ -5,47 +5,53 @@ You can easily protect your Sinatra application using HTTP
 [Basic][httpbasic] and [Digest][httpdigest] Authentication with the
 help of Rack middlewares.
 
-## Protect the whole application 
+## Protect the whole application
 
 These examples show how to protect the whole application (all routes).
 
-### HTTP Basic Authentication  
+### HTTP Basic Authentication
 
 For classic applications:
-    #main.rb
 
-    require 'sinatra'
-    
-    use Rack::Auth::Basic, "Protected Area" do |username, password|
-      username == 'foo' && password == 'bar'
-    end
-    
-    get '/' do
-        "secret"
-    end
-    
-    get '/another' do
-        "another secret"
-    end
-    
+```ruby
+#main.rb
+
+require 'sinatra'
+
+use Rack::Auth::Basic, "Protected Area" do |username, password|
+  username == 'foo' && password == 'bar'
+end
+
+get '/' do
+  "secret"
+end
+
+get '/another' do
+  "another secret"
+end
+```
+
 For modular applications:
-    #main.rb
 
-    require 'sinatra/base'
+```ruby
+#main.rb
 
-    class Protected < Sinatra::Base
-      
-      use Rack::Auth::Basic, "Protected Area" do |username, password|
-        username == 'foo' && password == 'bar'
-      end
-      
-      get '/' do
-        "secret"
-      end
-      
-    end
-    
-    Protected.run!
+require 'sinatra/base'
+
+class Protected < Sinatra::Base
+
+  use Rack::Auth::Basic, "Protected Area" do |username, password|
+    username == 'foo' && password == 'bar'
+  end
+
+  get '/' do
+    "secret"
+  end
+
+end
+
+Protected.run!
+```
 
 To try these examples just run `ruby main.rb -p 4567` and visit 
 [http://localhost:4567][localhost]
@@ -57,58 +63,66 @@ To use digest authentication with current versions of Rack a
 
 For classic applications:
 
-    #main.rb
-    
-    require 'sinatra'
-    
-    get '/' do
-      "secret"
-    end
-    
+```ruby
+#main.rb
+
+require 'sinatra'
+
+get '/' do
+  "secret"
+end
+```
+
 - - -
 
-    #config.ru
-    
-    require File.expand_path '../main.rb', __FILE__
-    
-    app = Rack::Auth::Digest::MD5.new(Sinatra::Application) do |username|
-      {'foo' => 'bar'}[username]
-    end
-    
-    app.realm = 'Protected Area'
-    app.opaque = 'secretkey'
-    
-    run app
+```ruby
+#config.ru
+
+require File.expand_path '../main.rb', __FILE__
+
+app = Rack::Auth::Digest::MD5.new(Sinatra::Application) do |username|
+  {'foo' => 'bar'}[username]
+end
+
+app.realm = 'Protected Area'
+app.opaque = 'secretkey'
+
+run app
+```
 
 For modular applications:
 
-    #main.rb
-    
-    require 'sinatra/base'
-    
-    class Protected < Sinatra::Base
-      
-      get '/' do
-        "secret"
-      end
-      
-      def self.new(*)
-        app = Rack::Auth::Digest::MD5.new(super) do |username|
-          {'foo' => 'bar'}[username]
-        end
-        app.realm = 'Protected Area'
-        app.opaque = 'secretkey'
-        app
-      end
+```ruby
+#main.rb
+
+require 'sinatra/base'
+
+class Protected < Sinatra::Base
+
+  get '/' do
+    "secret"
+  end
+
+  def self.new(*)
+    app = Rack::Auth::Digest::MD5.new(super) do |username|
+      {'foo' => 'bar'}[username]
     end
-    
+    app.realm = 'Protected Area'
+    app.opaque = 'secretkey'
+    app
+  end
+end
+```
+
 - - -
-    
-    #config.ru
-    
-    require File.expand_path '../main.rb', __FILE__
-    
-    run Protected
+
+```ruby
+#config.ru
+
+require File.expand_path '../main.rb', __FILE__
+
+run Protected
+```
 
 
 To try these examples just run `rackup -p 4567` and visit
@@ -125,45 +139,49 @@ and a `config.ru` file.
 
 First the `main.rb`
 
-    #main.rb
-    
-    require 'sinatra/base'
+```ruby
+#main.rb
 
-    class Protected < Sinatra::Base
-      
-      use Rack::Auth::Basic, "Protected Area" do |username, password|
-        username == 'foo' && password == 'bar'
-      end
-      
-      get '/' do
-        "secret"
-      end
-    
-      get '/another' do
-        "another secret"
-      end
- 
-    end
-    
-    class Public < Sinatra::Base
-      
-      get '/' do
-        "public"
-      end
-    
-    end
+require 'sinatra/base'
+
+class Protected < Sinatra::Base
+
+  use Rack::Auth::Basic, "Protected Area" do |username, password|
+    username == 'foo' && password == 'bar'
+  end
+
+  get '/' do
+    "secret"
+  end
+
+  get '/another' do
+    "another secret"
+  end
+
+end
+
+class Public < Sinatra::Base
+
+  get '/' do
+    "public"
+  end
+
+end
+```
 
 And the `config.ru`
 
-    #config.ru
-    
-    require File.expand_path '../main.rb', __FILE__
-    
-    run Rack::URLMap.new({
-      "/" => Public,
-      "/protected" => Protected
-    })
-    
+```ruby
+#config.ru
+
+require File.expand_path '../main.rb', __FILE__
+
+run Rack::URLMap.new({
+  "/" => Public,
+  "/protected" => Protected
+})
+```
+
 To try these examples just run `rackup -p 4567` and visit
 [http://localhost:4567][localhost]
 
@@ -173,50 +191,53 @@ The resulting routes are explained at the bottom of this page.
 
 First the `main.rb`
 
-    #main.rb
-    
-    require 'sinatra/base'
-    
-    class Protected < Sinatra::Base
-    
-      get '/' do
-        "secret"
-      end
-      
-      get '/another' do
-        "another secret"
-      end
-      
-      def self.new(*)
-        app = Rack::Auth::Digest::MD5.new(super) do |username|
-          {'foo' => 'bar'}[username]
-        end
-        app.realm = 'Protected Area'
-        app.opaque = 'secretkey'
-        app
-      end
+```ruby
+#main.rb
+
+require 'sinatra/base'
+
+class Protected < Sinatra::Base
+
+  get '/' do
+    "secret"
+  end
+
+  get '/another' do
+    "another secret"
+  end
+
+  def self.new(*)
+    app = Rack::Auth::Digest::MD5.new(super) do |username|
+      {'foo' => 'bar'}[username]
     end
-    
-    class Public < Sinatra::Base
-    
-      get '/' do
-        "public"
-      end
-      
-    end
-    
+    app.realm = 'Protected Area'
+    app.opaque = 'secretkey'
+    app
+  end
+end
+
+class Public < Sinatra::Base
+
+  get '/' do
+    "public"
+  end
+
+end
+```
+
 And the `config.ru`
 
-    #config.ru
-    
-    require File.expand_path '../main.rb', __FILE__
-    
-    run Rack::URLMap.new({
-      "/" => Public,
-      "/protected" => Protected
-    })
-    
-    
+```ruby
+#config.ru
+
+require File.expand_path '../main.rb', __FILE__
+
+run Rack::URLMap.new({
+  "/" => Public,
+  "/protected" => Protected
+})
+```
+
 To try these examples just run `rackup -p 4567` and visit
 [http://localhost:4567][localhost]
 
@@ -224,7 +245,7 @@ To try these examples just run `rackup -p 4567` and visit
 ### The resulting routes
 
 The routes display the following:
- 
+
 * `/` displays "public"
 * `/protected` displays "secret"
 * `/protected/another` displays "another secret"

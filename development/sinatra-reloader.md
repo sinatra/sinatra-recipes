@@ -10,36 +10,44 @@ projects.
 
 Install it by running
 
-    gem install sinatra-reloader
+```bash
+gem install sinatra-reloader
+```
 
 If you use the top level DSL, you just have to require it in development mode:
 
-    require "sinatra"
-    require "sinatra/reloader" if development?
-    
-    get('/') { 'change me!' }
+```ruby
+require "sinatra"
+require "sinatra/reloader" if development?
+
+get('/') { 'change me!' }
+```
 
 When using a modular style application, you have to register the
 `Sinatra::Reloader` extension:
 
-    require "sinatra/base"
-    require "sinatra/reloader"
-    
-    class MyApp < Sinatra::Base
-      configure :development do
-        register Sinatra::Reloader
-      end
-    end
+```ruby
+require "sinatra/base"
+require "sinatra/reloader"
+
+class MyApp < Sinatra::Base
+  configure :development do
+    register Sinatra::Reloader
+  end
+end
+```
 
 For safety and performance reason, Sinatra::Reloader will per default only
 reload files defining routes. You can, however, add files to the list of
 reloadable files by using `also_reload`:
 
-    require "sinatra"
+```ruby
+require "sinatra"
 
-    configure :development do |config|
-      require "sinatra/reloader"
-      config.also_reload "models/*.rb"
-    end
+configure :development do |config|
+  require "sinatra/reloader"
+  config.also_reload "models/*.rb"
+end
+```
 
 
