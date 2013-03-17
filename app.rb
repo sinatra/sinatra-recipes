@@ -1,9 +1,9 @@
 require 'sinatra'
-require 'rdiscount'
 require 'sass'
 require 'json'
 require 'open-uri'
 require 'slim'
+require 'glorify'
 
 set :public_folder, File.dirname(__FILE__) + '/public'
 configure :production do
@@ -19,6 +19,7 @@ configure :production do
   end
 end
 
+Tilt.prefer Sinatra::Glorify::Template
 set :markdown, :layout_engine => :slim
 set :views, File.dirname(__FILE__)
 set :ignored_dirs, %w[tmp log config public bin]
@@ -68,6 +69,7 @@ html
     title Sinatra Recipes
     link rel="stylesheet" type="text/css" href="/stylesheets/styles.css"
     link rel="stylesheet" type="text/css" href="/stylesheets/chosen.css"
+    link rel="stylesheet" type="text/css" href="/pygments.css"
     link rel="shortcut icon" href="https://github.com/sinatra/resources/raw/master/logo/favicon.ico"
     script src="/javascripts/scale.fix.js"
     script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"
