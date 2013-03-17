@@ -118,7 +118,7 @@ html
                | This is a community driven project after all. Feel free to fork the project 
                | and send us a pull request to get your recipe or tutorial included in the book. 
               p 
-               | See the <a href="http://github.com/sinatra/recipes/blob/master/README.md">README</a> 
+               | See the <a href="http://github.com/sinatra/sinatra-recipes#readme">README</a> 
                | for more details.
 
           - if @contributors
