@@ -2,7 +2,8 @@
 
 [OmniAuth](https://github.com/intridea/omniauth) provides several strategies
 (released as gems) that provides authentication for a lot of systems, such as
-Facebook, Google, GitHub, and many more.
+Facebook, Google, GitHub, and
+[many more](https://github.com/intridea/omniauth/wiki/List-of-Strategies).
 
 Each strategy is a Rack middleware, so it's very easy to integrate with
 Sinatra. This recipe will show you how to add user authentication to your
@@ -84,11 +85,3 @@ end
 
 Needless to say that this approach is useful for other omniauth strategies.
 
-## Links
-
-* [omniauth](https://github.com/intridea/omniauth)
-* [omniauth-facebook](https://github.com/mkdynamic/omniauth-facebook)
-* [omniauth-twitter](https://github.com/arunagw/omniauth-twitter)
-* [omniauth-google-oauth2](https://github.com/zquestz/omniauth-google-oauth2)
-* [omniauth-github](https://github.com/intridea/omniauth-github)
-* [omniauth-ldap](https://github.com/intridea/omniauth-ldap)
