@@ -142,7 +142,7 @@ html
 body
   font-family: 'Lucida Grande', Verdana, sans-serif
   margin: 0 auto
-  max-width: 800px
+  max-width: 976px
   font-size: 0.85em
   line-height: 1.25em
   color: #444444
