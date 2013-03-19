@@ -92,14 +92,15 @@ html
         a href="/"
           img id="logo" src="https://github.com/sinatra/resources/raw/master/logo/sinatra-classic-156.png"
           h1 Sinatra Recipes
-        h2 Community contributed recipes and techniques
-        nav
+          .caption Community contributed recipes and techniques
+      .clear
+      #sidebar
+         nav
           select#selectNav.chosen data-placeholder="Select a topic"
             option
             - @menu.each do |me|
               option value="/p/#{me}?#article" 
                 #{me.capitalize.sub('_', ' ')}
-
       #content
         #post
           == yield
@@ -110,42 +111,59 @@ html
                   a href="/p/#{params[:topic]}/#{child}?#article"
                     == child.capitalize.sub('_', ' ')
 
-          - if @readme
-            #footer
-              h2 Did we miss something?
-              p
-               | It's very possible we've left something out, that's why we need your help!
-               | This is a community driven project after all. Feel free to fork the project 
-               | and send us a pull request to get your recipe or tutorial included in the book. 
-              p 
-               | See the <a href="http://github.com/sinatra/sinatra-recipes#readme">README</a> 
-               | for more details.
+        #contributors
+        - if @contributors
+          h2 Contributors
+          p
+            | These recipes are provided by the following outsanding members of the Sinatra 
+            | community:
+          dl id="contributors"
+            - @contributors.each do |contributor|
+              dt 
+                a href="http://github.com/#{contributor["login"]}"
+                  img src="http://www.gravatar.com/avatar/#{contributor["gravatar_id"]}?s=50"
 
-          - if @contributors
-            h2 Contributors
-            p 
-              | These recipes are provided by the following outsanding members of the Sinatra 
-              | community:
-            dl id="contributors"
-              - @contributors.each do |contributor|
-                dt 
-                  a href="http://github.com/#{contributor["login"]}"
-                    img src="http://www.gravatar.com/avatar/#{contributor["gravatar_id"]}?s=50"
-          .small
-            a href="#top" Top
+      #footer
+        - if @readme
+          h3 Did we miss something?
+          p
+           | It's very possible we've left something out, that's why we need your help!
+           | This is a community driven project after all. Feel free to fork the project 
+           | and send us a pull request to get your recipe or tutorial included in the book. 
+          p 
+           | See the <a href="http://github.com/sinatra/sinatra-recipes#readme">README</a> 
+           | for more details.
+
+      small
+        a href="#top" Top
+
 
 @@ style
 body
   font-family: 'Lucida Grande', Verdana, sans-serif
   margin: 0 auto
-  padding: 0 10px
   max-width: 800px
+  font-size: 0.85em
+  line-height: 1.25em
+  color: #444444
 
 h1, h2, h3, h4, h5
-  font-family: georgia, 'bitstream vera serif', serif
-  font-weight: normal
+  font-family: Georgia, 'bitstream vera serif', serif
+  margin: 40px 0 20px 0
+  color: #222222
+  line-height: 1.5em
+
+h1
   font-size: 2em
-  line-height: 160%
+
+h2
+  font-size: 1.5em
+
+h3
+  font-size: 1.35em
+
+h4
+  font-size: 1.2em
 
 a:link, a:visited
   color: #3F3F3F
@@ -153,57 +171,68 @@ a:link, a:visited
 a:hover, a:active
   color: #8F8F8F
 
-.small
+small
   font-size: .7em
 
 #header
-  margin: 10px 0px
+  margin: 10px 0px 50px 0px
+  overflow: hidden
   a
     text-decoration: none
+    float:left
+    overflow: hidden
   h1
+    margin: 20px 0 10px 0
+  .caption
     float: left
-    width: 200px
-    font-size: 2.65em
-    line-height: .75em
-  h2
-    text-align: right
+    font-family: Georgia
     font-style: oblique
-    font-size: 1em
-    float: right
-    width: 450px
+
   img
     float: left
     width: 100px
     margin: 20px 15px 0px 0px
     border: 0
-  nav
-    width: 450px
-    float: right
-    #selectNav
-      width: 100%
+    
+nav
+  #selectNav
+    width: 100%
 
 #contributors dt
   display: inline-block
 
 #children
-  clear: both
   ul li
     float: left
     width: 275px
     height: 40px
 
 #content
-  clear: both
-  pre
-    padding: 10px
-    overflow: auto
-    overflow-Y: hidden
-    background: #F6F6F6
-    line-height: 100%
+  float:left
+  width: 70%
 
-#post
-  line-height: 110%
+#sidebar
+  width: 30%
+  float: right
+  margin-top: 30px
+
+code, pre, tt
+  font-family: 'Monaco', 'Menlo', consolas, inconsolata, monospace
+  font-size: 0.85em
+  border: 1px solid #cccccc
+  border-radius: 3px
+  background: #fafafa
+  padding: 1px 2px
+
+.clear
+  clear: both
+pre
+  line-height: 1.6em
+  padding: 5px 20px
+  overflow: auto
+  overflow-Y: hidden
 
 #footer
   clear: both
-  margin-top: 20px
+  margin-top: 50px
+  width: 70%
