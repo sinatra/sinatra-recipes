@@ -4,6 +4,7 @@ require 'json'
 require 'open-uri'
 require 'slim'
 require 'glorify'
+require 'rdoc'
 
 set :public_folder, File.dirname(__FILE__) + '/public'
 configure :production do
@@ -54,6 +55,10 @@ end
 
 get '/p/:topic/:article' do
   pass if params[:topic] == '..'
+
+  md = File.read("#{params[:topic]}/#{params[:article]}.md")
+  formatter = RDoc::Markup::ToTableOfContents.new
+  @toc = RDoc::Markdown.parse(md).accept(formatter)
   markdown :"#{params[:topic]}/#{params[:article]}"
 end
 
@@ -95,12 +100,19 @@ html
           .caption Community contributed recipes and techniques
       .clear
       #sidebar
-         nav
+        nav
           select#selectNav.chosen data-placeholder="Select a topic"
             option
             - @menu.each do |me|
               option value="/p/#{me}?#article"
                 #{me.capitalize.sub('_', ' ')}
+        - if @toc
+          h2 Chapters
+          ol
+            - @toc.each do |toc|
+              li
+                a href="##{toc.aref}"
+                  == toc.plain_html
       #content
         #post
           == yield
