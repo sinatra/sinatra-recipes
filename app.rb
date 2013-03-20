@@ -35,7 +35,7 @@ get '/' do
   begin
     open("https://api.github.com/repos/sinatra/sinatra-recipes/contributors") do |api|
       @contributors = JSON.parse(api.read)
-    end 
+    end
   rescue SocketError => e
   end
   markdown :README
@@ -86,7 +86,7 @@ html
       });
 
   body
-    a name="top"
+    a name="documentation"
     .wrapper
       #header
         a href="/"
@@ -99,7 +99,7 @@ html
           select#selectNav.chosen data-placeholder="Select a topic"
             option
             - @menu.each do |me|
-              option value="/p/#{me}?#article" 
+              option value="/p/#{me}?#article"
                 #{me.capitalize.sub('_', ' ')}
       #content
         #post
@@ -119,7 +119,7 @@ html
             | community:
           dl id="contributors"
             - @contributors.each do |contributor|
-              dt 
+              dt
                 a href="http://github.com/#{contributor["login"]}"
                   img src="http://www.gravatar.com/avatar/#{contributor["gravatar_id"]}?s=50"
 
