@@ -193,7 +193,7 @@ small
     width: 100px
     margin: 20px 15px 0px 0px
     border: 0
-    
+
 nav
   #selectNav
     width: 100%
@@ -210,6 +210,16 @@ nav
 #content
   float:left
   width: 70%
+  h1, h2, h3, h4, h5
+    span
+      font-size: .8em
+      margin-left: 10px
+      a
+        text-decoration: none
+      a:link, a:visited
+        color: #CCC
+      a:hover, a:active
+        color: #8F8F8F
 
 #sidebar
   width: 30%
