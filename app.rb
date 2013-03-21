@@ -58,7 +58,7 @@ get '/p/:topic/:article' do
 
   md = File.read("#{params[:topic]}/#{params[:article]}.md")
   formatter = RDoc::Markup::ToTableOfContents.new
-  @toc = RDoc::Markdown.parse(md).accept(formatter)[1..-1]
+  @toc = RDoc::Markdown.parse(md).accept(formatter)
   markdown :"#{params[:topic]}/#{params[:article]}"
 end
 
