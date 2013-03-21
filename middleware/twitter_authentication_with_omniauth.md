@@ -1,4 +1,4 @@
-## Twitter authentication with OmniAuth
+# Twitter authentication with OmniAuth
 
 [OmniAuth](https://github.com/intridea/omniauth) provides several strategies
 (released as gems) that provides authentication for a lot of systems, such as

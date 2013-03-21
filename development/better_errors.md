@@ -1,4 +1,4 @@
-## better_errors
+# BetterErrors
 
 [better_errors](https://github.com/charliesome/better_errors) is a Rack
 middleware that replaces the standard error page with a more useful one. It

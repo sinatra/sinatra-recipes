@@ -1,9 +1,5 @@
 Mongo
 -----
-- [Finding](#find)
-- [Inserting](#insert)
-- [Updating](#update)
-- [Deleting](#delete)
 
 [Mongo][mongo] is a document-oriented database. Though Object Relational
 Mappers (ORMs) are often used to connect to databases, you will see here
@@ -50,9 +46,7 @@ helpers do
   end
 end
 ```
-<span style='font-size: smaller'>([top](#top))</span>
 
-<a name='find' />
 ###Finding Records###
 
 ```ruby
@@ -68,9 +62,7 @@ get '/document/:id/?' do
   document_by_id(params[:id]).to_json
 end
 ```
-<span style='font-size: smaller'>([top](#top))</span>
 
-<a name='insert' />
 ###Inserting Records###
 
 ```ruby
@@ -82,9 +74,7 @@ post '/new_document/?' do
   document_by_id(new_id).to_json
 end
 ```
-<span style='font-size: smaller'>([top](#top))</span>
 
-<a name='update' />
 ###Updating Records###
 
 ```ruby
@@ -109,9 +99,7 @@ put '/update_name/:id/?' do
   document_by_id(id).to_json
 end
 ```
-<span style='font-size: smaller'>([top](#top))</span>
 
-<a name='delete' />
 ###Deleting Records###
 
 ```ruby
@@ -123,7 +111,6 @@ delete '/remove/:id' do
   {:success => true}.to_json
 end
 ```
-<span style='font-size: smaller'>([top](#top))</span>
 
 For more information on using the Ruby driver without an ORM take a look at [MongoDB's tutorial][rubydrivertutorial].
 

@@ -1,5 +1,4 @@
-Rack::Auth Basic and Digest
-===========================
+# Rack::Auth Basic and Digest
 
 You can easily protect your Sinatra application using HTTP
 [Basic][httpbasic] and [Digest][httpdigest] Authentication with the
@@ -114,7 +113,6 @@ class Protected < Sinatra::Base
 end
 ```
 
-- - -
 
 ```ruby
 #config.ru

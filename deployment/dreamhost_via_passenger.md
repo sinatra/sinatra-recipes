@@ -1,5 +1,4 @@
-Dreamhost Deployment via Passenger
-----------------------------------
+# Dreamhost Deployment via Passenger
 
 You can deploy your Sinatra apps to Dreamhost, a shared web hosting service,
 via Passenger with relative ease. Here's how.

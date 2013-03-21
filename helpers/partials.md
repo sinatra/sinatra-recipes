@@ -1,5 +1,4 @@
-Implementation of Rails style partials
---------------------------------------
+# Implementation of Rails style partials
 
 Using partials in your views is a great way to keep them clean.  Since Sinatra takes the hands off approach to framework
 design, you'll have to implement a partial handler yourself.

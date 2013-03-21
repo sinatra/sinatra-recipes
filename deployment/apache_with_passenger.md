@@ -1,5 +1,4 @@
-Apache and Passenger (mod rails)
---------------------------------
+# Apache and Passenger (mod rails)
 
 Hate deployment via FastCGI? You're not alone. But guess what, Passenger
 supports Rack; and this book tells you how to get it all going.

@@ -1,5 +1,4 @@
-FastCGI
--------
+# FastCGI
 
 The standard method for deployment is to use Thin or Mongrel, and have a 
 reverse proxy (lighttpd, nginx, or even Apache) point to your bundle of servers.

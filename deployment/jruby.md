@@ -1,5 +1,4 @@
-JRuby
-=====
+# JRuby
 
 The [JRuby][jruby] platform is an excellent deployment choice for just about any
 Sinatra application. With its seamless integration to the Java ecosystem your

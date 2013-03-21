@@ -1,5 +1,4 @@
-Sinatra::Reloader
------------------
+# Sinatra::Reloader
 
 The `sinatra-reloader` gem offers a faster alternative, that also works on
 Windows and JRuby. It only reloads files that actually have been changed and

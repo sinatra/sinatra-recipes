@@ -1,5 +1,4 @@
-Shotgun
--------
+# Shotgun
 
 Shotgun will actually restart your application on every request. This has the
 advantage over other reloading techniques of always producing correct results.

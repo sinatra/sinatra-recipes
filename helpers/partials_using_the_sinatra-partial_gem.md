@@ -1,4 +1,4 @@
-## Partials using the sinatra-partial gem
+# Partials using the sinatra-partial gem
 
 An alternative to define helpers for using partials is to use the
 sinatra-partial gem.

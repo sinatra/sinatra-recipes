@@ -1,5 +1,4 @@
-Deployment
-----------
+# Deployment
 
 This section covers techniques and software used for deploying your Sinatra
 applications. Whether you're [deploying to Heroku][deploy-heroku] or a more

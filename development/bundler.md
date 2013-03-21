@@ -1,5 +1,4 @@
-Bundler
--------
+# Bundler
 
 Whether you need a specific gem and version, or a set of gems for a certain
 environment; Bundler is a fantastic tool for managing your applications

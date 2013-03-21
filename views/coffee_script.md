@@ -1,5 +1,6 @@
 CoffeeScript
 ------------
+
 To render CoffeeScript templates you first need the `coffee-script` gem and
 `therubyracer`, or access to the `coffee` binary.
 

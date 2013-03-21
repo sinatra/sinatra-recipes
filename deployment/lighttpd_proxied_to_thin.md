@@ -1,5 +1,4 @@
-Lighttpd Proxied to Thin
-------------------------
+# Lighttpd Proxied to Thin
 
 This will cover how to deploy Sinatra to a load balanced reverse
 proxy setup using Lighttpd and Thin.
@@ -14,7 +13,9 @@ proxy setup using Lighttpd and Thin.
 gem install thin
 ```
 
-### Create your rackup file -- the `require 'app'` line should require the actual Sinatra app you have written.
+### Create your rackup file 
+
+The `require 'app'` line should require the actual Sinatra app you have written.
 
 ```ruby
 ## This is not needed for Thin > 1.0.0
@@ -25,7 +26,9 @@ require File.expand_path '../app.rb', __FILE__
 run Sinatra::Application
 ```
 
-### Setup a config.yml - change the /path/to/my/app path to reflect reality.
+### Setup a config.yml 
+
+Change the /path/to/my/app path to reflect reality.
 
 ```yaml
 ---
@@ -44,7 +47,10 @@ run Sinatra::Application
  daemonize: true
 ```
 
-### Setup lighttpd.conf - change mydomain to reflect reality. Also make sure the first port here matches up with the port setting in config.yml.
+### Setup lighttpd.conf 
+
+Change mydomain to reflect reality. Also make sure the first port 
+here matches up with the port setting in config.yml.
 
 ```
 $HTTP["host"] =~ "(www\.)?mydomain\.com"  {
@@ -58,7 +64,9 @@ $HTTP["host"] =~ "(www\.)?mydomain\.com"  {
 }
 ```
 
-### Start thin and your application. I have a rake script so I can just call "rake start" rather than typing this in.
+### Start thin and your application. 
+
+I have a rake script so I can just call "rake start" rather than typing this in.
 
 ```bash
 thin -s 2 -C config.yml -R config.ru start

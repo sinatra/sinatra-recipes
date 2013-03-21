@@ -1,5 +1,4 @@
-Nginx Proxied to Unicorn 
-------------------------
+# Nginx Proxied to Unicorn 
 
 Nginx and Unicorn combine to provide a very powerful setup for deploying your
 Sinatra applications. This guide will show you how to effectively setup this
