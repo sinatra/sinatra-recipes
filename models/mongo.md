@@ -1,24 +1,16 @@
-# Mongo
+# MongoDB
 
-- [MongoMapper](#mongomapper)
-- [Mongoid](#mongoid)
-- [Candy](#candy)
-- [Mongomatic](#mongomatic)
-- [MongoODM](#mongo_odm)
 
 There are many ORMs out there for Mongo (or _ODMs_ in this case).
 This page will go over just a few.
 
-Require the Mongo gem in your app:
 
-```ruby
-require 'rubygems'
-require 'sinatra'
-require 'mongo'
-```
+###Mongo
 
-<a name='mongomapper' />
-###[MongoMapper][mongomapper]###
+[Looking for the official driver?](http://recipes.sinatrarb.com/p/databases/mongo?#article)
+
+
+###MongoMapper
 
 ```ruby
 require 'mongomapper'
@@ -42,10 +34,10 @@ get '/' do
   haml :links
 end
 ```
-<span style='font-size: smaller'>([top](#top))</span>
 
-<a name='mongoid' />
-###[Mongoid][mongoid]###
+
+###Mongoid
+
 
 ```ruby
 require 'mongoid'
@@ -69,10 +61,8 @@ get '/' do
   haml :links
 end
 ```
-<span style='font-size: smaller'>([top](#top))</span>
 
-<a name='candy' />
-###[Candy][candy]###
+###Candy
 
 ```ruby
 require 'candy'
@@ -103,10 +93,9 @@ get '/' do
   haml :links
 end
 ```
-<span style='font-size: smaller'>([top](#top))</span>
 
-<a name='mongomatic' />
-###[Mongomatic][mongomatic]###
+
+###Mongomatic
 
 ```ruby
 require 'mongomatic'
@@ -137,10 +126,9 @@ def validate
   self.errors.add "address.zip", "blank" if (self["address"] || {})["zip"].blank?
 end
 ```
-<span style='font-size: smaller'>([top](#top))</span>
 
-<a name='mongo_odm' />
-###[MongoODM][mongoodm]###
+
+###MongoODM
 
 ```ruby
 require 'mongo_odm'
@@ -164,7 +152,15 @@ get '/' do
   haml :links
 end
 ```
-<span style='font-size: smaller'>([top](#top))</span>
+
+
+#### GitHub links
+
+* [MongoMapper][mongomapper]
+* [Mongoid][mongoid]
+* [Candy][candy]
+* [Mongomatic][mongomatic]
+* [MongoODM][mongoodm]
 
 [mongomapper]: http://mongomapper.com/
 [mongoid]: http://mongoid.org/

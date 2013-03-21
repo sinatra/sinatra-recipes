@@ -58,7 +58,7 @@ get '/p/:topic/:article' do
 
   md = File.read("#{params[:topic]}/#{params[:article]}.md")
   formatter = RDoc::Markup::ToTableOfContents.new
-  @toc = RDoc::Markdown.parse(md).accept(formatter)
+  @toc = RDoc::Markdown.parse(md).accept(formatter)[1..-1]
   markdown :"#{params[:topic]}/#{params[:article]}"
 end
 
@@ -106,7 +106,7 @@ html
             - @menu.each do |me|
               option value="/p/#{me}?#article"
                 #{me.capitalize.sub('_', ' ')}
-        - if @toc
+        - if @toc && (@toc.count > 1)
           h2 Chapters
           ol
             - @toc.each do |toc|
@@ -219,6 +219,10 @@ nav
     width: 275px
     height: 40px
 
+li
+  p
+    margin: 0
+
 #content
   float:left
   width: 70%
@@ -234,9 +238,10 @@ nav
         color: #8F8F8F
 
 #sidebar
-  width: 30%
+  width: 25%
   float: right
   margin-top: 30px
+  padding: 0 20px
 
 code, pre, tt
   font-family: 'Monaco', 'Menlo', consolas, inconsolata, monospace
