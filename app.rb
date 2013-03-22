@@ -106,7 +106,7 @@ html
             - @menu.each do |me|
               option value="/p/#{me}?#article"
                 #{me.capitalize.sub('_', ' ')}
-        - if @toc && (@toc.count > 1)
+        - if @toc and @toc.any?
           h2 Chapters
           ol
             - @toc.each do |toc|
