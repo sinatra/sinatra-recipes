@@ -1,3 +1,4 @@
+require 'time'
 require 'sinatra'
 require 'sass'
 require 'json'
@@ -23,13 +24,34 @@ end
 Tilt.prefer Sinatra::Glorify::Template
 set :markdown, :layout_engine => :slim
 set :views, File.dirname(__FILE__)
-set :ignored_dirs, %w[tmp log config public bin]
+set :ignored_dirs, %w[tmp log config public bin, activity]
 
 before do
   @menu = Dir.glob("./*/").map do |file|
     next if settings.ignored_dirs.any? {|ignore| /#{ignore}/i =~ file}
     file.split('/')[1]
   end.compact.sort
+  @menu.push "activity"
+end
+
+helpers do
+  def get_activity
+    open("https://api.github.com/repos/sinatra/sinatra-recipes/commits?per_page=100") do |commits|
+      @commits = JSON.parse(commits.read)
+      @activity = @commits.map {|x| { 
+        "author_name" => x["commit"]["author"]["name"],
+        "committer_name" => x["commit"]["committer"]["name"],
+        "merge_date" => Time.parse(x["commit"]["author"]["date"]).strftime("%d-%b-%Y"),
+        "commit_message" => x["commit"]["message"],
+        "author_url" => x["author"]["html_url"],
+        "commit_url" => "https://github.com/sinatra/sinatra-recipes/commit/#{x['sha']}"
+      } }
+      puts @activity.count
+      @activity.group_by {|x| x["merge_date"] }
+    end
+  end
+
+
 end
 
 get '/' do
@@ -45,6 +67,7 @@ end
 get '/p/:topic' do
   pass if params[:topic] == '..'
   @readme = true
+  @activity = get_activity if params[:topic] == 'activity'
   @children = Dir.glob("./#{params[:topic]}/*.md").map do |file|
     next if file =~ /README/
     next if file.empty? or file.nil?
@@ -55,12 +78,12 @@ end
 
 get '/p/:topic/:article' do
   pass if params[:topic] == '..'
-
   md = File.read("#{params[:topic]}/#{params[:article]}.md")
   formatter = RDoc::Markup::ToTableOfContents.new
   @toc = RDoc::Markdown.parse(md).accept(formatter)
   markdown md
 end
+
 
 get '/style.css' do
   sass :style
@@ -104,8 +127,7 @@ html
           select#selectNav.chosen data-placeholder="Select a topic"
             option
             - @menu.each do |me|
-              option value="/p/#{me}?#article"
-                #{me.capitalize.sub('_', ' ')}
+              option value="/p/#{me}?#article" #{me.capitalize.sub('_', ' ')}
         - if @toc and @toc.any?
           h2 Chapters
           ol
@@ -122,6 +144,20 @@ html
                 li
                   a href="/p/#{params[:topic]}/#{child}?#article"
                     == child.capitalize.sub('_', ' ')
+          - if @activity
+              - @activity.each do |date, activities|
+                h3 #{date}
+                hr
+                ul.nodec
+                  - activities.each do |activity|
+                    li
+                      | <a href="#{activity['author_url']}">#{activity['author_name']}</a> 
+                      | merged the changes:
+                      pre
+                        = "#{activity['commit_message']}"
+                      small 
+                        a href="#{activity['commit_url']}"
+                          | View this commit on github
 
         #contributors
         - if @contributors
@@ -134,7 +170,6 @@ html
               dt
                 a href="http://github.com/#{contributor["login"]}"
                   img src="http://www.gravatar.com/avatar/#{contributor["gravatar_id"]}?s=50"
-
       #footer
         - if @readme
           h3 Did we miss something?
@@ -158,6 +193,11 @@ body
   font-size: 0.85em
   line-height: 1.25em
   color: #444444
+
+.nodec li
+  display: block
+  margin-top: 25px
+
 
 h1, h2, h3, h4, h5
   font-family: Georgia, 'bitstream vera serif', serif
@@ -209,6 +249,7 @@ small
 nav
   #selectNav
     width: 100%
+
 
 #contributors dt
   display: inline-block
