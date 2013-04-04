@@ -5,12 +5,14 @@ Windows and JRuby. It only reloads files that actually have been changed and
 automatically detects orphaned routes that have to be removed. Most other
 implementations delete all routes and reload all code if one file changed,
 which takes way more time than reloading only one file, especially in larger
-projects.
+projects. This has been included into the 
+[Sinatra::Contrib](https://github.com/sinatra/sinatra-contrib) project.
 
 Install it by running
 
+
 ```bash
-gem install sinatra-reloader
+gem install sinatra-contrib
 ```
 
 If you use the top level DSL, you just have to require it in development mode:
