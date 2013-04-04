@@ -8,19 +8,31 @@ without the use of an ORM, though several exist. See the
 [Mongo models][mongo_models] page for a discussion of some of the ORMs
 available.
 
+Install the required gems:
+
+```
+gem install mongo
+gem install bson_ext
+```
+
 The first step is in connecting your application to an instance of Mongo is
 to create a connection. You can do this in your _configure_ block:
+
+Note that there has been a change in the Ruby API post v 1.8.x. The 
+following examples use the newer API
 
 ```ruby
 require 'rubygems'
 require 'sinatra'
 require 'mongo'
-require 'json' # required for .to_json
+require 'json/ext' # required for .to_json
+
+include Mongo
 
 configure do
-  conn = Mongo::Connection.new("localhost", 27017)
+  conn = MongoClient.new("localhost", 27017)
   set :mongo_connection, conn
-  set :mongo_db,         conn.db('test')
+  set :mongo_db, conn.db('test')
 end
 ```
 
@@ -112,8 +124,9 @@ delete '/remove/:id' do
 end
 ```
 
-For more information on using the Ruby driver without an ORM take a look at [MongoDB's tutorial][rubydrivertutorial].
+For more information on using the Ruby driver without an ORM take a look 
+at [MongoDB's tutorial][rubydrivertutorial].
 
 [mongo]: http://www.mongodb.org/
-[rubydrivertutorial]: http://api.mongodb.org/ruby/current/file.TUTORIAL.html
-[mongo_models]: /p/models/mongo
+[rubydrivertutorial]: https://github.com/mongodb/mongo-ruby-driver/wiki/Tutorial
+[mongo_models]: http://recipes.sinatrarb.com/p/models/mongo
