@@ -24,34 +24,54 @@ end
 Tilt.prefer Sinatra::Glorify::Template
 set :markdown, :layout_engine => :slim
 set :views, File.dirname(__FILE__)
-set :ignored_dirs, %w[tmp log config public bin, activity]
+set :ignored_dirs, %w[tmp log config public bin activity]
 
 before do
   @menu = Dir.glob("./*/").map do |file|
     next if settings.ignored_dirs.any? {|ignore| /#{ignore}/i =~ file}
     file.split('/')[1]
   end.compact.sort
-  @menu.push "activity"
 end
 
 helpers do
-  def get_activity
-    open("https://api.github.com/repos/sinatra/sinatra-recipes/commits?per_page=100") do |commits|
-      @commits = JSON.parse(commits.read)
-      @activity = @commits.map {|x| { 
-        "author_name" => x["commit"]["author"]["name"],
-        "committer_name" => x["commit"]["committer"]["name"],
-        "merge_date" => Time.parse(x["commit"]["author"]["date"]).strftime("%d-%b-%Y"),
-        "commit_message" => x["commit"]["message"],
-        "author_url" => x["author"]["html_url"],
-        "commit_url" => "https://github.com/sinatra/sinatra-recipes/commit/#{x['sha']}"
-      } }
-      puts @activity.count
-      @activity.group_by {|x| x["merge_date"] }
-    end
+
+  def commits_url
+    "https://api.github.com/repos/sinatra/sinatra-recipes/commits"
   end
 
+  def commits
+    JSON.parse(open(commits_url).read)
+  end
 
+  def get_authors
+    commits.map do |x|
+      {
+        :name => x['author']['login'],
+        :avatar => x['author']['avatar_url'],
+        :url => x['author']['html_url']
+      }
+    end.uniq.flatten.group_by {|x| x[:name]}
+  end
+
+  def get_activity
+    commits.map do |x|
+      {
+        :author_name => x['author']['login'],
+        :merge_date => Time.parse(x['commit']['author']['date']).strftime("%d-%B-%Y"),
+        :commit_message => x['commit']['message'],
+        :commit_url => "https://github.com/sinatra/sinatra-recipes/commit/#{x['sha']}"
+      }
+    end.group_by {|x| x[:merge_date] }
+  end
+
+  def get_activity_by_author
+    get_activity.map do |k,v|
+      {
+        :date => k,
+        :activity_by_author => v.group_by {|z| z[:author_name] }
+      }
+    end
+  end
 end
 
 get '/' do
@@ -67,7 +87,6 @@ end
 get '/p/:topic' do
   pass if params[:topic] == '..'
   @readme = true
-  @activity = get_activity if params[:topic] == 'activity'
   @children = Dir.glob("./#{params[:topic]}/*.md").map do |file|
     next if file =~ /README/
     next if file.empty? or file.nil?
@@ -84,6 +103,12 @@ get '/p/:topic/:article' do
   markdown md
 end
 
+get '/activity' do
+  pass if params[:topic] == '..'
+  @authors = get_authors
+  @activity = get_activity_by_author
+  markdown :'activity/README'
+end
 
 get '/style.css' do
   sass :style
@@ -145,23 +170,30 @@ html
                   a href="/p/#{params[:topic]}/#{child}?#article"
                     == child.capitalize.sub('_', ' ')
           - if @activity
-              - @activity.each do |date, activities|
-                h3 #{date}
+            #activity
+              - @activity.each do |x|
+                h3 #{x[:date]}
                 hr
                 ul.nodec
-                  - activities.each do |activity|
+                  - x[:activity_by_author].each do |author_name, activities|
+                    - author = @authors[author_name].first
                     li
-                      | <a href="#{activity['author_url']}">#{activity['author_name']}</a> 
-                      | merged the changes:
-                      pre
-                        = "#{activity['commit_message']}"
-                      small 
-                        a href="#{activity['commit_url']}"
-                          | View this commit on github
-
-        #contributors
+                      | <img src="#{author[:avatar]}">
+                      | <a href="#{author[:url]}">#{author[:name]}</a> 
+                      | authored the changes:
+                      ul.nodec
+                        - activities.each do |activity|
+                          li
+                            pre
+                              = "#{activity[:commit_message]}"
+                            small 
+                              a href="#{activity[:commit_url]}"
+                                | View this commit on github
+      #contributors
         - if @contributors
           h2 Contributors
+          p
+            |Browse the <a href="/activity">latest activity</a>
           p
             | These recipes are provided by the following outsanding members of the Sinatra 
             | community:
@@ -277,7 +309,13 @@ li
         color: #CCC
       a:hover, a:active
         color: #8F8F8F
-
+#activity
+  img
+    height: 50px
+    width: 50px
+    padding-right: 15px
+  ul
+    padding-left: 0px
 #sidebar
   width: 25%
   float: right

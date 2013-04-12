@@ -1,3 +1,4 @@
 # Activity
 
-Showing the last 100 commits
+Showing the last 50 commits. Or, you can View all the commits on 
+[GitHub](https://github.com/sinatra/sinatra/commits/master)
