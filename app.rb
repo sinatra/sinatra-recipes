@@ -1,3 +1,4 @@
+require 'time'
 require 'sinatra'
 require 'sass'
 require 'json'
@@ -23,13 +24,54 @@ end
 Tilt.prefer Sinatra::Glorify::Template
 set :markdown, :layout_engine => :slim
 set :views, File.dirname(__FILE__)
-set :ignored_dirs, %w[tmp log config public bin]
+set :ignored_dirs, %w[tmp log config public bin activity]
 
 before do
   @menu = Dir.glob("./*/").map do |file|
     next if settings.ignored_dirs.any? {|ignore| /#{ignore}/i =~ file}
     file.split('/')[1]
   end.compact.sort
+end
+
+helpers do
+
+  def commits_url
+    "https://api.github.com/repos/sinatra/sinatra-recipes/commits"
+  end
+
+  def commits
+    JSON.parse(open(commits_url).read)
+  end
+
+  def get_authors
+    commits.map do |x|
+      {
+        :name => x['author']['login'],
+        :avatar => x['author']['avatar_url'],
+        :url => x['author']['html_url']
+      }
+    end.uniq.flatten.group_by {|x| x[:name]}
+  end
+
+  def get_activity
+    commits.map do |x|
+      {
+        :author_name => x['author']['login'],
+        :merge_date => Time.parse(x['commit']['author']['date']).strftime("%d-%B-%Y"),
+        :commit_message => x['commit']['message'],
+        :commit_url => "https://github.com/sinatra/sinatra-recipes/commit/#{x['sha']}"
+      }
+    end.group_by {|x| x[:merge_date] }
+  end
+
+  def get_activity_by_author
+    get_activity.map do |k,v|
+      {
+        :date => k,
+        :activity_by_author => v.group_by {|z| z[:author_name] }
+      }
+    end
+  end
 end
 
 get '/' do
@@ -55,11 +97,17 @@ end
 
 get '/p/:topic/:article' do
   pass if params[:topic] == '..'
-
   md = File.read("#{params[:topic]}/#{params[:article]}.md")
   formatter = RDoc::Markup::ToTableOfContents.new
   @toc = RDoc::Markdown.parse(md).accept(formatter)
   markdown md
+end
+
+get '/activity' do
+  pass if params[:topic] == '..'
+  @authors = get_authors
+  @activity = get_activity_by_author
+  markdown :'activity/README'
 end
 
 get '/style.css' do
@@ -104,8 +152,7 @@ html
           select#selectNav.chosen data-placeholder="Select a topic"
             option
             - @menu.each do |me|
-              option value="/p/#{me}?#article"
-                #{me.capitalize.sub('_', ' ')}
+              option value="/p/#{me}?#article" #{me.capitalize.sub('_', ' ')}
         - if @toc and @toc.any?
           h2 Chapters
           ol
@@ -122,10 +169,31 @@ html
                 li
                   a href="/p/#{params[:topic]}/#{child}?#article"
                     == child.capitalize.sub('_', ' ')
-
-        #contributors
+          - if @activity
+            #activity
+              - @activity.each do |x|
+                h3 #{x[:date]}
+                hr
+                ul.nodec
+                  - x[:activity_by_author].each do |author_name, activities|
+                    - author = @authors[author_name].first
+                    li
+                      | <img src="#{author[:avatar]}">
+                      | <a href="#{author[:url]}">#{author[:name]}</a> 
+                      | authored the changes:
+                      ul.nodec
+                        - activities.each do |activity|
+                          li
+                            pre
+                              = "#{activity[:commit_message]}"
+                            small 
+                              a href="#{activity[:commit_url]}"
+                                | View this commit on github
+      #contributors
         - if @contributors
           h2 Contributors
+          p
+            |Browse the <a href="/activity">latest activity</a>
           p
             | These recipes are provided by the following outsanding members of the Sinatra 
             | community:
@@ -134,7 +202,6 @@ html
               dt
                 a href="http://github.com/#{contributor["login"]}"
                   img src="http://www.gravatar.com/avatar/#{contributor["gravatar_id"]}?s=50"
-
       #footer
         - if @readme
           h3 Did we miss something?
@@ -158,6 +225,11 @@ body
   font-size: 0.85em
   line-height: 1.25em
   color: #444444
+
+.nodec li
+  display: block
+  margin-top: 25px
+
 
 h1, h2, h3, h4, h5
   font-family: Georgia, 'bitstream vera serif', serif
@@ -210,6 +282,7 @@ nav
   #selectNav
     width: 100%
 
+
 #contributors dt
   display: inline-block
 
@@ -236,7 +309,13 @@ li
         color: #CCC
       a:hover, a:active
         color: #8F8F8F
-
+#activity
+  img
+    height: 50px
+    width: 50px
+    padding-right: 15px
+  ul
+    padding-left: 0px
 #sidebar
   width: 25%
   float: right
