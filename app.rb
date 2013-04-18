@@ -39,6 +39,14 @@ helpers do
     "https://api.github.com/repos/sinatra/sinatra-recipes/commits"
   end
 
+  def contributors_url
+    "https://api.github.com/repos/sinatra/sinatra-recipes/contributors"
+  end
+
+  def contributors
+    JSON.parse(open(contributors_url).read)
+  end
+
   def commits
     JSON.parse(open(commits_url).read)
   end
@@ -76,9 +84,7 @@ end
 
 get '/' do
   begin
-    open("https://api.github.com/repos/sinatra/sinatra-recipes/contributors") do |api|
-      @contributors = JSON.parse(api.read)
-    end
+    @contributors = contributors
   rescue SocketError => e
   end
   markdown :README
