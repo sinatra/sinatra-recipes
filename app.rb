@@ -144,7 +144,7 @@ html
   head
     meta charset="utf-8"
     meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
-    meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
+    meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=1, user-scalable=no"
     title #{@title || 'Sinatra Recipes'}
     link rel="stylesheet" type="text/css" href="/style.css"
     link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css"
@@ -162,13 +162,12 @@ html
 
   body
     a name="documentation"
-    .wrapper
+    #wrapper
       #header
         a href="/"
           img id="logo" src="https://github.com/sinatra/resources/raw/master/logo/sinatra-classic-156.png"
           h1 Sinatra Recipes
           .caption Community contributed recipes and techniques
-      .clear
       #sidebar
         nav
           select#selectNav.chosen data-placeholder="Select a topic"
@@ -238,15 +237,18 @@ html
         small
           a href="#top" Top
 
-
 @@ style
+
+@import 'public/stylesheets/gridset.scss'
+
 body
   font-family: 'Lucida Grande', Verdana, sans-serif
-  margin: 0 auto
-  max-width: 976px
   font-size: 0.85em
   line-height: 1.25em
   color: #444444
+  max-width: 990px
+  padding: 0 20px
+  margin: 0 auto
 
 .nodec li
   display: block
@@ -319,8 +321,6 @@ li
     margin: 0
 
 #content
-  float:left
-  width: 70%
   h1, h2, h3, h4, h5
     span
       font-size: .8em
@@ -331,6 +331,42 @@ li
         color: #CCC
       a:hover, a:active
         color: #8F8F8F
+
+@include gs-media(da, min)
+  #wrapper
+    @include gs-span(da, all)
+  #content
+    @include gs-span(da, 1, 3)
+  #sidebar
+    @include gs-span(da, 4, 6)
+    @include gs-float(da, right)
+
+@include gs-media(db, min-max)
+  #wrapper
+    @include gs-span(db, all)
+  #content
+    @include gs-span(db, 1, 3)
+  #sidebar
+    @include gs-span(db, 4, 8)
+    @include gs-float(db, right)
+
+@include gs-media(t, min-max)
+  #wrapper
+    @include gs-span(t, all)
+  #content
+    @include gs-span(t, all)
+  #sidebar
+    @include gs-span(t, 1, 3)
+
+@include gs-media(m, min-max)
+  #wrapper
+    @include gs-span(m, all)
+  #content
+    @include gs-span(m, all)
+  #sidebar
+    @include gs-span(m, all)
+
+
 #activity
   img
     height: 50px
@@ -339,10 +375,7 @@ li
   ul
     padding-left: 0px
 #sidebar
-  width: 25%
-  float: right
   margin-top: 30px
-  padding: 0 20px
 
 code, pre, tt
   font-family: 'Monaco', 'Menlo', consolas, inconsolata, monospace
@@ -352,8 +385,6 @@ code, pre, tt
   background: #fafafa
   padding: 1px 2px
 
-.clear
-  clear: both
 pre
   line-height: 1.6em
   padding: 5px 20px
