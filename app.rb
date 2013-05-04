@@ -33,7 +33,23 @@ before do
   end.compact.sort
 end
 
+before '/p/:topic/:article' do
+  @title = prepare_title(params[:topic], params[:article])
+end
+
+before '/p/:topic' do
+  @title = prepare_title(params[:topic])
+end
+
 helpers do
+
+  def de_underscore(string)
+    string.gsub('_', ' ').split(" ").map(&:capitalize).join(" ")
+  end
+
+  def prepare_title(*args)
+    "Sinatra Recipes - #{args.map {|x| de_underscore(x)}.join(' - ')}"
+  end
 
   def commits_url
     "https://api.github.com/repos/sinatra/sinatra-recipes/commits"
@@ -129,7 +145,7 @@ html
     meta charset="utf-8"
     meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"
     meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no"
-    title Sinatra Recipes
+    title #{@title || 'Sinatra Recipes'}
     link rel="stylesheet" type="text/css" href="/style.css"
     link rel="stylesheet" type="text/css" href="/stylesheets/pygment_trac.css"
     link rel="stylesheet" type="text/css" href="/stylesheets/chosen.css"
@@ -158,7 +174,7 @@ html
           select#selectNav.chosen data-placeholder="Select a topic"
             option
             - @menu.each do |me|
-              option value="/p/#{me}?#article" #{me.capitalize.sub('_', ' ')}
+              option value="/p/#{me}?#article" #{de_underscore(me)}
         - if @toc and @toc.any?
           h2 Chapters
           ol
@@ -174,7 +190,7 @@ html
               - @children.each do |child|
                 li
                   a href="/p/#{params[:topic]}/#{child}?#article"
-                    == child.capitalize.sub('_', ' ')
+                    == de_underscore(child)
           - if @activity
             #activity
               - @activity.each do |x|
