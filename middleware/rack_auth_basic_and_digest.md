@@ -250,9 +250,9 @@ The routes display the following:
 
 
 All the protected routes are mounted at `/protected` so if you add
-another route to the Protected class like for example `get '/foo' do
-...` it can be reached at `/protected/foo`. To change it just modify
-the call to `Rack::URLMap.new...` to your likings.
+another route to the Protected class like for example 
+`get '/foo' do...` it can be reached at `/protected/foo`. To 
+change it just modify the call to `Rack::URLMap.new...` to your likings.
 
 [httpbasic]: http://en.wikipedia.org/wiki/Basic_access_authentication 
 [httpdigest]: http://en.wikipedia.org/wiki/Digest_access_authentication
