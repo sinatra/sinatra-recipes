@@ -34,10 +34,12 @@ before do
 end
 
 before '/p/:topic/:article' do
+  @readme = true
   @title = prepare_title(params[:topic], params[:article])
 end
 
 before '/p/:topic' do
+  @readme = true
   @title = prepare_title(params[:topic])
 end
 
@@ -108,7 +110,6 @@ end
 
 get '/p/:topic' do
   pass if params[:topic] == '..'
-  @readme = true
   @children = Dir.glob("./#{params[:topic]}/*.md").map do |file|
     next if file =~ /README/
     next if file.empty? or file.nil?
@@ -175,13 +176,15 @@ html
             - @menu.each do |me|
               option value="/p/#{me}?#article" #{de_underscore(me)}
         - if @toc and @toc.any?
-          h2 Chapters
-          ol
-            - @toc.each do |toc|
-              li
-                a href="##{toc.aref}"
-                  == toc.plain_html
+          #toc
+            h2 Chapters
+            ol
+              - @toc.each do |toc|
+                li
+                  a href="##{toc.aref}"
+                    == toc.plain_html
       #content
+        hr
         #post
           == yield
           - if @children
@@ -225,6 +228,7 @@ html
                     img src="http://www.gravatar.com/avatar/#{contributor["gravatar_id"]}?s=50"
         #footer
           - if @readme
+            hr
             h3 Did we miss something?
             p
              | It's very possible we've left something out, that's why we need your help!
@@ -243,7 +247,7 @@ html
 
 body
   font-family: 'Lucida Grande', Verdana, sans-serif
-  font-size: 0.85em
+  font-size: 14px
   line-height: 1.25em
   color: #444444
   max-width: 990px
@@ -302,10 +306,6 @@ small
     margin: 20px 15px 0px 0px
     border: 0
 
-nav
-  #selectNav
-    width: 100%
-
 
 #contributors dt
   display: inline-block
@@ -315,6 +315,9 @@ nav
     float: left
     width: 275px
     height: 40px
+
+#selectNav
+  width: 100%
 
 li
   p
@@ -340,6 +343,10 @@ li
   #sidebar
     @include gs-span(da, 4, 6)
     @include gs-float(da, right)
+  #footer
+    @include gs-span(da, all)
+  #toc
+    @include gs-span(da, all)
 
 @include gs-media(db, min-max)
   #wrapper
@@ -349,6 +356,10 @@ li
   #sidebar
     @include gs-span(db, 4, 8)
     @include gs-float(db, right)
+  #footer
+    @include gs-span(db, all)
+  #toc
+    @include gs-span(db, all)
 
 @include gs-media(t, min-max)
   #wrapper
@@ -357,6 +368,10 @@ li
     @include gs-span(t, all)
   #sidebar
     @include gs-span(t, 1, 3)
+  #footer
+    @include gs-span(t, all)
+  #toc
+    @include gs-span(t, all)
 
 @include gs-media(m, min-max)
   #wrapper
@@ -365,6 +380,12 @@ li
     @include gs-span(m, all)
   #sidebar
     @include gs-span(m, all)
+  #footer
+    @include gs-span(m, all)
+  #toc
+    @include gs-span(m, all)
+
+
 
 
 #activity
@@ -392,6 +413,4 @@ pre
   overflow-Y: hidden
 
 #footer
-  clear: both
   margin-top: 50px
-  width: 70%
