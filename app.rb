@@ -162,6 +162,9 @@ html
       });
 
   body
+    #forkflag
+      a href="https://github.com/sinatra/sinatra-recipes"
+        img src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"
     a name="documentation"
     #wrapper
       #header
@@ -253,6 +256,12 @@ body
   max-width: 990px
   padding: 0 20px
   margin: 0 auto
+
+#forkflag img
+  position: absolute
+  top: 0
+  right: 0 
+  border: 0
 
 .nodec li
   display: block
