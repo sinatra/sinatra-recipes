@@ -193,13 +193,12 @@ you should be able now start your application and web server.
 First thing you will need to do is boot up the unicorn processes:
 
 ```bash
-unicorn -c path/to/unicorn.rb -E development -D -l 0.0.0.0:3001
+unicorn -c path/to/unicorn.rb -E development -D
 ```
 
 It's important to note the flags here, `-c` is path to your unicorn
-configuration. `-E` is the Rack environment for your application to run under.
-`-D` will daemonize the process, and `-l` is the address which unicorn will
-listen to.
+configuration. `-E` is the Rack environment for your application to run under and
+`-D` will daemonize the process.
 
 Lastly, let's start up nginx. On most debian-based systems you can use the following
 command:
@@ -219,7 +218,18 @@ unicorn.
 So now that you're using nginx and unicorn, at some point you might end up
 asking yourself: How do I stop this thing?
 
-Here's how:
+Remember that pids folder we created earlier? Well in there is the pid for the
+`master` unicorn process, so let's try to use that first:
+
+```bash
+cat /path/to/app/tmp/pids/unicorn.pid | xargs kill -QUIT
+```
+
+What we're doing is getting the PID from the pidfile created with Unicorn started
+and then asking the OS to stop the process. We use the QUIT signal which lets
+Unicorn shutdown gracefully, but waiting for its workers to finish.
+
+If that doesn't work though, you might want to try:
 
 ```bash
 $ ps -ax | grep unicorn
@@ -235,6 +245,15 @@ kill -9 <PID>
 There should be a `master` process which once that is killed, the
 workers should follow. Feel free to search the processes again to make sure
 they've all stopped before restarting.
+
+`kill -9` sends an INT signal to the Unicrons and guarantees (usually) that they'll
+be stopped, but it means that Unicorn might not clean up after itself properly
+so you should have a check and run the following just to be sure:
+
+```bash
+rm /path/to/app/tmp/sockets/unicorn.socket
+rm /path/to/app/tmp/pids/unicorn.pid
+```
 
 To stop nginx you can use a similar technique as above, or if you've got the
 nginx init scripts installed on any debian-based system use:
