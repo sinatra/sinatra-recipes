@@ -117,7 +117,7 @@ Requiring `bundler/setup` is the same as calling `Bundler.setup` yourself, and
 is the recommended method in the gembundler documentation.
 
 ```ruby
-# If you're using Ruby 1.9 you'll need to specifially load rubygems
+# If you're using Ruby 1.9 you'll need to specifically load rubygems
 require 'rubygems'
 
 # and now load bundler with your dependencies load paths

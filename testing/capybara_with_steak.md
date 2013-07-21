@@ -39,7 +39,7 @@ end
 
 **Steak Resources**
 
-*   [Source on github](https://github.com/cavalle/steak)
+*   [Source on GitHub](https://github.com/cavalle/steak)
 *   [Documentation](http://rdoc.info/gems/steak/1.0.1/frames/)
 *   [Timeless: BDD with RSpec and Steak](http://timeless.judofyr.net/bdd-with-rspec-and-steak)
 *   [More Steak Resources](https://github.com/cavalle/steak/wiki/Resources)

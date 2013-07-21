@@ -267,7 +267,7 @@ information on stopping the server look into `man ps` and `man kill`.
 
 ### Resources
 
-*   [unicorn source on github](http://github.com/defunkt/unicorn)
+*   [unicorn source on GitHub](http://github.com/defunkt/unicorn)
 *   [original unicorn announcement](http://github.com/blog/517-unicorn)
 *   [official unicorn homepage](http://unicorn.bogomips.org/)
 *   [unicorn rdoc](http://rdoc.info/gems/unicorn/2.0.0/frames)

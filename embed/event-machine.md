@@ -2,7 +2,7 @@
 
 EventMachine is a very useful tool and sometimes you need to add a web-interface
 on top of it. Yes, EM does support this out of the box, but it can be ugly and
-hard to work with. Why not use somethig that everyone already knows and loves
+hard to work with. Why not use something that everyone already knows and loves
 like Sinatra?
 
 Below is a (working) code-sample for running a simple HelloWorld Sinatra app
@@ -120,6 +120,6 @@ ab -c 10 -n 100 http://localhost:8181/delayed-hello
 If this finishes in "zero point something" seconds, then you have successfully
 setup Sinatra to run within EM and you are taking requests on the event-loop
 and deferring tasks to the background. If it takes any longer than that, then
-you are most likely taking requetss in the background which means when the EM
+you are most likely taking requests in the background which means when the EM
 queue fills up, you can't process your sinatra requests (not a good thing!).
 Make sure that you have threaded set to false and then try again.
