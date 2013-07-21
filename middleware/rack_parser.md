@@ -20,7 +20,7 @@ And your Message model would have an appropriate `#from_hash` method that
 grabs what it needs from the parsed message and throws it into a new instance.
 
 If your application has several different endpoints, all using the same 
-content-type, you could save some repitition by moving it to a helper:
+content-type, you could save some repetition by moving it to a helper:
 
 ```ruby
 helpers do
@@ -43,7 +43,7 @@ the parsing logic out of your application itself starts to become attractive.
 One option is to move it into a module that your app extends.
 
 But another option is to do the parsing in a middleware. That way, your app is
-not resposible for doing the basic parsing at all -- it's done and exposed to 
+not responsible for doing the basic parsing at all -- it's done and exposed to
 your app by the time the request arrives.
 
 The idea is *to mimic what Rack does to process form data*, which is to populate
