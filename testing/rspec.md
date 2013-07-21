@@ -54,13 +54,13 @@ end
 **RSpec 2.x Resources**
 
 *   [RSpec 2.x Docs](http://relishapp.com/rspec)
-*   [Source on github](https://github.com/rspec/rspec)
+*   [Source on GitHub](https://github.com/rspec/rspec)
 *   [Resources for RSpec 2.x developers/contributors](https://github.com/rspec/rspec-dev)
 
 **RSpec 1.x Resources**
 
 *   [RSpec 1.x Docs](http://rspec.info/)
-*   [Source on github](https://github.com/dchelimsky/rspec)
+*   [Source on GitHub](https://github.com/dchelimsky/rspec)
 *   [Resources for RSpec 1.x developers/contributors](https://github.com/dchelimsky/rspec-dev)
 
 

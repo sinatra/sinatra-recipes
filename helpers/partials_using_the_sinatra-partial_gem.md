@@ -44,4 +44,4 @@ end
 ### More information
 
 For more configuration options and usage,
-[view the sinatra-partial gem in github](https://github.com/yb66/Sinatra-Partial).
+[view the sinatra-partial gem on GitHub](https://github.com/yb66/Sinatra-Partial).

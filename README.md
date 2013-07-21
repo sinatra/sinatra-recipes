@@ -27,7 +27,7 @@ recipes that have been requested or are in progress.
 
 ## Here's the run down
 
-To get started you should clone the repository from github:
+To get started you should clone the repository from GitHub:
 
 ```bash
 git clone git://github.com/sinatra/sinatra-recipes.git

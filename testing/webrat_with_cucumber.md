@@ -60,6 +60,6 @@ World{WebratMixinExample.new}
 **Cucumber Resources**
 
 *   [Cucumber Homepage](http://cukes.info/)
-*   [Source on github](https://github.com/aslakhellesoy/cucumber)
+*   [Source on GitHub](https://github.com/aslakhellesoy/cucumber)
 *   [Documentation](https://github.com/aslakhellesoy/cucumber/wiki/)
 
