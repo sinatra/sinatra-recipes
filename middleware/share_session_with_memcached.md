@@ -21,9 +21,10 @@ configure do
 end
 ```
 
-And that's all, from now on we'll be storing the users sessions in our local
-memcached server (`localhost:11211`) and the `rack:session` namespace. If you
-want to change these settings, use the middleware like this:
+`Dalli::Client` defaults the memcache server url to `localhost:11211`. If you
+need to use another server, you must configure it yourself.
+
+See a full example configuring the memcache server and the session namespace:
 
 ```ruby
 configure do
@@ -34,4 +35,9 @@ configure do
 end
 ```
 
-If you need more info, refer to the [dalli gem documentation](https://github.com/mperham/dalli).
+## More Info
+
+Refer to [Rack::Session](http://rack.rubyforge.org/doc/Rack/Session.html)
+documentation to know more about rack sessions.
+Refer to [Dalli](https://github.com/mperham/dalli) documentation to know more
+about Rack::Session::Dalli.
