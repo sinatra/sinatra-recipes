@@ -62,40 +62,58 @@ helpers do
   end
 
   def contributors
-    JSON.parse(open(contributors_url).read)
+    begin
+      JSON.parse(open(contributors_url).read)
+    rescue OpenURI::HTTPError => the_error
+      puts "Whoops got a bad status code from github: #{the_error.message}"
+      nil
+    end
   end
 
   def commits
-    JSON.parse(open(commits_url).read)
+    begin
+      JSON.parse(open(commits_url).read)
+    rescue OpenURI::HTTPError => the_error
+      puts "Whoops got a bad status code from github: #{the_error.message}"
+      nil
+    end
   end
 
   def get_authors
-    commits.map do |x|
+    if commits
+      commits.map do |x|
       {
         :name => x['author']['login'],
         :avatar => x['author']['avatar_url'],
         :url => x['author']['html_url']
       }
-    end.uniq.flatten.group_by {|x| x[:name]}
+      end.uniq.flatten.group_by {|x| x[:name]}
+    end
   end
 
   def get_activity
-    commits.map do |x|
-      {
-        :author_name => x['author']['login'],
-        :merge_date => Time.parse(x['commit']['author']['date']).strftime("%d-%B-%Y"),
-        :commit_message => x['commit']['message'],
-        :commit_url => "https://github.com/sinatra/sinatra-recipes/commit/#{x['sha']}"
-      }
-    end.group_by {|x| x[:merge_date] }
+    if commits
+      commits.map do |x|
+        {
+          :author_name => x['author']['login'],
+          :merge_date => Time.parse(x['commit']['author']['date']).strftime("%d-%B-%Y"),
+          :commit_message => x['commit']['message'],
+          :commit_url => "https://github.com/sinatra/sinatra-recipes/commit/#{x['sha']}"
+        }
+      end.group_by {|x| x[:merge_date] }
+    else
+      nil
+    end
   end
 
   def get_activity_by_author
-    get_activity.map do |k,v|
-      {
-        :date => k,
-        :activity_by_author => v.group_by {|z| z[:author_name] }
-      }
+    if get_activity
+      get_activity.map do |k,v|
+        {
+          :date => k,
+          :activity_by_author => v.group_by {|z| z[:author_name] }
+        }
+      end
     end
   end
 end
@@ -130,7 +148,11 @@ get '/activity' do
   pass if params[:topic] == '..'
   @authors = get_authors
   @activity = get_activity_by_author
-  markdown :'activity/README'
+  if @authors && @activity 
+    markdown :'activity/README' 
+  else
+    "Not available at this time."
+  end
 end
 
 get '/style.css' do
@@ -224,7 +246,7 @@ html
             p
               | These recipes are provided by the following outstanding members of the Sinatra
               | community:
-            dl id="contributors"
+            dl id="contributors" 
               - @contributors.each do |contributor|
                 dt
                   a href="http://github.com/#{contributor["login"]}"
