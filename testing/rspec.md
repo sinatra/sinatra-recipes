@@ -2,7 +2,7 @@ RSpec
 ---------
 
 [RSpec][rs] is the main competitor to Test::Unit. It is feature rich and
-pleasant to read, but to heavy for some. Therefore most other frameworks
+pleasant to read, but too heavy for some. Therefore most other frameworks
 mentioned here (except Minitest, Test::Unit and Cucumber) try to adopt its API
 without its inner complexity.
 
