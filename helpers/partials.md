@@ -8,7 +8,8 @@ Depending on the complexity of partials you'd like to use, you should pick
 between one of the following three strategies, presented below. A simple demo
 of these strategies is available here: [Sinatra Partials Demo](https://github.com/ashleygwilliams/sinatra_partials_demo)
 
-Thanks to [DAZ](https://github.com/daz4126) for a lot of the code, originally published on his blog ["I Did it my Way"](http://ididitmyway.herokuapp.com/past/2010/5/31/partials/)
+Thanks to [DAZ](https://github.com/daz4126) for a lot of the code, originally
+published on his blog ["I Did it my Way"](http://ididitmyway.herokuapp.com/past/2010/5/31/partials/).
 
 ## Simple Partial 
 The simplest implementation of a partial helper should start by creating a 
