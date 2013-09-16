@@ -11,12 +11,12 @@ of these strategies is available here: [Sinatra Partials Demo](https://github.co
 Thanks to [DAZ](https://github.com/daz4126) for a lot of the code, originally published on his blog ["I Did it my Way"](http://ididitmyway.herokuapp.com/past/2010/5/31/partials/)
 
 ## Simple Partial 
-The simplest implementation of a partial create a method that takes a single
-parameter, `template` and uses the same mechanism that is used to render a 
-view, i.e. `erb`. However, unlike the traditional view rendering, where we 
-would yield the view within a layout, when using a partial, the layout option
-is set to false so that the layout is not rendered again. One used to have to
-specify this, but that is no longer the case.
+The simplest implementation of a partial helper should start by creating a 
+method that takes a single parameter, `template` and uses the same mechanism 
+that is used to render a view, i.e. `erb`. However, unlike the traditional 
+view rendering, where we would yield the view within a layout, when using a 
+partial, the layout option is set to false so that the layout is not rendered 
+again. One used to have to specify this, but that is no longer the case.
 
 ```ruby
 helpers do
