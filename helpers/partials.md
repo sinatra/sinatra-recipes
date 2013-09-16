@@ -38,7 +38,7 @@ Usually we want to do more than simply render a view within a view though, so
 let's step it up a notch.
 
 ### _underscore Naming Convention 
-First off: Rails uses a convention where partials are named beginning with an
+Rails uses a convention where partials are named beginning with an
 underscore, but can be referenced by using a symbol with the template name sans
 underscore.
 
@@ -67,7 +67,7 @@ implement this portion of the method, as it will be already assumed that your
 partials begin with an underscore and that you reference them with out it.
 
 ### Passing Local Variables 
-Secondly: it is also useful to be able to pass local variables to your partial.
+It is also useful to be able to pass local variables to your partial.
 To implement this we can add a `locals` parameter to our partial. This 
 parameter will hold a hash, and will default to `nil`. We will pass this 
 `locals` parameter to `erb` alongside our template, like so:
