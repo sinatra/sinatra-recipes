@@ -31,7 +31,7 @@ Using the code above, calling `partial :header` will render the view
 
 ## Intermediate Partial 
 The simple implementation is fine, but it simply renders a view within a view;
-nothing to sophisticated. Web development is just fancy string concatenation
+nothing too sophisticated. Web development is just fancy string concatenation
 after all :)
 
 Usually we want to do more than simply render a view within a view though, so
