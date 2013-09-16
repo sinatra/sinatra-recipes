@@ -47,7 +47,7 @@ e.g. `partial :header` renders `_header.erb`
 In order to do this we can modify our partial to include the line:
 
 ```ruby
-template=('_' + template.to_s).to_sym
+template = :"_#{template}"
 ```
 
 This gives us:
@@ -55,7 +55,7 @@ This gives us:
 ```ruby
 helpers do
   def int_partial(template)
-    template = ('_' + template.to_s).to_sym
+    template = :"_#{template}"
     erb template      
   end
 end
@@ -99,7 +99,7 @@ variables:
 helpers do
   def int_partial(template, locals=nil)
     locals = locals.is_a?(Hash) ? locals : {template.to_sym => locals}
-    template = ('_' + template.to_s).to_sym
+    template = :"_#{template}"
     erb template, {}, locals        
   end
 end
@@ -140,10 +140,10 @@ partial). This is all accomplished in the first conditional:
 
 ```ruby
 if template.is_a?(String) || template.is_a?(Symbol)
-  template=('_' + template.to_s).to_sym
+  template = :"_#{template}"
 else
   locals=template
-  template=template.is_a?(Array) ? ('_' + template.first.class.to_s.downcase).to_sym : ('_' + template.class.to_s.downcase).to_sym
+  template = template.is_a?(Array) ? :"_#{template.first.class.to_s.downcase}" : :"_#{template.class.to_s.downcase}"
 end
 ```
 
@@ -153,7 +153,7 @@ local variable. We check whether the local variable is a collection, and then
 name the template based on the class of the object(s):
 
 ```ruby
-template=template.is_a?(Array) ? ('_' + template.first.class.to_s.downcase).to_sym : ('_' + template.class.to_s.downcase).to_sym
+  template = template.is_a?(Array) ? :"_#{template.first.class.to_s.downcase}" : "_#{template.class.to_s.downcase}"
 ```
 
 ### What local variable(s)? 
@@ -187,10 +187,10 @@ helpers do
 
   def adv_partial(template,locals=nil)
     if template.is_a?(String) || template.is_a?(Symbol)
-      template=('_' + template.to_s).to_sym
+      template = :"_#{template}"
     else
       locals=template
-      template=template.is_a?(Array) ? ('_' + template.first.class.to_s.downcase).to_sym : ('_' + template.class.to_s.downcase).to_sym
+      template = template.is_a?(Array) ? :"_#{template.first.class.to_s.downcase}" : :"_#{template.class.to_s.downcase}"
     end
     if locals.is_a?(Hash)
       erb template, {}, locals      
