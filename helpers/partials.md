@@ -20,7 +20,7 @@ specify this, but that is no longer the case.
 
 ```ruby
 helpers do
-  def beg_partial(template)
+  def simple_partial(template)
     erb template
   end
 end
@@ -54,7 +54,7 @@ This gives us:
 
 ```ruby
 helpers do
-  def int_partial(template)
+  def intermediate_partial(template)
     template = :"_#{template}"
     erb template      
   end
@@ -97,7 +97,7 @@ variables:
 
 ```ruby
 helpers do
-  def int_partial(template, locals=nil)
+  def intermediate_partial(template, locals=nil)
     locals = locals.is_a?(Hash) ? locals : {template.to_sym => locals}
     template = :"_#{template}"
     erb template, {}, locals        
