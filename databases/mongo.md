@@ -54,7 +54,7 @@ helpers do
   def document_by_id id
     id = object_id(id) if String === id
     settings.mongo_db['test'].
-      find_one(:_id => id).to_json
+      find_one(:_id => id)
   end
 end
 ```
