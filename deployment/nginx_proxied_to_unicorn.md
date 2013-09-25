@@ -240,7 +240,7 @@ the process id (pid). In order to stop unicorn in it's tracks:
 
 #### The Less Aggressive Approach to Unicorn Slaying
 
-Unicorn is based upon (unix-y forking)[http://unicorn.bogomips.org/DESIGN.html], the master 
+Unicorn is based upon [unix-y forking](http://unicorn.bogomips.org/DESIGN.html), the master 
 process can manage the workers, i.e. kill them. Once you have identified the master process, you 
 can send it the __WINCH__ signal. To do this:
 
