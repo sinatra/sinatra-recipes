@@ -238,6 +238,28 @@ $ ps -ax | grep unicorn
 This will output the processes running unicorn, in the first column should be
 the process id (pid). In order to stop unicorn in it's tracks:
 
+#### The Less Aggressive Approach to Unicorn Slaying
+
+Unicorn is based upon (unix-y forking)[http://unicorn.bogomips.org/DESIGN.html], the master 
+process can manage the workers, i.e. kill them. Once you have identified the master process, you 
+can send it the __WINCH__ signal. To do this:
+
+```bash
+kill -WINCH <PID>
+```
+
+This will have the master process "instruct" its workers to die off when they are finished. This 
+should allow for a safer completion state.
+
+Once all the workers are finished and dead, the __unicorn master__ will be the only unicorn 
+process left. You can now instruct it to die off. 
+
+```bash
+kill -QUIT <PID>
+```
+
+Checking again as above, you should no longer see any unicorn processes. 
+
 #### The Aggressive Approach to Unicorn Slaying
 
 ```bash
@@ -256,31 +278,6 @@ so you should have a check and run the following just to be sure:
 rm /path/to/app/tmp/sockets/unicorn.socket
 rm /path/to/app/tmp/pids/unicorn.pid
 ```
-
-#### The Less Aggressive Approach to Unicorn Slaying
-
-Since unicorn is based upon unix-y forking. It is more proper to kill the worker processes
-through their master as oppossed to killing the master and hoping the workers die off. Once 
-you have identified the master process (most likely identified by unicorn master), you can 
-send it the __WINCH__ signal. 
-
-```bash
-kill -WINCH <PID>
-```
-
-This will have the master process "instruct" its workers to die off when they are finished 
-what they are doing. This should allow for a safer completion state, i.e. no bad things will
-happen. 
-
-Once all the workers are finished and dead, the __unicorn master__ will be the only unicorn 
-process left. You can now instruct it to die off. 
-
-```bash
-kill -QUIT <PID>
-```
-
-Checking again as above, you should no longer see any unicorn processes. 
-
 
 ### Stopping nginx
 
