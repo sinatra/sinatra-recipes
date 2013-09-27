@@ -51,10 +51,10 @@ helpers do
     BSON::ObjectId.from_string(val)
   end
 
-  def document_by_id id
+  def document_json_by_id id
     id = object_id(id) if String === id
     settings.mongo_db['test'].
-      find_one(:_id => id)
+      find_one(:_id => id).to_json
   end
 end
 ```
@@ -71,7 +71,7 @@ end
 # find a document by its ID
 get '/document/:id/?' do
   content_type :json
-  document_by_id(params[:id]).to_json
+  document_json_by_id(params[:id])
 end
 ```
 
@@ -83,7 +83,7 @@ end
 post '/new_document/?' do
   content_type :json
   new_id = settings.mongo_db['test'].insert params
-  document_by_id(new_id).to_json
+  document_json_by_id(new_id)
 end
 ```
 
@@ -96,7 +96,7 @@ put '/update/:id/?' do
   content_type :json
   id = object_id(params[:id])
   settings.mongo_db['test'].update(:_id => id, params)
-  document_by_id(id).to_json
+  document_json_by_id(id)
 end
 
 # update the document specified by :id, setting just its
@@ -108,7 +108,7 @@ put '/update_name/:id/?' do
   name = params[:name]
   settings.mongo_db['test'].
     update(:_id => id, {"$set" => {:name => name}})
-  document_by_id(id).to_json
+  document_json_by_id(id)
 end
 ```
 
