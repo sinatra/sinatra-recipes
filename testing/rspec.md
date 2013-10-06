@@ -63,4 +63,4 @@ end
 *   [Source on GitHub](https://github.com/dchelimsky/rspec)
 *   [Resources for RSpec 1.x developers/contributors](https://github.com/dchelimsky/rspec-dev)
 
-
+[rs]: http://rspec.info
