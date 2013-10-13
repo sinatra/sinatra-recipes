@@ -3,7 +3,7 @@ Features from Cucumber and Webrat
 
 **A Feature Example**
 
-```
+```gherkin
 Feature: View my page
   In order for visitors to feel welcome
   We must go out of our way
