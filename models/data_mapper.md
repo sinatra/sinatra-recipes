@@ -42,7 +42,7 @@ end
 
 Finally, the view at `./view/index.html`:
 
-```ruby
+```erb
 <% @posts.each do |post| %>
   <h3><%= post.title %></h3>
   <p><%= post.body %></p>
