@@ -28,9 +28,9 @@ get '/' do
 end
 ```
 
-This will render ./views/index.erb:
+This will render `./views/index.erb`:
 
-```ruby
+```erb
 <% for post in @posts %>
   <h1><%= post.title %></h1>
 <% end %>

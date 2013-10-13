@@ -52,9 +52,9 @@ get '/posts/:title' do
 end
 ```
 
-This will render ./views/posts.erb:
+This will render `./views/posts.erb`:
 
-```ruby
+```erb
 <% for post in @posts %>
   <div>
     <h1><%= post.title %></h1>
