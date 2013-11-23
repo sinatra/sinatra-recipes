@@ -270,6 +270,9 @@ html
 
 @import 'public/stylesheets/gridset.scss'
 
+html
+  background-color: white
+
 body
   font-family: 'Lucida Grande', Verdana, sans-serif
   font-size: 14px
