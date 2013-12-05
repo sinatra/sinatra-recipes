@@ -1,5 +1,4 @@
-Sequel
-------
+# Sequel
 
 Require the Sequel gem in your app:
 

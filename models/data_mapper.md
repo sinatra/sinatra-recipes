@@ -1,5 +1,4 @@
-DataMapper
-----------
+# DataMapper
 
 Start out by getting the DataMapper gem if you don't already have it, and then
 making sure it's in your application. A call to `setup` as usual will get the

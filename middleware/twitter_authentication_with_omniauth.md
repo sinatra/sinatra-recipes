@@ -84,4 +84,3 @@ end
 ```
 
 Needless to say that this approach is useful for other omniauth strategies.
-

@@ -35,8 +35,8 @@ get '/' do
   %Q{
     <html>
       <body>
-        Hello from the 
-        <strong>wonderful</strong> 
+        Hello from the
+        <strong>wonderful</strong>
         world of JRuby!
       </body>
     </html>
@@ -68,7 +68,8 @@ Then launch app with the following command:
 rackup config.ru
 ```
 
-Now go to <http://localhost:9292> and you'll see the same **wonderful** greeting.
+Now go to <http://localhost:9292> and you'll see the same **wonderful**
+greeting.
 
 ## Deployment with Trinidad
 

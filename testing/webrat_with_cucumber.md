@@ -1,7 +1,6 @@
-Features from Cucumber and Webrat
----------------------------------
+# Features from Cucumber and Webrat
 
-**A Feature Example**
+## A Feature Example
 
 ```gherkin
 Feature: View my page
@@ -14,7 +13,7 @@ Feature: View my page
     Then I should see "Welcome to my page!"
 ```
 
-**Step to it**
+## Step to it
 
 ```ruby
 Given /^I am viewing my page$/ do
@@ -57,9 +56,8 @@ end
 World{WebratMixinExample.new}
 ```
 
-**Cucumber Resources**
+## Cucumber Resources
 
 *   [Cucumber Homepage](http://cukes.info/)
 *   [Source on GitHub](https://github.com/aslakhellesoy/cucumber)
 *   [Documentation](https://github.com/aslakhellesoy/cucumber/wiki/)
-
