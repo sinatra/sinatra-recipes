@@ -1,7 +1,8 @@
 # Implementation of Rails style partials
 
-Using partials in your views is a great way to keep them clean.  Since Sinatra takes the hands off approach to framework
-design, you'll have to implement a partial handler yourself.
+Using partials in your views is a great way to keep them clean. Since Sinatra
+takes the hands off approach to framework design, you'll have to implement a
+partial handler yourself.
 
 Here is a really basic version:
 
@@ -14,7 +15,8 @@ helpers do
 end
 ```
 
-A more advanced version that would handle passing local options, and looping over a hash would look like:
+A more advanced version that would handle passing local options, and looping
+over a hash would look like:
 
 ```ruby
 # Render the page once:
@@ -31,7 +33,7 @@ helpers do
     if collection = options.delete(:collection) then
       collection.inject([]) do |buffer, member|
         buffer << haml(template, options.merge(
-                                  :layout => false, 
+                                  :layout => false,
                                   :locals => {template.to_sym => member}
                                 )
                      )

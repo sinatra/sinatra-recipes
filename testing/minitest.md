@@ -1,5 +1,4 @@
-Minitest
---------
+# Minitest
 
 Since Ruby 1.9, [Minitest](https://github.com/seattlerb/minitest) is
 shipped with the standard library. If you want to use it on 1.8, it is still
@@ -41,7 +40,7 @@ class MyTest < MiniTest::Unit::TestCase
 end
 ```
 
-If your app was defined using the [modular style](http://www.sinatrarb.com/intro.html#Sinatra::Base%20-%20Middleware,%20Libraries,%20and%20Modular%20Apps), use 
+If your app was defined using the [modular style][modular-style], use
 
 ```ruby
 def app
@@ -49,7 +48,7 @@ def app
 end
 ```
 
-instead of 
+instead of
 
 ```ruby
 def app
@@ -57,7 +56,7 @@ def app
 end
 ```
 
-### Specs and Benchmarks with Minitest
+## Specs and Benchmarks with Minitest
 
 **Specs**
 
@@ -72,7 +71,7 @@ end
 
 describe "my example app" do
   it "should successfully return a greeting" do
-    get '/' 
+    get '/'
     last_response.body.must_include 'Welcome to my page!'
   end
 end
@@ -119,10 +118,10 @@ Now run your MiniSpecs with `rake test`.
 
 More on [Rake::TestTask](http://rake.rubyforge.org/classes/Rake/TestTask.html)
 
-
-**MiniTest Resources**
+## MiniTest Resources
 
 *   [Source on github](https://github.com/seattlerb/minitest)
 *   [Documentation](http://rdoc.info/gems/minitest)
-*   [Official Blog Archive](http://blog.zenspider.com/minitest/) 
+*   [Official Blog Archive](http://blog.zenspider.com/minitest/)
 
+[modular-style]: (http://www.sinatrarb.com/intro.html#Sinatra::Base%20-%20Middleware,%20Libraries,%20and%20Modular%20Apps

@@ -1,8 +1,8 @@
 # Rack::CommonLogger
 
 Sinatra has [logging support](http://www.sinatrarb.com/intro.html#Logging), but
-it's [nearly impossible to log to a file and to the stdout](https://github.com/sinatra/sinatra/issues/484)
-(like Rails does).
+it's [nearly impossible to log to a file and to the
+stdout](https://github.com/sinatra/sinatra/issues/484) (like Rails does).
 
 However, there is a little trick you can use to log to stdout *and* to a file:
 

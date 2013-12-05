@@ -52,7 +52,7 @@ end
 Protected.run!
 ```
 
-To try these examples just run `ruby main.rb -p 4567` and visit 
+To try these examples just run `ruby main.rb -p 4567` and visit
 [http://localhost:4567][localhost]
 
 ### HTTP Digest Authentication
@@ -71,8 +71,6 @@ get '/' do
   "secret"
 end
 ```
-
-- - -
 
 ```ruby
 #config.ru
@@ -113,7 +111,6 @@ class Protected < Sinatra::Base
 end
 ```
 
-
 ```ruby
 #config.ru
 
@@ -122,10 +119,8 @@ require File.expand_path '../main.rb', __FILE__
 run Protected
 ```
 
-
 To try these examples just run `rackup -p 4567` and visit
 [http://localhost:4567][localhost]
-
 
 ## Protect specific routes
 
@@ -239,8 +234,7 @@ run Rack::URLMap.new({
 To try these examples just run `rackup -p 4567` and visit
 [http://localhost:4567][localhost]
 
-
-### The resulting routes
+## The resulting routes
 
 The routes display the following:
 
@@ -248,13 +242,12 @@ The routes display the following:
 * `/protected` displays "secret"
 * `/protected/another` displays "another secret"
 
-
 All the protected routes are mounted at `/protected` so if you add
-another route to the Protected class like for example 
-`get '/foo' do...` it can be reached at `/protected/foo`. To 
+another route to the Protected class like for example
+`get '/foo' do...` it can be reached at `/protected/foo`. To
 change it just modify the call to `Rack::URLMap.new...` to your likings.
 
-[httpbasic]: http://en.wikipedia.org/wiki/Basic_access_authentication 
+[httpbasic]: http://en.wikipedia.org/wiki/Basic_access_authentication
 [httpdigest]: http://en.wikipedia.org/wiki/Digest_access_authentication
 [modular]: http://www.sinatrarb.com/intro.html#Serving%20a%20Modular%20Application
 [localhost]: http://localhost:4567

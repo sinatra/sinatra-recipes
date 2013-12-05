@@ -1,15 +1,16 @@
-# Nginx Proxied to Unicorn 
+# Nginx Proxied to Unicorn
 
 Nginx and Unicorn combine to provide a very powerful setup for deploying your
 Sinatra applications. This guide will show you how to effectively setup this
 combination for deployment.
 
-### Installation
+## Installation
 
 First thing you will need to do is get nginx installed on your system. This
 should be handled by your operating systems package manager.
 
-For more information on installing nginx, check [the official docs](http://wiki.nginx.org/Install).
+For more information on installing nginx, check [the official
+docs](http://wiki.nginx.org/Install).
 
 Once you have nginx installed, you can install unicorn with rubygems:
 
@@ -19,7 +20,7 @@ gem install unicorn
 
 Now that's done we can setup a basic Rack application in Sinatra.
 
-### The Example Application
+## The Example Application
 
 To start our example application, let's first create a `config.ru` in our
 application root.
@@ -52,7 +53,7 @@ end
 Now that we have our application in place, let's get on to configuring our
 proxy.
 
-### Configuration
+## Configuration
 
 So if you've made it this far you should have a Sinatra application ready with
 nginx and unicorn installed. You're ready to move on to configuring the web
@@ -74,7 +75,7 @@ mkdir log
 Once those are in place, we're ready to setup our `unicorn.rb` configuration.
 
 ```ruby
-# set path to app that will be used to configure unicorn, 
+# set path to app that will be used to configure unicorn,
 # note the trailing slash in this example
 @dir = "/path/to/app/"
 
@@ -83,7 +84,7 @@ working_directory @dir
 
 timeout 30
 
-# Specify path to socket unicorn listens to, 
+# Specify path to socket unicorn listens to,
 # we will use this in our nginx.conf later
 listen "#{@dir}tmp/sockets/unicorn.sock", :backlog => 64
 
@@ -111,19 +112,19 @@ However, for most common and simple implementations this guide should do the
 trick.
 
 ```bash
-# this sets the user nginx will run as, 
+# this sets the user nginx will run as,
 #and the number of worker processes
 user nobody nogroup;
 worker_processes  1;
 
-# setup where nginx will log errors to 
+# setup where nginx will log errors to
 # and where the nginx process id resides
 error_log  /var/log/nginx/error.log;
 pid        /var/run/nginx.pid;
 
 events {
   worker_connections  1024;
-  # set to on if you have more than 1 worker_processes 
+  # set to on if you have more than 1 worker_processes
   accept_mutex off;
 }
 
@@ -132,10 +133,10 @@ http {
 
   default_type application/octet-stream;
   access_log /tmp/nginx.access.log combined;
- 
+
   # use the kernel sendfile
   sendfile        on;
-  # prepend http headers before sendfile() 
+  # prepend http headers before sendfile()
   tcp_nopush     on;
 
   keepalive_timeout  5;
@@ -144,7 +145,7 @@ http {
   gzip  on;
   gzip_vary on;
   gzip_min_length 500;
-  
+
   gzip_disable "MSIE [1-6]\.(?!.*SV1)";
   gzip_types text/plain text/xml text/css
      text/comma-separated-values
@@ -161,13 +162,13 @@ http {
   server {
     # replace with your domain name
     server_name my-sinatra-app.com;
-    # replace this with your static Sinatra app files, root + public 
+    # replace this with your static Sinatra app files, root + public
     root /path/to/app/public;
     # port to listen for requests on
     listen 80;
-    # maximum accepted body size of client request 
+    # maximum accepted body size of client request
     client_max_body_size 4G;
-    # the server will close connections after this time 
+    # the server will close connections after this time
     keepalive_timeout 5;
 
     location / {
@@ -178,7 +179,7 @@ http {
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header Host $http_host;
       proxy_redirect off;
-      # pass to the upstream unicorn server mentioned above 
+      # pass to the upstream unicorn server mentioned above
       proxy_pass http://unicorn_server;
     }
   }
@@ -188,7 +189,7 @@ http {
 Once you replace `path/to/app` with the location to your Sinatra application,
 you should be able now start your application and web server.
 
-### Starting the server
+## Starting the server
 
 First thing you will need to do is boot up the unicorn processes:
 
@@ -197,11 +198,11 @@ unicorn -c path/to/unicorn.rb -E development -D
 ```
 
 It's important to note the flags here, `-c` is path to your unicorn
-configuration. `-E` is the Rack environment for your application to run under and
-`-D` will daemonize the process.
+configuration. `-E` is the Rack environment for your application to run under
+and `-D` will daemonize the process.
 
-Lastly, let's start up nginx. On most debian-based systems you can use the following
-command:
+Lastly, let's start up nginx. On most debian-based systems you can use the
+following command:
 
 ```bash
 /etc/init.d/nginx start
@@ -225,9 +226,9 @@ Remember that pids folder we created earlier? Well in there is the pid for the
 cat /path/to/app/tmp/pids/unicorn.pid | xargs kill -QUIT
 ```
 
-What we're doing is getting the PID from the pidfile created with Unicorn started
-and then asking the OS to stop the process. We use the QUIT signal which lets
-Unicorn shutdown gracefully, but waiting for its workers to finish.
+What we're doing is getting the PID from the pidfile created with Unicorn
+started and then asking the OS to stop the process. We use the QUIT signal which
+lets Unicorn shutdown gracefully, but waiting for its workers to finish.
 
 If that doesn't work though, you might want to try:
 
@@ -246,9 +247,9 @@ There should be a `master` process which once that is killed, the
 workers should follow. Feel free to search the processes again to make sure
 they've all stopped before restarting.
 
-`kill -9` sends an INT signal to the Unicrons and guarantees (usually) that they'll
-be stopped, but it means that Unicorn might not clean up after itself properly
-so you should have a check and run the following just to be sure:
+`kill -9` sends an INT signal to the Unicrons and guarantees (usually) that
+they'll be stopped, but it means that Unicorn might not clean up after itself
+properly so you should have a check and run the following just to be sure:
 
 ```bash
 rm /path/to/app/tmp/sockets/unicorn.socket
@@ -273,5 +274,3 @@ information on stopping the server look into `man ps` and `man kill`.
 *   [unicorn rdoc](http://rdoc.info/gems/unicorn/2.0.0/frames)
 *   [nginx official homepage](http://nginx.org/)
 *   [nginx wiki](http://wiki.nginx.org/Main)
-
-

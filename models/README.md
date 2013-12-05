@@ -1,5 +1,4 @@
-Models
-------
+# Models
 
 Models are a common pattern for abstracting your data out into an
 Object-relational mapper or other low-level interface for data transport. This

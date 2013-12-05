@@ -1,5 +1,4 @@
-ActiveRecord
-------------
+# ActiveRecord
 
 First require ActiveRecord gem in your application, then give your database
 connection settings:

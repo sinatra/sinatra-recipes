@@ -1,5 +1,4 @@
-RSS Feed
---------
+# RSS Feed
 
 The [builder](https://github.com/jimweirich/builder) gem used for creating XML
 markup is required in this recipe.
