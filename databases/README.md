@@ -1,5 +1,4 @@
-Databases
----------
+# Databases
 
 Often times, applications need to talk to some external datasource. This
 section will cover recipes for integrating different types of databases

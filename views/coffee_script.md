@@ -1,5 +1,4 @@
-CoffeeScript
-------------
+# CoffeeScript
 
 To render CoffeeScript templates you first need the `coffee-script` gem and
 `therubyracer`, or access to the `coffee` binary.
@@ -55,7 +54,7 @@ end
 Now, with this rake task you can compile your coffee-scripts to
 `public/javascripts` by using the `rake js:compile` command.
 
-**Resources**
+## Resources
 
 If you get stuck or want to look into other ways of implementing CoffeeScript
 in your application, these are a great place to start:

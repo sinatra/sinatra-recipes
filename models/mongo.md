@@ -1,16 +1,14 @@
 # MongoDB
 
-
 There are many ORMs out there for Mongo (or _ODMs_ in this case).
 This page will go over just a few.
 
+## Mongo
 
-###Mongo
+[Looking for the official
+driver?](http://recipes.sinatrarb.com/p/databases/mongo?#article)
 
-[Looking for the official driver?](http://recipes.sinatrarb.com/p/databases/mongo?#article)
-
-
-###MongoMapper
+## MongoMapper
 
 ```ruby
 require 'mongomapper'
@@ -35,9 +33,7 @@ get '/' do
 end
 ```
 
-
-###Mongoid
-
+## Mongoid
 
 ```ruby
 require 'mongoid'
@@ -62,7 +58,7 @@ get '/' do
 end
 ```
 
-###Candy
+## Candy
 
 ```ruby
 require 'candy'
@@ -94,8 +90,7 @@ get '/' do
 end
 ```
 
-
-###Mongomatic
+## Mongomatic
 
 ```ruby
 require 'mongomatic'
@@ -127,8 +122,7 @@ def validate
 end
 ```
 
-
-###MongoODM
+## MongoODM
 
 ```ruby
 require 'mongo_odm'
@@ -153,8 +147,7 @@ get '/' do
 end
 ```
 
-
-#### GitHub links
+## GitHub links
 
 * [MongoMapper][mongomapper]
 * [Mongoid][mongoid]

@@ -1,5 +1,4 @@
-Test::Unit
-----------
+# Test::Unit
 
 One of the advantages of using
 [Test::Unit](http://rdoc.info/gems/test-unit/2.1.2/frames) is that it already
@@ -33,7 +32,7 @@ class HomepageTest < Test::Unit::TestCase
 end
 ```
 
-**Shoulda**
+## Shoulda
 
 ```ruby
 require File.expand_path '../test_helper.rb', __FILE__
@@ -57,5 +56,3 @@ class ExampleUnitTest < Test::Unit::TestCase
   end
 end
 ```
-
-

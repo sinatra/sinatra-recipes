@@ -41,7 +41,7 @@ class SomeApp < Sinatra::Base
 end
 ```
 
-### More information
+## More information
 
-For more configuration options and usage,
-[view the sinatra-partial gem on GitHub](https://github.com/yb66/Sinatra-Partial).
+For more configuration options and usage, [view the sinatra-partial gem on
+GitHub](https://github.com/yb66/Sinatra-Partial).

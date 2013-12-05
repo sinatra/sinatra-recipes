@@ -1,10 +1,9 @@
-Mongo
------
+# Mongo
 
 [Mongo][mongo] is a document-oriented database. Though Object Relational
 Mappers (ORMs) are often used to connect to databases, you will see here
 that it is very easy to connect your applications to a Mongo database
-without the use of an ORM, though several exist. See the 
+without the use of an ORM, though several exist. See the
 [Mongo models][mongo_models] page for a discussion of some of the ORMs
 available.
 
@@ -18,7 +17,7 @@ gem install bson_ext
 The first step is in connecting your application to an instance of Mongo is
 to create a connection. You can do this in your _configure_ block:
 
-Note that there has been a change in the Ruby API post v 1.8.x. The 
+Note that there has been a change in the Ruby API post v 1.8.x. The
 following examples use the newer API
 
 ```ruby
@@ -59,7 +58,7 @@ helpers do
 end
 ```
 
-###Finding Records###
+## Finding Records
 
 ```ruby
 # list all documents in the test collection
@@ -75,7 +74,7 @@ get '/document/:id/?' do
 end
 ```
 
-###Inserting Records###
+## Inserting Records
 
 ```ruby
 # insert a new document from the request parameters,
@@ -87,7 +86,7 @@ post '/new_document/?' do
 end
 ```
 
-###Updating Records###
+## Updating Records
 
 ```ruby
 # update the document specified by :id, setting its
@@ -112,7 +111,7 @@ put '/update_name/:id/?' do
 end
 ```
 
-###Deleting Records###
+## Deleting Records
 
 ```ruby
 # delete the specified document and return success
@@ -124,7 +123,7 @@ delete '/remove/:id' do
 end
 ```
 
-For more information on using the Ruby driver without an ORM take a look 
+For more information on using the Ruby driver without an ORM take a look
 at [MongoDB's tutorial][rubydrivertutorial].
 
 [mongo]: http://www.mongodb.org/

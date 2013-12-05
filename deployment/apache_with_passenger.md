@@ -8,14 +8,14 @@ website](http://modrails.com/documentation.html).
 
 The easiest way to get started with Passenger is via the gem.
 
-### Installation
+## Installation
 
 First you will need to have [Apache
 installed](http://httpd.apache.org/docs/2.2/install.html), then you can move
 onto installing passenger and the apache passenger module.
 
 You have a number of options when [installing phusion
-passenger](http://modrails.com/documentation/Users%20guide%20Apache.html#_installing_upgrading_and_uninstalling_phusion_passenger),
+passenger][passenger],
 however the gem is likely the easiest way to get started.
 
 ```bash
@@ -30,7 +30,7 @@ passenger-install-apache2-module
 
 Follow the instructions given by the installer.
 
-### Deploying your app 
+### Deploying your app
 
 Passenger lets you easily deploy Sinatra apps through the Rack interface.
 
@@ -60,7 +60,7 @@ require 'rubygems'
 require 'sinatra'
 require File.expand_path '../app.rb', __FILE__
 
-run Sinatra::Application 
+run Sinatra::Application
 ```
 
 **Virtual Host**
@@ -76,14 +76,14 @@ Host](http://httpd.apache.org/docs/2.2/vhosts/) for your app.
         Allow from all
         Options -MultiViews
     </Directory>
-</VirtualHost>    
+</VirtualHost>
 ```
 
 That should just about do it for your basic apache and passenger configuration.
 For more specific information please visit the [official modrails
 documentation](http://modrails.com/documentation/Users%20guide%20Apache.html).
 
-### A note about restarting the server
+## A note about restarting the server
 
 Once you've got everything configured it's time to [restart
 Apache](http://httpd.apache.org/docs/2.2/stopping.html).
@@ -98,9 +98,8 @@ sudo apache2ctl start
 
 To restart Apache. Check the link above for more detailed information.
 
-In order to [restart the Passenger
-application](http://www.modrails.com/documentation/Users%20guide%20Apache.html#_redeploying_restarting_the_ruby_on_rails_application),
-all you need to do is run this simple command for your application root:
+In order to [restart the Passenger application][restart-passenger], all you need
+to do is run this simple command for your application root:
 
 ```bash
 touch tmp/restart.txt
@@ -110,3 +109,5 @@ You should be up and running now with [Phusion Passenger](http://modrails.com/)
 and [Apache](http://httpd.apache.org/), if you run into any problems please
 consult the official docs.
 
+[passanger]: http://modrails.com/documentation/Users%20guide%20Apache.html#_installing_upgrading_and_uninstalling_phusion_passenger
+[restart-passenger]: http://www.modrails.com/documentation/Users%20guide%20Apache.html#_redeploying_restarting_the_ruby_on_rails_application

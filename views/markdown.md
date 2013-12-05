@@ -1,5 +1,4 @@
-Markdown Templates
-------------------
+# Markdown Templates
 
 The rdiscount gem/library is required to render Markdown templates:
 
