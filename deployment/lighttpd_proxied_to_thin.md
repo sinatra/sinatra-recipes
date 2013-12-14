@@ -52,7 +52,7 @@ Change the /path/to/my/app path to reflect reality.
 Change mydomain to reflect reality. Also make sure the first port
 here matches up with the port setting in config.yml.
 
-```
+```conf
 $HTTP["host"] =~ "(www\.)?mydomain\.com"  {
  proxy.balance = "fair"
  proxy.server =  ("/" =>
@@ -78,16 +78,16 @@ now, check it out at the domain you setup in your lighttpd.conf file.
 *Variation* - nginx via proxy - The same approach to proxying can be applied to
 the nginx web server
 
-```
+```conf
 upstream www_mydomain_com {
   server 127.0.0.1:5000;
   server 127.0.0.1:5001;
 }
 
 server {
-  listen    www.mydomain.com:80
+  listen    www.mydomain.com:80;
   server_name  www.mydomain.com live;
-  access_log /path/to/logfile.log
+  access_log /path/to/logfile.log;
 
   location / {
     proxy_pass http://www_mydomain_com;
