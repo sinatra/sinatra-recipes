@@ -164,7 +164,7 @@ craft it to suit your fancy. Read up on TorqueBox's benchmarking efforts at
 <http://TorqueBox.org/news/2011/02/23/benchmarking-TorqueBox>.
 
 [jruby]: http://jruby.org/
-[rvm]: http://rvm.beginrescueend.com/
+[rvm]: http://rvm.io/
 [TorqueBox]: http://TorqueBox.org/
 [trinidad]: http://thinkincode.net/trinidad/
 [glassfish]: http://glassfish.java.net/
