@@ -73,6 +73,7 @@ Host](http://httpd.apache.org/docs/2.2/vhosts/) for your app.
     ServerName www.yourapplication.com
     DocumentRoot /path/to/app/public
     <Directory /path/to/app/public>
+        Require all granted
         Allow from all
         Options -MultiViews
     </Directory>
