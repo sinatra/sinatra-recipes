@@ -11,7 +11,7 @@ driver?](http://recipes.sinatrarb.com/p/databases/mongo?#article)
 ## MongoMapper
 
 ```ruby
-require 'mongomapper'
+require 'mongo_mapper'
 ```
 
 Create the Model class
