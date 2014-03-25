@@ -14,7 +14,8 @@ GEM
       rack (>= 0.4)
     rack-protection (1.3.2)
       rack
-    rdoc (4.0.0)
+    rdoc (4.1.1)
+      json (~> 1.4)
     rdoc-rouge (0.1.0)
       rdoc (~> 4.0)
       rouge (~> 0.3.0)
@@ -43,7 +44,7 @@ DEPENDENCIES
   glorify (~> 0.5.0)
   json
   rack-cache
-  rdoc (~> 4.0)
+  rdoc (~> 4.1)
   sass
   sinatra
   slim
