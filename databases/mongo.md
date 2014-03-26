@@ -94,7 +94,7 @@ end
 put '/update/:id/?' do
   content_type :json
   id = object_id(params[:id])
-  settings.mongo_db['test'].update(:_id => id, params)
+  settings.mongo_db['test'].update({:_id => id}, params)
   document_by_id(id).to_json
 end
 
