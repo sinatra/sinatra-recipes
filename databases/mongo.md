@@ -40,7 +40,8 @@ your Mongo instance.
 
 ```ruby
 get '/collections/?' do
-  settings.mongo_db.collection_names
+  content_type :json
+  settings.mongo_db.collection_names.to_json
 end
 
 helpers do
@@ -117,9 +118,14 @@ end
 # delete the specified document and return success
 delete '/remove/:id' do
   content_type :json
-  settings.mongo_db['test'].
-    remove(:_id => object_id(params[:id]))
-  {:success => true}.to_json
+  db = settings.mongo_db['test']
+  id = object_id(params[:id])
+  if db.find_one(id)
+    db.remove(:_id => id)
+    {:success => true}.to_json
+  else
+    {:success => false}.to_json
+  end
 end
 ```
 
