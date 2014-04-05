@@ -158,7 +158,10 @@ __This document reflects the usage of Foundation 5.__
 
 This section deals with using the foundation framework with
 `sinatra-assetpack`. The example also uses the `compass` gem to start a
-project with the `zurb-foundation` framework.
+project with the `Zurb-Foundation` framework.
+A sample project is available at
+[sinatra_assetpack_foundation_sample](https://github.com/kgrz/sinatra_assetpack_foundation_sample)
+
 
 ```
 gem install foundation
@@ -189,10 +192,32 @@ bower.json
 
 In this app, the `.sass`/`.scss` to `.css` conversion is handled by running
 `compass watch` which compiles the `.scss` files whenever it detects a
-change. In short, we need to use the css file from the `stylesheet`
-directory and app-related Javascript files from `js` folder. We also
-need to require the libraries in the `bower_components` folder. More
-specifically, we will use the following files:
+change. Note that as of Sinatra-Assetpack version `0.3.2`, any URL
+element inside a css file will cause the processor to crash and
+Foundation 5 uses one such declaration. So, for this example, we will
+ignore the management of CSS files via Sinatra-Assetpack and load it
+directly from the app. To do this, the compass app needs to output the
+compiled CSS into a `public/stylesheets` folder. Let's ensure that's
+done by creating a `public` directory and changing the `config.rb`
+settings to the following:
+
+
+```ruby
+# config.rb
+add_import_path "bower_components/foundation/scss" # unchanged
+
+http_path = "/"                                    # unchanged
+css_dir = "public/stylesheets"
+sass_dir = "scss"                                  # unchanged
+images_dir = "images"                              # unchanged
+javascripts_dir = "js"                             # unchanged
+```
+
+Now, when we run `compass watch`, the compiled `app.css` will be placed
+in the `public/stylesheets` directory. That minor change completed, we
+need to load the app-related JavaScript files from the `js` folder. We
+also need to require the libraries in the `bower_components` folder.
+More specifically, we will use the following files:
 
 1. `bower_components/jquery/dist/jquery.js`
 2. `bower_components/foundation/js/foundation.js`
@@ -205,7 +230,8 @@ Inside our `app.rb`, this would be the structure:
 
 ```ruby
 assets do
-  serve '/js', :from => 'javascripts'
+  serve '/js', from: 'js'
+  serve '/bower_components', from: 'bower_components'
 
   js :modernizr, [
     '/bower_components/modernizr/modernizr.js',
@@ -220,13 +246,7 @@ assets do
     '/js/app.js'
   ]
 
-  serve '/css', :from => 'stylesheets'
-  css :application, [
-    '/css/app.css'
-   ]
-
   js_compression :jsmin
-  css_compression :sass
 end
 ```
 
@@ -241,11 +261,9 @@ Inside the `views/layout.erb`:
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My App</title>
-
-  <%= css :application %>
+  <link rel="stylesheet" href="/stylesheets/app.css"/>
 
   <%= js :modernizr %>
-  <script src="js/vendor/modernizr.js"></script>
 </head>
 <body>
   <%= yield %>
