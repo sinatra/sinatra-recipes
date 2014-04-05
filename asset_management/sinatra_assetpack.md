@@ -22,6 +22,7 @@ class App < Sinatra::Base
 end
 ```
 
+
 ## Generic Structure
 
 __Defaults__
@@ -153,85 +154,74 @@ __Level Awesome__
 The previous sections dealt with limited number of assets. What if
 you have vendor assets that need to be served in a particular order?
 
+__This document reflects the usage of Foundation 5.__
+
 This section deals with using the foundation framework with
 `sinatra-assetpack`. The example also uses the `compass` gem to start a
 project with the `zurb-foundation` framework.
 
 ```
-gem install zurb-foundation
+gem install foundation
 gem install compass
 ```
 
-Complete instructions are not provided here. Follow the Zurb-foundation
-link provided in the links section for detailed instructions
-
-The created project has a structure like this:
+Install the `npm` modules of `bower` and `grunt-cli`. The instructions
+are provided [here](http://foundation.zurb.com/docs/sass.html). Then run
+`foundation new <project name>`. This will create a project with the
+following structure:
 
 ```
-├── javascripts
-│   ├── foundation
-│   │   ├── foundation.alerts.js
-│   │   ├── foundation.clearing.js
-│   │   ├── foundation.cookie.js
-│   │   ├── foundation.dropdown.js
-│   │   ├── foundation.forms.js
-│   │   ├── foundation.joyride.js
-│   │   ├── foundation.js
-│   │   ├── foundation.magellan.js
-│   │   ├── foundation.orbit.js
-│   │   ├── foundation.placeholder.js
-│   │   ├── foundation.reveal.js
-│   │   ├── foundation.section.js
-│   │   ├── foundation.tooltips.js
-│   │   └── foundation.topbar.js
-│   └── vendor
-│       ├── custom.modernizr.js
-│       ├── jquery.js
-│       └── zepto.js
-|   |__ app.js
-├── sass
-│   ├── _settings.scss
-│   ├── app.scss
-│   └── normalize.scss
-└── stylesheets
-|   ├── app.css
-|   └── normalize.css
-myapp.rb
+bower_components/
+ |---- jquery/
+ |---- modernizr/
+ |---- ...some more libraries ...
+js/
+ |---- app.js
+scss/
+ |---- _settings.scss
+ |---- app.scss
+stylesheets/
+ |---- app.css
+config.rb
+index.html
+bower.json
 ```
 
-In this app, the `.sass` to `.css` conversion is handled by running
+In this app, the `.sass`/`.scss` to `.css` conversion is handled by running
 `compass watch` which compiles the `.scss` files whenever it detects a
-change. So, we'll ignore the conversion for now. The concentration would
-be on how to configure the app to get the files in a particular order.
+change. In short, we need to use the css file from the `stylesheet`
+directory and app-related Javascript files from `js` folder. We also
+need to require the libraries in the `bower_components` folder. More
+specifically, we will use the following files:
 
-In this case, the order of the JS files that need to be loaded/merged is:
+1. `bower_components/jquery/dist/jquery.js`
+2. `bower_components/foundation/js/foundation.js`
+3. `bower_components/modernizr/modernizr.js`
 
-1. Vendor JS files like jQuery, Modernizr and Zepto.
+The aim would be to recreate the structure of `index.html` in the
+foundation app folder with Sinatra and a `layout.erb` file
 
-2. The "foundation.js" file which defines the `Foundation` prototype that
-gets used in the rest of the `foundation.*.js` files.
-
-3. The `foundation.*.js` files.
-
-Any change in the load order and you might see some of the plugins failing.
+Inside our `app.rb`, this would be the structure:
 
 ```ruby
 assets do
   serve '/js', :from => 'javascripts'
 
-  js :foundation, [
-    '/js/foundation/foundation.js',
-    '/js/foundation/foundation.*.js'
+  js :modernizr, [
+    '/bower_components/modernizr/modernizr.js',
+  ]
+
+  js :libs, [
+    '/bower_components/jquery/dist/jquery.js',
+    '/bower_components/foundation/js/foundation.js'
   ]
 
   js :application, [
-    '/js/vendor/*.js',
     '/js/app.js'
   ]
 
   serve '/css', :from => 'stylesheets'
   css :application, [
-    '/css/normalize.css',
     '/css/app.css'
    ]
 
@@ -240,16 +230,33 @@ assets do
 end
 ```
 
-Inside the view:
+Inside the `views/layout.erb`:
 
 ```ruby
-<%= css :application %>
-<%= js :application %>
-<%= js :foundation %>
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My App</title>
+
+  <%= css :application %>
+
+  <%= js :modernizr %>
+  <script src="js/vendor/modernizr.js"></script>
+</head>
+<body>
+  <%= yield %>
+
+  <%= js :libs %>
+  <%= js :application %>
+</body>
+</html>
 ```
 
-Do this, and you'll see that the files are loaded properly and there will be
-no JS errors in the browser's console.
+And you're set!
 
 ## Merging
 
