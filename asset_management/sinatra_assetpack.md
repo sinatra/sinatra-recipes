@@ -22,7 +22,6 @@ class App < Sinatra::Base
 end
 ```
 
-
 ## Generic Structure
 
 __Defaults__
@@ -169,9 +168,12 @@ gem install compass
 ```
 
 Install the `npm` modules of `bower` and `grunt-cli`. The instructions
-are provided [here](http://foundation.zurb.com/docs/sass.html). Then run
-`foundation new <project name>`. This will create a project with the
-following structure:
+are provided [here](http://foundation.zurb.com/docs/sass.html). Then
+run:
+
+    foundation new <project name>
+
+This will create a project with the following structure:
 
 ```
 bower_components/
