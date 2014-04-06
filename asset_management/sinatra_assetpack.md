@@ -153,103 +153,130 @@ __Level Awesome__
 The previous sections dealt with limited number of assets. What if
 you have vendor assets that need to be served in a particular order?
 
+__This document reflects the usage of Foundation 5.__
+
 This section deals with using the foundation framework with
 `sinatra-assetpack`. The example also uses the `compass` gem to start a
-project with the `zurb-foundation` framework.
+project with the `Zurb-Foundation` framework.
+A sample project is available at
+[sinatra_assetpack_foundation_sample](https://github.com/kgrz/sinatra_assetpack_foundation_sample)
+
 
 ```
-gem install zurb-foundation
+gem install foundation
 gem install compass
 ```
 
-Complete instructions are not provided here. Follow the Zurb-foundation
-link provided in the links section for detailed instructions
+Install the `npm` modules of `bower` and `grunt-cli`. The instructions
+are provided [here](http://foundation.zurb.com/docs/sass.html). Then
+run:
 
-The created project has a structure like this:
+    foundation new <project name>
+
+This will create a project with the following structure:
 
 ```
-├── javascripts
-│   ├── foundation
-│   │   ├── foundation.alerts.js
-│   │   ├── foundation.clearing.js
-│   │   ├── foundation.cookie.js
-│   │   ├── foundation.dropdown.js
-│   │   ├── foundation.forms.js
-│   │   ├── foundation.joyride.js
-│   │   ├── foundation.js
-│   │   ├── foundation.magellan.js
-│   │   ├── foundation.orbit.js
-│   │   ├── foundation.placeholder.js
-│   │   ├── foundation.reveal.js
-│   │   ├── foundation.section.js
-│   │   ├── foundation.tooltips.js
-│   │   └── foundation.topbar.js
-│   └── vendor
-│       ├── custom.modernizr.js
-│       ├── jquery.js
-│       └── zepto.js
-|   |__ app.js
-├── sass
-│   ├── _settings.scss
-│   ├── app.scss
-│   └── normalize.scss
-└── stylesheets
-|   ├── app.css
-|   └── normalize.css
-myapp.rb
+bower_components/
+ |---- jquery/
+ |---- modernizr/
+ |---- ...some more libraries ...
+js/
+ |---- app.js
+scss/
+ |---- _settings.scss
+ |---- app.scss
+stylesheets/
+ |---- app.css
+config.rb
+index.html
+bower.json
 ```
 
-In this app, the `.sass` to `.css` conversion is handled by running
+In this app, the `.sass`/`.scss` to `.css` conversion is handled by running
 `compass watch` which compiles the `.scss` files whenever it detects a
-change. So, we'll ignore the conversion for now. The concentration would
-be on how to configure the app to get the files in a particular order.
+change. Note that as of Sinatra-Assetpack version `0.3.2`, any URL
+element inside a css file will cause the processor to crash and
+Foundation 5 uses one such declaration. So, for this example, we will
+ignore the management of CSS files via Sinatra-Assetpack and load it
+directly from the app. To do this, the compass app needs to output the
+compiled CSS into a `public/stylesheets` folder. Let's ensure that's
+done by creating a `public` directory and changing the `config.rb`
+settings to the following:
 
-In this case, the order of the JS files that need to be loaded/merged is:
 
-1. Vendor JS files like jQuery, Modernizr and Zepto.
+```ruby
+# config.rb
+add_import_path "bower_components/foundation/scss" # unchanged
 
-2. The "foundation.js" file which defines the `Foundation` prototype that
-gets used in the rest of the `foundation.*.js` files.
+http_path = "/"                                    # unchanged
+css_dir = "public/stylesheets"
+sass_dir = "scss"                                  # unchanged
+images_dir = "images"                              # unchanged
+javascripts_dir = "js"                             # unchanged
+```
 
-3. The `foundation.*.js` files.
+Now, when we run `compass watch`, the compiled `app.css` will be placed
+in the `public/stylesheets` directory. That minor change completed, we
+need to load the app-related JavaScript files from the `js` folder. We
+also need to require the libraries in the `bower_components` folder.
+More specifically, we will use the following files:
 
-Any change in the load order and you might see some of the plugins failing.
+1. `bower_components/jquery/dist/jquery.js`
+2. `bower_components/foundation/js/foundation.js`
+3. `bower_components/modernizr/modernizr.js`
+
+The aim would be to recreate the structure of `index.html` in the
+foundation app folder with Sinatra and a `layout.erb` file
+
+Inside our `app.rb`, this would be the structure:
 
 ```ruby
 assets do
-  serve '/js', :from => 'javascripts'
+  serve '/js', from: 'js'
+  serve '/bower_components', from: 'bower_components'
 
-  js :foundation, [
-    '/js/foundation/foundation.js',
-    '/js/foundation/foundation.*.js'
+  js :modernizr, [
+    '/bower_components/modernizr/modernizr.js',
+  ]
+
+  js :libs, [
+    '/bower_components/jquery/dist/jquery.js',
+    '/bower_components/foundation/js/foundation.js'
   ]
 
   js :application, [
-    '/js/vendor/*.js',
     '/js/app.js'
   ]
 
-  serve '/css', :from => 'stylesheets'
-  css :application, [
-    '/css/normalize.css',
-    '/css/app.css'
-   ]
-
   js_compression :jsmin
-  css_compression :sass
 end
 ```
 
-Inside the view:
+Inside the `views/layout.erb`:
 
 ```ruby
-<%= css :application %>
-<%= js :application %>
-<%= js :foundation %>
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My App</title>
+  <link rel="stylesheet" href="/stylesheets/app.css"/>
+
+  <%= js :modernizr %>
+</head>
+<body>
+  <%= yield %>
+
+  <%= js :libs %>
+  <%= js :application %>
+</body>
+</html>
 ```
 
-Do this, and you'll see that the files are loaded properly and there will be
-no JS errors in the browser's console.
+And you're set!
 
 ## Merging
 
