@@ -244,7 +244,7 @@ html
             p
               |Browse the <a href="/activity">latest activity</a>
             p
-              | These recipes are provided by the following outstanding members of the Sinatra
+              | These recipes are provided by the following outstanding members of the Sinatra  
               | community:
             dl id="contributors" 
               - @contributors.each do |contributor|
