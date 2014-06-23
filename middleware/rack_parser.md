@@ -105,7 +105,7 @@ class MyJsonParser
 
 end
 
-use Rack::Parser, :content_types => {
+use Rack::Parser, :parsers => {
   'application/vnd-my-message+json' => MyJsonParser.new(Message),
   'application/vnd-my-order+json'   => MyJsonParser.new(Order)
 }
@@ -121,7 +121,14 @@ content-type as the request* -- like
 ```
 
 This is the default; you can also completely customize how errors are converted
-into responses, per content-type.
+into responses, per content-type. Both the error and the content type is passed
+down to the handler.
+
+```ruby
+use Rack::Parser, :handlers => {
+  'application/xml' => proc { |err, type| [400, '<?xml version="1.0"?><response><error>Something went wrong</error></response>'] }
+}
+```
 
 
 ## For more info
