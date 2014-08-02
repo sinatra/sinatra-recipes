@@ -110,5 +110,5 @@ You should be up and running now with [Phusion Passenger](http://modrails.com/)
 and [Apache](http://httpd.apache.org/), if you run into any problems please
 consult the official docs.
 
-[passanger]: http://modrails.com/documentation/Users%20guide%20Apache.html#_installing_upgrading_and_uninstalling_phusion_passenger
+[passenger]: http://modrails.com/documentation/Users%20guide%20Apache.html#_installing_upgrading_and_uninstalling_phusion_passenger
 [restart-passenger]: http://www.modrails.com/documentation/Users%20guide%20Apache.html#_redeploying_restarting_the_ruby_on_rails_application
