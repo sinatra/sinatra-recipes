@@ -247,7 +247,7 @@ There should be a `master` process which once that is killed, the
 workers should follow. Feel free to search the processes again to make sure
 they've all stopped before restarting.
 
-`kill -9` sends an INT signal to the Unicrons and guarantees (usually) that
+`kill -9` sends an KILL signal to the Unicrons and guarantees (usually) that
 they'll be stopped, but it means that Unicorn might not clean up after itself
 properly so you should have a check and run the following just to be sure:
 
