@@ -10,6 +10,7 @@ In your spec file or your spec helper, you can setup `Rack::Test` like this:
 ```ruby
 # spec/spec_helper.rb
 require 'rack/test'
+require 'rspec'
 
 require File.expand_path '../../my-app.rb', __FILE__
 
