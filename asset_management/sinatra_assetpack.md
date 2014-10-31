@@ -73,8 +73,8 @@ assets do
   css :application, [
     '/css/jqueryui.css',
     '/css/reset.css',
-    '/css/foundation.sass',
-    '/css/app.sass'
+    '/css/foundation.css',
+    '/css/app.css'
    ]
 
   js_compression :jsmin
@@ -135,8 +135,8 @@ assets gets served from may be explained to the gem.
     css :application, [
       '/css/jqueryui.css',
       '/css/reset.css',
-      '/css/foundation.sass',
-      '/css/app.sass'
+      '/css/foundation.css',
+      '/css/app.css'
      ]
 
     js_compression :jsmin
