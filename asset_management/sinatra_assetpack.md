@@ -13,6 +13,7 @@ require 'sinatra/base'
 require 'sinatra/assetpack'
 
 class App < Sinatra::Base
+  set :root, File.dirname(__FILE__) # You must set app root
   register Sinatra::AssetPack
   assets do
     # read on
