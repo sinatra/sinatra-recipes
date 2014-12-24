@@ -250,7 +250,7 @@ html
               - @contributors.each do |contributor|
                 dt
                   a href="http://github.com/#{contributor["login"]}"
-                    img src="http://www.gravatar.com/avatar/#{contributor["gravatar_id"]}?s=50"
+                    img src="#{contributor["avatar_url"]}&s=50"
         #footer
           - if @readme
             hr
@@ -343,6 +343,8 @@ small
 
 #contributors dt
   display: inline-block
+  img
+    width: 50px
 
 #children
   ul li
