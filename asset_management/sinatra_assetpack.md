@@ -83,6 +83,11 @@ assets do
 end
 ```
 
+Note that while listing out the CSS files in the `css :application`
+block, the extension remains `.css` even though the source file is a
+`SASS` file. `Sinatra::Assetpack` understands the extension and
+converts the file automatically.
+
 The symbol that is sent to the `js` and `css` methods becomes the access
 helper in your views. You can use those helpers like so:
 
