@@ -1,5 +1,6 @@
 require 'time'
 require 'sinatra'
+require 'newrelic_rpm'
 require 'sass'
 require 'json'
 require 'open-uri'
