@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/kgrz/json.git
+  revision: e49894d3c5c2df8a43384cb36b444d8096a9ea0e
+  branch: master
+  specs:
+    json (1.8.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -5,7 +12,6 @@ GEM
       nokogiri
       rdoc-rouge
       sinatra
-    json (1.7.7)
     kgio (2.9.2)
     newrelic_rpm (3.6.5.130)
     nokogiri (1.5.9)
@@ -43,7 +49,7 @@ PLATFORMS
 
 DEPENDENCIES
   glorify (~> 0.5.0)
-  json
+  json!
   newrelic_rpm
   rack-cache
   rdoc (~> 4.1)
