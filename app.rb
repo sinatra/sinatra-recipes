@@ -7,8 +7,21 @@ require 'open-uri'
 require 'slim'
 require 'glorify'
 require 'rdoc'
+require 'faraday'
+require 'faraday-http-cache'
 
 set :public_folder, File.dirname(__FILE__) + '/public'
+
+configure do
+  github_connection = Faraday.new('https://api.github.com/') do |faraday|
+    faraday.request  :url_encoded
+    faraday.adapter  Faraday.default_adapter
+    faraday.response :logger
+  end
+
+  set :github_connection, github_connection
+end
+
 configure :production do
   sha1, date = `git log HEAD~1..HEAD --pretty=format:%h^%ci`.strip.split('^')
 
@@ -20,7 +33,10 @@ configure :production do
     etag sha1
     last_modified date
   end
+
+  settings.github_connection.use :http_cache
 end
+
 
 Tilt.prefer Sinatra::Glorify::Template
 set :markdown, :layout_engine => :slim
@@ -54,30 +70,14 @@ helpers do
     "Sinatra Recipes - #{args.map {|x| de_underscore(x)}.join(' - ')}"
   end
 
-  def commits_url
-    "https://api.github.com/repos/sinatra/sinatra-recipes/commits"
-  end
-
-  def contributors_url
-    "https://api.github.com/repos/sinatra/sinatra-recipes/contributors"
-  end
-
   def contributors
-    begin
-      JSON.parse(open(contributors_url).read)
-    rescue OpenURI::HTTPError => the_error
-      puts "Whoops got a bad status code from github: #{the_error.message}"
-      nil
-    end
+    resp = settings.github_connection.get('/repos/sinatra/sinatra-recipes/contributors')
+    JSON.parse(resp.body)
   end
 
   def commits
-    begin
-      JSON.parse(open(commits_url).read)
-    rescue OpenURI::HTTPError => the_error
-      puts "Whoops got a bad status code from github: #{the_error.message}"
-      nil
-    end
+    resp = settings.github_connection.get('/repos/sinatra/sinatra-recipes/commits')
+    JSON.parse(resp.body)
   end
 
   def get_authors
