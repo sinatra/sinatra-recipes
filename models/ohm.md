@@ -50,7 +50,7 @@ end
 This will render `./views/index.erb`:
 
 ```erb
-<% for post in @posts %>
+<% @posts.each do |post| %>
   <h1><%= post.title %></h1>
 <% end %>
 ```
