@@ -55,7 +55,7 @@ end
 This will render `./views/posts.erb`:
 
 ```erb
-<% for post in @posts %>
+<% @posts.each do |post| %>
   <div>
     <h1><%= post.title %></h1>
     <p><%= post.body %></p>
