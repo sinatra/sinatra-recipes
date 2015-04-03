@@ -29,9 +29,8 @@ See a full example configuring the memcache server and the session namespace:
 ```ruby
 configure do
   use Rack::Session::Dalli,
-    memcache_server: 'example.com:11211',
     namespace: 'other.namespace'
-    cache: Dalli::Client.new
+    cache: Dalli::Client.new('example.com:11211')
 end
 ```
 
