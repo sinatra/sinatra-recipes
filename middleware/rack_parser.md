@@ -11,7 +11,7 @@ might look like
 post '/messages'
   message = Message.from_hash( ::MultiJson.decode(request.body) )
   message.save
-  halt 202, {'Location' => "/messages/#{message.id}"}, ''
+  halt 201, {'Location' => "/messages/#{message.id}"}, ''
 end
 ```
 
