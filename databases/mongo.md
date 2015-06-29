@@ -28,7 +28,7 @@ require 'json/ext' # required for .to_json
 
 configure do
   db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => 'test')  
-  set :mongo_db, db
+  set :mongo_db, db[:test]
 end
 ```
 
@@ -38,7 +38,7 @@ communicate with the database.
 ```ruby
 get '/collections/?' do
   content_type :json
-  settings.mongo_db.collection_names.to_json
+  settings.mongo_db.database.collection_names.to_json
 end
 
 helpers do
@@ -57,7 +57,7 @@ helpers do
     if id.nil?
       {}.to_json
     else
-      document = settings.mongo_db['test'].find(:_id => id).to_a.first
+      document = settings.mongo_db.find(:_id => id).to_a.first
       (document || {}).to_json
     end
   end
@@ -70,7 +70,7 @@ end
 # list all documents in the test collection
 get '/documents/?' do
   content_type :json
-  settings.mongo_db['test'].find.to_a.to_json
+  settings.mongo_db.find.to_a.to_json
 end
 
 # find a document by its ID
@@ -87,7 +87,7 @@ end
 # then return the full document
 post '/new_document/?' do
   content_type :json
-  db = settings.mongo_db['test']
+  db = settings.mongo_db
   result = db.insert_one params
   db.find(:_id => result.inserted_id).to_a.first.to_json
 end
@@ -101,7 +101,7 @@ end
 put '/update/:id/?' do
   content_type :json
   id = object_id(params[:id])
-  settings.mongo_db['test'].find(:_id => id).
+  settings.mongo_db.find(:_id => id).
     find_one_and_update('$set' => params)
   document_by_id(id)
 end
@@ -113,7 +113,7 @@ put '/update_name/:id/?' do
   content_type :json
   id   = object_id(params[:id])
   name = params[:name]
-  settings.mongo_db['test'].find(:_id => id).
+  settings.mongo_db.find(:_id => id).
     find_one_and_update('$set' => {:name => name})
   document_by_id(id)
 end
@@ -125,7 +125,7 @@ end
 # delete the specified document and return success
 delete '/remove/:id' do
   content_type :json
-  db = settings.mongo_db['test']
+  db = settings.mongo_db
   id = object_id(params[:id])
   documents = db.find(:_id => id)
   if !documents.to_a.first.nil?
