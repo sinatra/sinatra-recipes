@@ -8,7 +8,7 @@ predictable data structures, then loading that into models. So a typical route
 might look like
 
 ```ruby
-post '/messages'
+post '/messages' do
   message = Message.from_hash( ::MultiJson.decode(request.body) )
   message.save
   halt 201, {'Location' => "/messages/#{message.id}"}, ''
@@ -28,7 +28,7 @@ helpers do
   end
 end
 
-post '/orders'
+post '/orders' do
   order = Order.from_hash( parsed_body )
   order.process
   # ....
@@ -62,7 +62,7 @@ use Rack::Parser, :content_types => {
 }
 
 # in application
-post '/orders'
+post '/orders' do
   order = Order.from_hash( params['order'] )
   order.process
   # ....
