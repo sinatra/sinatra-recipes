@@ -22,7 +22,7 @@ require 'rack/test'
 require File.expand_path '../my-app.rb', __FILE__
 
 class HomepageTest < Test::Unit::TestCase
-  include Rack::Test:Methods
+  include Rack::Test::Methods
   def app() Sinatra::Application end
 
   def test_homepage
