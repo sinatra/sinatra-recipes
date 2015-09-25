@@ -7,7 +7,7 @@ Let's first write our basic app to begin with:
 
 ```ruby
 require 'sinatra'
-require 'builder' # dont for get this!
+require 'builder' # don't forget this!
 
 get '/rss' do
   @posts = # ... find posts
