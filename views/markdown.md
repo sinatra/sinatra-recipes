@@ -23,7 +23,7 @@ erb :overview, :locals => { :text => markdown(:introduction) }
 
 Note that you may also call the markdown method from within other templates:
 
-```ruby
+```haml
 %h1 Hello From Haml!
 %p= markdown(:greetings)
 ```
