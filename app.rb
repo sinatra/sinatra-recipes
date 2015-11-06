@@ -200,7 +200,7 @@ html
           select#selectNav.chosen data-placeholder="Select a topic"
             option
             - @menu.each do |me|
-              option value="/p/#{me}?#article" #{de_underscore(me)}
+              option value="/p/#{me}?#article" selected=("selected" if me == params[:topic]) #{de_underscore(me)}
         - if @toc and @toc.any?
           #toc
             h2 Chapters
