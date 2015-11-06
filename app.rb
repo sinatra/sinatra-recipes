@@ -149,8 +149,8 @@ get '/activity' do
   pass if params[:topic] == '..'
   @authors = get_authors
   @activity = get_activity_by_author
-  if @authors && @activity 
-    markdown :'activity/README' 
+  if @authors && @activity
+    markdown :'activity/README'
   else
     "Not available at this time."
   end
@@ -229,14 +229,14 @@ html
                     - author = @authors[author_name].first
                     li
                       | <img src="#{author[:avatar]}">
-                      | <a href="#{author[:url]}">#{author[:name]}</a> 
+                      | <a href="#{author[:url]}">#{author[:name]}</a>
                       | authored the changes:
                       ul.nodec
                         - activities.each do |activity|
                           li
                             pre
                               = "#{activity[:commit_message]}"
-                            small 
+                            small
                               a href="#{activity[:commit_url]}"
                                 | View this commit on github
         #contributors
@@ -245,9 +245,9 @@ html
             p
               |Browse the <a href="/activity">latest activity</a>
             p
-              | These recipes are provided by the following outstanding members of the Sinatra  
+              | These recipes are provided by the following outstanding members of the Sinatra
               | community:
-            dl id="contributors" 
+            dl id="contributors"
               - @contributors.each do |contributor|
                 dt
                   a href="http://github.com/#{contributor["login"]}"
@@ -258,10 +258,10 @@ html
             h3 Did we miss something?
             p
              | It's very possible we've left something out, that's why we need your help!
-             | This is a community driven project after all. Feel free to fork the project 
-             | and send us a pull request to get your recipe or tutorial included in the book. 
-            p 
-             | See the <a href="http://github.com/sinatra/sinatra-recipes#readme">README</a> 
+             | This is a community driven project after all. Feel free to fork the project
+             | and send us a pull request to get your recipe or tutorial included in the book.
+            p
+             | See the <a href="http://github.com/sinatra/sinatra-recipes#readme">README</a>
              | for more details.
 
         small
@@ -286,7 +286,7 @@ body
 #forkflag img
   position: absolute
   top: 0
-  right: 0 
+  right: 0
   border: 0
 
 .nodec li
@@ -421,7 +421,6 @@ li
     @include gs-span(m, all)
   #toc
     @include gs-span(m, all)
-
 
 
 
