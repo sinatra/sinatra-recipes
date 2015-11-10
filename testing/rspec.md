@@ -12,9 +12,9 @@ In your spec file or your spec helper, you can setup `Rack::Test` like this:
 require 'rack/test'
 require 'rspec'
 
-require File.expand_path '../../my-app.rb', __FILE__
-
 ENV['RACK_ENV'] = 'test'
+
+require File.expand_path '../../my-app.rb', __FILE__
 
 module RSpecMixin
   include Rack::Test::Methods
