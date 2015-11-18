@@ -78,7 +78,8 @@ end
 require File.expand_path '../main.rb', __FILE__
 
 app = Rack::Auth::Digest::MD5.new(Sinatra::Application) do |username|
-  {'foo' => 'bar'}[username]
+  # Return the password for the given user
+  {'john' => 'johnsecret'}[username]
 end
 
 app.realm = 'Protected Area'
