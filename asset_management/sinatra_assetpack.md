@@ -91,7 +91,7 @@ converts the file automatically.
 The symbol that is sent to the `js` and `css` methods becomes the access
 helper in your views. You can use those helpers like so:
 
-```ruby
+```erb
 <%= css :application %>
 <%= js :application %>
 ```
@@ -259,7 +259,7 @@ end
 
 Inside the `views/layout.erb`:
 
-```ruby
+```erb
 <!DOCTYPE html>
 <!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
 <html class="no-js" lang="en" >
