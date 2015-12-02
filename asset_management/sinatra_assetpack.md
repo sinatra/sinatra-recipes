@@ -75,7 +75,7 @@ assets do
     '/css/reset.css',
     '/css/foundation.css',
     '/css/app.css'
-   ]
+  ]
 
   js_compression :jsmin
   css_compression :sass
@@ -127,26 +127,27 @@ The `serve` method can be specified so that the folder from which the
 assets gets served from may be explained to the gem.
 
 ```ruby
-  assets do
+assets do
 
-    serve '/js', :from => 'assets/javascripts'
-    js :application, [
-      '/js/jquery.js',
-      '/js/app.js'
-      # You can also do this: 'js/*.js'
-    ]
+  serve '/js', :from => 'assets/javascripts'
+  js :application, [
+    '/js/jquery.js',
+    '/js/app.js'
+    # You can also do this: 'js/*.js'
+  ]
 
-    serve '/css', :from => 'assets/stylesheets'
-    css :application, [
-      '/css/jqueryui.css',
-      '/css/reset.css',
-      '/css/foundation.css',
-      '/css/app.css'
-     ]
+  serve '/css', :from => 'assets/stylesheets'
+  css :application, [
+    '/css/jqueryui.css',
+    '/css/reset.css',
+    '/css/foundation.css',
+    '/css/app.css'
+  ]
 
-    js_compression :jsmin
-    css_compression :sass
-  end
+  js_compression :jsmin
+  css_compression :sass
+
+end
 ```
 
 And everything else remains the same.
