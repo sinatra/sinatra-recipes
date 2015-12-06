@@ -41,14 +41,8 @@ end
 Tilt.prefer Sinatra::Glorify::Template
 set :markdown, :layout_engine => :slim
 set :views, File.dirname(__FILE__)
-set :ignored_dirs, %w[tmp log config public bin activity vendor]
-
-before do
-  @menu = Dir.glob("./*/").map do |file|
-    next if settings.ignored_dirs.any? {|ignore| /#{ignore}/i =~ file}
-    file.split('/')[1]
-  end.compact.sort
-end
+set :menu, %w[asset_management databases deployment development embed helpers
+              middleware models testing views]
 
 before '/p/:topic/:article' do
   @readme = true
@@ -199,7 +193,7 @@ html
         nav
           select#selectNav.chosen data-placeholder="Select a topic"
             option
-            - @menu.each do |me|
+            - settings.menu.each do |me|
               option value="/p/#{me}?#article" selected=("selected" if me == params[:topic]) #{de_underscore(me)}
         - if @toc and @toc.any?
           #toc
