@@ -41,7 +41,7 @@ end
 Tilt.prefer Sinatra::Glorify::Template
 set :markdown, :layout_engine => :slim
 set :views, File.dirname(__FILE__)
-set :ignored_dirs, %w[tmp log config public bin activity]
+set :ignored_dirs, %w[tmp log config public bin activity vendor]
 
 before do
   @menu = Dir.glob("./*/").map do |file|
