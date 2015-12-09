@@ -102,7 +102,7 @@ put '/update/:id/?' do
   content_type :json
   id = object_id(params[:id])
   settings.mongo_db.find(:_id => id).
-    find_one_and_update('$set' => params)
+    find_one_and_update('$set' => request.params)
   document_by_id(id)
 end
 
