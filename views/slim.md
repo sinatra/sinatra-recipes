@@ -11,6 +11,7 @@ gem 'slim'
 ```
 
 and then run:
+
 ```
 $ bundle install
 ```
@@ -39,6 +40,7 @@ Example view files may look like this:
 
 
 Layout:
+
 ```slim
 / app-name/views/layout.slim
 
@@ -53,6 +55,7 @@ html
 
 In the example above you are rendering template `== slim :header`-
 it is an easy way to get partials functionality in Sinatra.
+
 ```slim
 / app-name/views/header.slim
 
@@ -62,6 +65,7 @@ ul
 ```
 
 Index is being yielded in `layout.slim`.
+
 ```slim
 / app-name/views/blog/index.slim
 
