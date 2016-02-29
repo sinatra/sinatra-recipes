@@ -22,7 +22,6 @@ gem 'sprockets'
 
 and run `bundle` .
 
-
 You will need an instance of the Sprockets::Environment class
 to access and serve assets from your application:
 
@@ -48,13 +47,19 @@ application that can be mounted at a URL to serve assets over HTTP.
 Now you can keep your files under defined directories:
 
 ```
-assets
-├── javascripts
-│   ├── app.js
-│   └── jquery.js
-│   └── articles.coffee
-└── stylesheets
-    └── app.scss
+app
+├── Gemfile
+├── app.rb
+├── assets
+│   ├── javascripts
+│   │   ├── app.js
+│   │   ├── articles.coffee
+│   │   └── jquery.js
+│   └── stylesheets
+│       └── app.scss
+└── views
+    ├── index.erb
+    └── layout.erb
 ```
 
 If you would like to compress your assets
@@ -70,7 +75,7 @@ Don't forget to add uglifier and sass gems to your Gemfile.
 Example minifiers and required gems:
 * `:sass` (gem 'sass')
 * `:yui` (gem 'yui-compressor')
-* `:closure` ('closure-compiler')
+* `:closure` (gem 'closure-compiler')
 * `:jsmin` (gem 'jsmin')
 * `:uglifier` (gem 'uglifier')
 
