@@ -96,7 +96,7 @@ Note that you need to add only core files `app.js` and `app.css`.
 Sprockets allows you to use various directives:
 
 ```js
-// app/assets/app.js
+// app/assets/javascripts/app.js
 
 //= require_tree .
 ```
@@ -106,7 +106,7 @@ But if you would like to add files individually remove `require_tree .`
 and add each file:
 
 ```js
-// app/assets/app.js
+// app/assets/javascripts/app.js
 
 //= require jquery
 //= require articles
@@ -163,4 +163,5 @@ end
 For more information visit:
 
 * [Sprockets](https://github.com/rails/sprockets)
+* [Sprocket Helpers](https://github.com/petebrowne/sprockets-helpers)
 * [About assets management](http://recipes.sinatrarb.com/p/asset_management/why-asset-management)
