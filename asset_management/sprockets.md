@@ -127,7 +127,7 @@ Summing up, your main application file may look like this:
 # app/app.rb
 
 # install and require all dependencies
-require 'sinatra'
+require 'sinatra/base'
 require 'sprockets'
 require 'uglifier'
 require 'sass'
@@ -156,6 +156,14 @@ class MyApp < Sinatra::Base
     erb :index
   end
 end
+```
+
+```ruby
+# app/config.ru
+
+require './app'
+
+run MyApp.new
 ```
 
 ## Resources
