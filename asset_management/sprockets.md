@@ -93,6 +93,9 @@ Update your layout file:
 
 Note that you need to add only core files `app.js` and `app.css`.
 
+If you would like to use asset_path helpers
+check [sprocket helpers][sprockets_helpers] gem.
+
 Sprockets allows you to use various directives:
 
 ```js
@@ -171,5 +174,8 @@ run MyApp.new
 For more information visit:
 
 * [Sprockets](https://github.com/rails/sprockets)
-* [Sprocket Helpers](https://github.com/petebrowne/sprockets-helpers)
+* [Sprocket Helpers][sprockets_helpers]
 * [About assets management](http://recipes.sinatrarb.com/p/asset_management/why-asset-management)
+
+
+[sprockets_helpers]: https://github.com/petebrowne/sprockets-helpers
