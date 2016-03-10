@@ -1,5 +1,10 @@
 # Sinatra-Assetpack
 
+**WARNING**
+
+[Sinatra AssetPack][warning] is not maintained anymore. Please have a look at
+[Sprockets][sprockets] recipe.
+
 Install the gem using:
 
 ```
@@ -321,3 +326,6 @@ get stored in a `public` directory.
 * [Sinatra-Assetpack](https://github.com/rstacruz/sinatra-assetpack)
 * [Foundation Framework](http://foundation.zurb.com/docs/index.html)
 * [Compass Framework](http://compass-style.org/)
+
+[warning]: https://github.com/rstacruz/sinatra-assetpack/issues/197
+[sprockets]: /p/asset_management/sprockets#article
