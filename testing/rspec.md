@@ -5,6 +5,16 @@ pleasant to read, but too heavy for some. Therefore most other frameworks
 mentioned here (except Minitest, Test::Unit and Cucumber) try to adopt its API
 without its inner complexity.
 
+If you are using Bundler change your Gemfile to include the rack-test and
+rspec gems, for example:
+
+```ruby
+group :test do
+  gem 'rack-test'
+  gem 'rspec'
+end
+```
+
 In your spec file or your spec helper, you can setup `Rack::Test` like this:
 
 ```ruby
