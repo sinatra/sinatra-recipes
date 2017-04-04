@@ -164,7 +164,7 @@ __Level Awesome__
 The previous sections dealt with limited number of assets. What if
 you have vendor assets that need to be served in a particular order?
 
-__This document reflects the usage of Foundation 5.__
+__This document reflects the usage of Foundation 6.__
 
 This section deals with using the foundation framework with
 `sinatra-assetpack`. The example also uses the `compass` gem to start a
@@ -172,58 +172,47 @@ project with the `Zurb-Foundation` framework.
 A sample project is available at
 [sinatra_assetpack_foundation_sample](https://github.com/kgrz/sinatra_assetpack_foundation_sample)
 
-
 ```
-gem install foundation
 gem install compass
 ```
 
 Install the `npm` modules of `bower` and `grunt-cli`. The instructions
-are provided [here](http://foundation.zurb.com/docs/sass.html). Then
+are provided [here](http://foundation.zurb.com/sites/docs/sass.html). Then
 run:
 
-    foundation new <project name>
+```
+npm install foundation-sites --save
+```
 
 This will create a project with the following structure:
 
 ```
-bower_components/
- |---- jquery/
- |---- modernizr/
- |---- ...some more libraries ...
-js/
- |---- app.js
-scss/
- |---- _settings.scss
- |---- app.scss
-stylesheets/
- |---- app.css
-config.rb
-index.html
-bower.json
+node_modules
+  |- foundation-sites/
+  |- jquery/
+  |- what-input/
 ```
 
 In this app, the `.sass`/`.scss` to `.css` conversion is handled by running
 `compass watch` which compiles the `.scss` files whenever it detects a
-change. Note that as of Sinatra-Assetpack version `0.3.2`, any URL
+change. Note that as of Sinatra-Assetpack version `0.3.5`, any URL
 element inside a css file will cause the processor to crash and
-Foundation 5 uses one such declaration. So, for this example, we will
+Foundation 6 uses one such declaration. So, for this example, we will
 ignore the management of CSS files via Sinatra-Assetpack and load it
 directly from the app. To do this, the compass app needs to output the
 compiled CSS into a `public/stylesheets` folder. Let's ensure that's
 done by creating a `public` directory and changing the `config.rb`
 settings to the following:
 
-
 ```ruby
 # config.rb
-add_import_path "bower_components/foundation/scss" # unchanged
+add_import_path "node_modules/foundation-sites/scss"
 
-http_path = "/"                                    # unchanged
+http_path = "/"
 css_dir = "public/stylesheets"
-sass_dir = "scss"                                  # unchanged
-images_dir = "images"                              # unchanged
-javascripts_dir = "js"                             # unchanged
+sass_dir = "scss"
+images_dir = "images"
+javascripts_dir = "js"
 ```
 
 Now, when we run `compass watch`, the compiled `app.css` will be placed
@@ -232,9 +221,8 @@ need to load the app-related JavaScript files from the `js` folder. We
 also need to require the libraries in the `bower_components` folder.
 More specifically, we will use the following files:
 
-1. `bower_components/jquery/dist/jquery.js`
-2. `bower_components/foundation/js/foundation.js`
-3. `bower_components/modernizr/modernizr.js`
+1. `node_modules/jquery/dist/jquery.js`
+2. `node_modules/foundation-sites/dist/foundation.js`
 
 The aim would be to recreate the structure of `index.html` in the
 foundation app folder with Sinatra and a `layout.erb` file
@@ -244,15 +232,10 @@ Inside our `app.rb`, this would be the structure:
 ```ruby
 assets do
   serve '/js', from: 'js'
-  serve '/bower_components', from: 'bower_components'
-
-  js :modernizr, [
-    '/bower_components/modernizr/modernizr.js',
-  ]
-
+  serve '/node_modules', from: 'node_modules'
   js :libs, [
-    '/bower_components/jquery/dist/jquery.js',
-    '/bower_components/foundation/js/foundation.js'
+    '/node_modules/jquery/dist/jquery.js',
+    '/node_modules/foundation-sites/dist/foundation.js'
   ]
 
   js :application, [
@@ -275,8 +258,6 @@ Inside the `views/layout.erb`:
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My App</title>
   <link rel="stylesheet" href="/stylesheets/app.css"/>
-
-  <%= js :modernizr %>
 </head>
 <body>
   <%= yield %>
