@@ -91,10 +91,12 @@ Update your layout file:
 </head>
 ```
 
-Note that you need to add only core files `app.js` and `app.css`.
+Note that you need to add only core files `app.js` and `app.css`. These very files will be compiled by the Sprockets gem.
 
 If you would like to use asset_path helpers
 check [sprocket helpers][sprockets_helpers] gem.
+
+### Javascript Assets
 
 Sprockets allows you to use various directives:
 
@@ -114,6 +116,18 @@ and add each file:
 //= require jquery
 //= require articles
 ```
+
+### CSS Assets
+
+Adding CSS files works identically, but in the respective CSS configuration file.
+
+```css
+// app/assets/stylesheets/app.css
+
+//= require bootstrap.css
+```
+
+### Options
 
 Asset source files can be written in another format, like SCSS or
 CoffeeScript, and automatically compiled to CSS or JavaScript by Sprockets.
