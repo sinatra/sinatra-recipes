@@ -10,6 +10,6 @@ Also, be sure to read up the [readme][views-readme] first to cover the basics of
 what's possible within Sinatra itself and for a list of supported templates
 inherited from Tilt.
 
-[views-book]: http://sinatra-book.gittr.com/#views
+[views-book]: http://sinatra-org-book.herokuapp.com/#toc_21 
 [views-readme]: http://www.sinatrarb.com/intro#Views%20/%20Templates
 [tilt]: http://github.com/rtomayko/tilt

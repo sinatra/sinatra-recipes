@@ -7,5 +7,4 @@ application. The suggested practice for this is using
 [datamapper][datamapper], which is covered in the [book][models].
 
 [datamapper]: http://datamapper.org/
-[models]: http://sinatra-book.gittr.com/#models
-
+[models]: http://sinatra-org-book.herokuapp.com/#toc_24 

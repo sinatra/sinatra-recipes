@@ -6,5 +6,5 @@ no exception, and there are more than a few ways to test your application.
 This section will cover most of these, along with the [book][testing-book] and
 [readme][testing-readme].
 
-[testing-book]: http://sinatra-book.gittr.com/#testing
+[testing-book]: http://sinatra-org-book.herokuapp.com/#toc_30
 [testing-readme]: http://www.sinatrarb.com/intro#Testing

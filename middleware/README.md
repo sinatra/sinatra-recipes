@@ -6,5 +6,4 @@ section will cover middleware supported by Rack and Sinatra. Take a look at the
 on Rack middleware.
 
 [middleware-readme]: http://www.sinatrarb.com/intro#Rack%20Middleware
-[middleware-book]: http://sinatra-book.gittr.com/#rack_middleware
-
+[middleware-book]: http://sinatra-org-book.herokuapp.com/#toc_28
