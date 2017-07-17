@@ -71,6 +71,7 @@ end
 First, create a `Rakefile` or update your `Rakefile` to require `activerecord` and `activerecord/rake`
 
 ```
+require 'zlib'
 require 'sinatra/activerecord'
 require 'sinatra/activerecord/rake'
 require './app'
