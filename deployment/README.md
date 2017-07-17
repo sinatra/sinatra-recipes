@@ -5,5 +5,5 @@ applications. Whether you're [deploying to Heroku][deploy-heroku] or a more
 advanced setup with [nginx and unicorn][nginx-unicorn], you should be able to
 find what your looking.
 
-[deploy-heroku]: http://sinatra-book.gittr.com/#heroku
+[deploy-heroku]: http://sinatra-org-book.herokuapp.com/#toc_42
 [nginx-unicorn]: http://recipes.sinatrarb.com/p/deployment/nginx_proxied_to_unicorn
