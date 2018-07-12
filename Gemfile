@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.2.0"
+ruby "2.5.1"
 
 gem "sinatra"
 gem "sass"
@@ -10,6 +10,6 @@ gem "slim"
 gem "glorify", "~> 0.5.0"
 gem "rdoc", "~> 4.1"
 gem 'newrelic_rpm'
-gem 'json', github: 'kgrz/json', branch: 'master'
+gem 'json'
 gem 'faraday'
 gem 'faraday-http-cache'

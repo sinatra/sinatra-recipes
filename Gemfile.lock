@@ -1,10 +1,3 @@
-GIT
-  remote: git://github.com/kgrz/json.git
-  revision: e49894d3c5c2df8a43384cb36b444d8096a9ea0e
-  branch: master
-  specs:
-    json (1.8.1)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -16,14 +9,17 @@ GEM
       nokogiri
       rdoc-rouge
       sinatra
+    json (1.8.6)
     kgio (2.9.2)
+    mini_portile2 (2.3.0)
     multipart-post (2.0.0)
     newrelic_rpm (3.6.5.130)
-    nokogiri (1.5.9)
-    rack (1.5.2)
+    nokogiri (1.8.4)
+      mini_portile2 (~> 2.3.0)
+    rack (1.6.10)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-protection (1.3.2)
+    rack-protection (1.5.5)
       rack
     raindrops (0.13.0)
     rdoc (4.1.1)
@@ -34,16 +30,16 @@ GEM
     rouge (0.3.2)
       thor
     sass (3.2.5)
-    sinatra (1.3.4)
-      rack (~> 1.4)
-      rack-protection (~> 1.3)
-      tilt (~> 1.3, >= 1.3.3)
+    sinatra (1.4.8)
+      rack (~> 1.5)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
     slim (1.3.6)
       temple (~> 0.5.5)
       tilt (~> 1.3.3)
     temple (0.5.5)
     thor (0.18.0)
-    tilt (1.3.3)
+    tilt (1.3.7)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
@@ -56,7 +52,7 @@ DEPENDENCIES
   faraday
   faraday-http-cache
   glorify (~> 0.5.0)
-  json!
+  json
   newrelic_rpm
   rack-cache
   rdoc (~> 4.1)
@@ -64,3 +60,9 @@ DEPENDENCIES
   sinatra
   slim
   unicorn
+
+RUBY VERSION
+   ruby 2.5.1p57
+
+BUNDLED WITH
+   1.16.1
