@@ -65,11 +65,11 @@ require File.expand_path '../test_helper.rb', __FILE__
 
 include Rack::Test::Methods
 
-def app
-  Sinatra::Application
-end
-
 describe "my example app" do
+  def app
+    Sinatra::Application
+  end
+  
   it "should successfully return a greeting" do
     get '/'
     last_response.body.must_include 'Welcome to my page!'
@@ -86,11 +86,11 @@ require 'minitest/benchmark'
 
 include Rack::Test::Methods
 
-def app
-  Sinatra::Application
-end
-
 describe "my example app" do
+  def app
+    Sinatra::Application
+  end
+  
   bench_range { bench_exp 1, 10_000 }
   bench_performance_linear "welcome message", 0.9999 do |n|
     n.times do
