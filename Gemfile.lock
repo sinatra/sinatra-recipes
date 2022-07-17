@@ -9,7 +9,7 @@ GEM
       nokogiri
       rdoc-rouge
       sinatra
-    json (1.8.6)
+    json (2.6.2)
     kgio (2.9.2)
     mini_portile2 (2.6.1)
     multipart-post (2.0.0)
@@ -26,8 +26,7 @@ GEM
     rack-protection (2.2.1)
       rack
     raindrops (0.13.0)
-    rdoc (4.1.1)
-      json (~> 1.4)
+    rdoc (4.3.0)
     rdoc-rouge (0.1.0)
       rdoc (~> 4.0)
       rouge (~> 0.3.0)
@@ -61,7 +60,7 @@ DEPENDENCIES
   json
   newrelic_rpm
   rack-cache
-  rdoc (~> 4.1)
+  rdoc (~> 4.3)
   sass
   sinatra
   slim
