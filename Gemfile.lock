@@ -1,10 +1,12 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    faraday (0.9.0)
-      multipart-post (>= 1.2, < 3)
-    faraday-http-cache (0.4.2)
-      faraday (~> 0.8)
+    faraday (2.7.2)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-http-cache (2.4.1)
+      faraday (>= 0.8)
+    faraday-net_http (3.0.2)
     glorify (0.5.0)
       nokogiri
       rdoc-rouge
@@ -12,7 +14,6 @@ GEM
     json (2.6.2)
     kgio (2.9.2)
     mini_portile2 (2.8.0)
-    multipart-post (2.0.0)
     mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
     newrelic_rpm (8.14.0)
