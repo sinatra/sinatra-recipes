@@ -1,25 +1,26 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    faraday (0.9.0)
-      multipart-post (>= 1.2, < 3)
-    faraday-http-cache (0.4.2)
-      faraday (~> 0.8)
+    faraday (2.7.2)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-http-cache (2.4.1)
+      faraday (>= 0.8)
+    faraday-net_http (3.0.2)
     glorify (0.5.0)
       nokogiri
       rdoc-rouge
       sinatra
     json (2.6.2)
     kgio (2.9.2)
-    mini_portile2 (2.6.1)
-    multipart-post (2.0.0)
+    mini_portile2 (2.8.0)
     mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
-    newrelic_rpm (3.6.5.130)
-    nokogiri (1.12.5)
-      mini_portile2 (~> 2.6.1)
+    newrelic_rpm (8.14.0)
+    nokogiri (1.13.10)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    racc (1.5.2)
+    racc (1.6.1)
     rack (2.2.4)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -67,7 +68,7 @@ DEPENDENCIES
   unicorn
 
 RUBY VERSION
-   ruby 2.5.1p57
+   ruby 3.1.3p185
 
 BUNDLED WITH
-   1.16.1
+   2.3.26
